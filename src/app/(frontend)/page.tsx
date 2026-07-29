@@ -4,6 +4,8 @@ import ProjectGrid from "@/components/ProjectGrid";
 import { getAllProjects } from "@/lib/projects-data";
 import { getHome } from "@/lib/settings";
 
+export const dynamic = "force-dynamic";
+
 export default async function Home() {
   const [home, projects] = await Promise.all([getHome(), getAllProjects()]);
 

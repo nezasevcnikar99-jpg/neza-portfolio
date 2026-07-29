@@ -6,6 +6,8 @@ import { getAbout } from "@/lib/settings";
 import { getSettings } from "@/lib/settings";
 import type { Media } from "@/payload-types";
 
+export const dynamic = "force-dynamic";
+
 export default async function AboutPage() {
   const [about, settings] = await Promise.all([getAbout(), getSettings()]);
   const portrait = typeof about.portrait === "object" ? (about.portrait as Media | null) : null;

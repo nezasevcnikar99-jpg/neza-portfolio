@@ -3,6 +3,8 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { getArchiveGroups } from "@/lib/projects-data";
 
+export const dynamic = "force-dynamic";
+
 export default async function ArchivePage() {
   const groups = await getArchiveGroups();
   const total = groups.reduce((sum, g) => sum + g.items.length, 0);

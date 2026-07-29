@@ -4,13 +4,10 @@ import { RichText } from "@payloadcms/richtext-lexical/react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ImageSlot from "@/components/ImageSlot";
-import { getAllProjects, getProjectBySlug, getNextProject } from "@/lib/projects-data";
+import { getProjectBySlug, getNextProject } from "@/lib/projects-data";
 import type { Media } from "@/payload-types";
 
-export async function generateStaticParams() {
-  const projects = await getAllProjects();
-  return projects.map((p) => ({ slug: p.slug }));
-}
+export const dynamic = "force-dynamic";
 
 export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
