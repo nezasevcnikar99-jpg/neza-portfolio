@@ -1,23 +1,27 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { RichText } from "@payloadcms/richtext-lexical/react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ImageSlot from "@/components/ImageSlot";
-import { PROJECTS, getProjectBySlug, getNextProject } from "@/lib/projects";
+import { getAllProjects, getProjectBySlug, getNextProject } from "@/lib/projects-data";
+import type { Media } from "@/payload-types";
 
-export function generateStaticParams() {
-  return PROJECTS.map((p) => ({ slug: p.slug }));
+export async function generateStaticParams() {
+  const projects = await getAllProjects();
+  return projects.map((p) => ({ slug: p.slug }));
 }
 
 export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const project = getProjectBySlug(slug);
+  const project = await getProjectBySlug(slug);
 
   if (!project) {
     notFound();
   }
 
-  const next = getNextProject(slug);
+  const next = await getNextProject(slug);
+  const heroImage = typeof project.heroImage === "object" ? (project.heroImage as Media | null) : null;
 
   return (
     <>
@@ -49,11 +53,17 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           {project.title}
         </h1>
         <p style={{ fontSize: 16, lineHeight: 1.7, color: "oklch(20% 0.01 260 / 0.75)", margin: "0 0 56px" }}>
-          {project.detail.intro}
+          {project.intro}
         </p>
       </section>
 
-      <ImageSlot label={`glavna ${project.imgLabel}`} aspectRatio="16/9" className="block" />
+      <ImageSlot
+        label={`glavna ${project.imgLabel ?? "fotografija"}`}
+        aspectRatio="16/9"
+        className="block"
+        src={heroImage?.url}
+        alt={heroImage?.alt}
+      />
 
       <section
         style={{
@@ -72,19 +82,19 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           <div style={{ fontSize: 11, letterSpacing: "0.04em", textTransform: "uppercase", color: "oklch(20% 0.01 260 / 0.45)", marginBottom: 6 }}>
             Leto
           </div>
-          <div style={{ fontSize: 15 }}>{project.detail.meta.leto}</div>
+          <div style={{ fontSize: 15 }}>{project.year}</div>
         </div>
         <div>
           <div style={{ fontSize: 11, letterSpacing: "0.04em", textTransform: "uppercase", color: "oklch(20% 0.01 260 / 0.45)", marginBottom: 6 }}>
             Stranka
           </div>
-          <div style={{ fontSize: 15 }}>{project.detail.meta.stranka}</div>
+          <div style={{ fontSize: 15 }}>{project.stranka}</div>
         </div>
         <div>
           <div style={{ fontSize: 11, letterSpacing: "0.04em", textTransform: "uppercase", color: "oklch(20% 0.01 260 / 0.45)", marginBottom: 6 }}>
             Vloga
           </div>
-          <div style={{ fontSize: 15 }}>{project.detail.meta.vloga}</div>
+          <div style={{ fontSize: 15 }}>{project.vloga}</div>
         </div>
       </section>
 
@@ -92,36 +102,37 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         <h2 className="font-serif" style={{ fontStyle: "italic", fontWeight: 400, fontSize: 22, margin: "0 0 20px", color: "oklch(55% 0.18 258)" }}>
           Koncept
         </h2>
-        {project.detail.concept.map((paragraph, i) => (
-          <p
-            key={i}
-            style={{
-              fontSize: 16,
-              lineHeight: 1.75,
-              color: "oklch(20% 0.01 260 / 0.78)",
-              margin: i < project.detail.concept.length - 1 ? "0 0 18px" : 0,
-            }}
-          >
-            {paragraph}
-          </p>
-        ))}
+        <div className="concept">{project.concept && <RichText data={project.concept} />}</div>
       </section>
 
-      <section style={{ padding: "0 48px 80px", maxWidth: 1100, margin: "0 auto", width: "100%", boxSizing: "border-box" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1.3fr 1fr", gap: 20 }}>
-          {project.detail.gallery.map((label, i) => (
-            <ImageSlot key={i} label={label} aspectRatio="4/3" />
-          ))}
-        </div>
-      </section>
+      {project.gallery && project.gallery.length > 0 && (
+        <section style={{ padding: "0 48px 80px", maxWidth: 1100, margin: "0 auto", width: "100%", boxSizing: "border-box" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1.3fr 1fr", gap: 20 }}>
+            {project.gallery.map((item, i) => {
+              const image = typeof item.image === "object" ? (item.image as Media) : null;
+              return (
+                <ImageSlot
+                  key={item.id ?? i}
+                  label={item.caption ?? "slika"}
+                  aspectRatio="4/3"
+                  src={image?.url}
+                  alt={image?.alt ?? item.caption ?? undefined}
+                />
+              );
+            })}
+          </div>
+        </section>
+      )}
 
       <nav style={{ display: "flex", justifyContent: "space-between", padding: "40px 48px", borderTop: "1px solid oklch(20% 0.01 260 / 0.08)", fontSize: 14 }}>
         <Link href="/" className="nav-link" style={{ textDecoration: "none" }}>
           ← Vsi projekti
         </Link>
-        <Link href={`/projects/${next.slug}`} className="nav-link" style={{ textDecoration: "none" }}>
-          Naslednji projekt →
-        </Link>
+        {next && (
+          <Link href={`/projects/${next.slug}`} className="nav-link" style={{ textDecoration: "none" }}>
+            Naslednji projekt →
+          </Link>
+        )}
       </nav>
 
       <Footer />

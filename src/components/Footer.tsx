@@ -1,4 +1,7 @@
-export default function Footer() {
+import { getSettings } from "@/lib/settings";
+
+export default async function Footer() {
+  const settings = await getSettings();
   return (
     <footer
       style={{
@@ -13,11 +16,11 @@ export default function Footer() {
     >
       <div>
         <div className="font-serif" style={{ fontSize: 15, marginBottom: 8 }}>
-          Ime Priimek
+          {settings.name}
         </div>
-        <div style={{ fontSize: 13, color: "oklch(20% 0.01 260 / 0.55)" }}>ime.priimek@email.com</div>
+        <div style={{ fontSize: 13, color: "oklch(20% 0.01 260 / 0.55)" }}>{settings.email}</div>
       </div>
-      <div style={{ fontSize: 12, color: "oklch(20% 0.01 260 / 0.4)" }}>© 2026</div>
+      <div style={{ fontSize: 12, color: "oklch(20% 0.01 260 / 0.4)" }}>© {new Date().getFullYear()}</div>
     </footer>
   );
 }

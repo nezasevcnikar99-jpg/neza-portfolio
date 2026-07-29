@@ -2,11 +2,12 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { CATEGORIES, GRID_SIZES, PROJECTS, getProjectsByCategory } from "@/lib/projects";
+import type { Media } from "@/payload-types";
+import { CATEGORIES, GRID_SIZES, filterByCategory, type Project } from "@/lib/projects";
 
-export default function ProjectGrid() {
+export default function ProjectGrid({ projects }: { projects: Project[] }) {
   const [filter, setFilter] = useState<(typeof CATEGORIES)[number]>("Vse");
-  const filtered = getProjectsByCategory(filter);
+  const filtered = filterByCategory(projects, filter);
 
   return (
     <>
@@ -30,6 +31,7 @@ export default function ProjectGrid() {
         >
           {filtered.map((p, i) => {
             const size = GRID_SIZES[i % GRID_SIZES.length];
+            const heroImage = typeof p.heroImage === "object" ? (p.heroImage as Media | null) : null;
             return (
               <Link
                 key={p.slug}
@@ -50,25 +52,35 @@ export default function ProjectGrid() {
                   style={{
                     position: "absolute",
                     inset: 0,
-                    background:
-                      "repeating-linear-gradient(135deg, oklch(20% 0.01 260 / 0.05) 0px, oklch(20% 0.01 260 / 0.05) 1px, transparent 1px, transparent 9px), oklch(96% 0.006 260)",
+                    background: heroImage
+                      ? undefined
+                      : "repeating-linear-gradient(135deg, oklch(20% 0.01 260 / 0.05) 0px, oklch(20% 0.01 260 / 0.05) 1px, transparent 1px, transparent 9px), oklch(96% 0.006 260)",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
                     textAlign: "center",
                   }}
                 >
-                  <span
-                    style={{
-                      fontFamily: "ui-monospace, monospace",
-                      fontSize: 10,
-                      letterSpacing: "0.04em",
-                      color: "oklch(20% 0.01 260 / 0.35)",
-                      padding: "0 14px",
-                    }}
-                  >
-                    {p.imgLabel}
-                  </span>
+                  {heroImage?.url ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={heroImage.url}
+                      alt={heroImage.alt}
+                      style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
+                    />
+                  ) : (
+                    <span
+                      style={{
+                        fontFamily: "ui-monospace, monospace",
+                        fontSize: 10,
+                        letterSpacing: "0.04em",
+                        color: "oklch(20% 0.01 260 / 0.35)",
+                        padding: "0 14px",
+                      }}
+                    >
+                      {p.imgLabel ?? "fotografija"}
+                    </span>
+                  )}
                 </div>
                 <div
                   className="project-cell-overlay"
@@ -107,7 +119,7 @@ export default function ProjectGrid() {
       >
         {CATEGORIES.map((cat) => {
           const active = filter === cat;
-          const count = cat === "Vse" ? PROJECTS.length : PROJECTS.filter((p) => p.category === cat).length;
+          const count = cat === "Vse" ? projects.length : projects.filter((p) => p.category === cat).length;
           return (
             <button
               key={cat}

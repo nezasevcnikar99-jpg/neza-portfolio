@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { getSettings } from "@/lib/settings";
 
 type NavKey = "delo" | "about" | "arhiv";
 
@@ -8,7 +9,8 @@ const NAV: { key: NavKey; label: string; href: string }[] = [
   { key: "arhiv", label: "Arhiv", href: "/archive" },
 ];
 
-export default function Header({ active }: { active: NavKey }) {
+export default async function Header({ active }: { active: NavKey }) {
+  const settings = await getSettings();
   return (
     <header
       style={{
@@ -29,7 +31,7 @@ export default function Header({ active }: { active: NavKey }) {
         className="font-serif"
         style={{ fontSize: 20, letterSpacing: "0.02em", textDecoration: "none", color: "oklch(20% 0.01 260)" }}
       >
-        Ime Priimek
+        {settings.name}
       </Link>
       <nav style={{ display: "flex", gap: 36, fontSize: 13 }}>
         {NAV.map((item) =>

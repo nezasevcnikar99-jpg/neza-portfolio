@@ -1,8 +1,12 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ProjectGrid from "@/components/ProjectGrid";
+import { getAllProjects } from "@/lib/projects-data";
+import { getHome } from "@/lib/settings";
 
-export default function Home() {
+export default async function Home() {
+  const [home, projects] = await Promise.all([getHome(), getAllProjects()]);
+
   return (
     <>
       <Header active="delo" />
@@ -27,19 +31,16 @@ export default function Home() {
               letterSpacing: "-0.01em",
             }}
           >
-            Arhitektura, prostor in besede —{" "}
-            <span style={{ fontStyle: "italic", color: "oklch(55% 0.18 258)" }}>
-              projekti, ki iščejo tišino v strukturi.
-            </span>
+            {home.heroLead}{" "}
+            <span style={{ fontStyle: "italic", color: "oklch(55% 0.18 258)" }}>{home.heroAccent}</span>
           </h1>
           <p style={{ fontSize: 16, lineHeight: 1.6, color: "oklch(20% 0.01 260 / 0.7)", maxWidth: 560, margin: 0 }}>
-            Zbirka arhitekturnih projektov, esejev o prostoru in vizualnih del — od zasnove do izvedbe, od misli do
-            stavka.
+            {home.heroDescription}
           </p>
         </div>
       </section>
 
-      <ProjectGrid />
+      <ProjectGrid projects={projects} />
 
       <Footer />
     </>

@@ -1,25 +1,15 @@
+import { RichText } from "@payloadcms/richtext-lexical/react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ImageSlot from "@/components/ImageSlot";
+import { getAbout } from "@/lib/settings";
+import { getSettings } from "@/lib/settings";
+import type { Media } from "@/payload-types";
 
-const SKILLS = [
-  "AutoCAD",
-  "Rhino + Grasshopper",
-  "SketchUp",
-  "Adobe InDesign",
-  "Adobe Photoshop",
-  "Fizični modeli / makete",
-  "Tehnično risanje",
-  "Pisanje in urejanje besedil",
-];
+export default async function AboutPage() {
+  const [about, settings] = await Promise.all([getAbout(), getSettings()]);
+  const portrait = typeof about.portrait === "object" ? (about.portrait as Media | null) : null;
 
-const EDUCATION = [
-  { label: "Magistrski študij arhitekture, Fakulteta za arhitekturo, Ljubljana", range: "2019–2022" },
-  { label: "Dodiplomski študij arhitekture, Fakulteta za arhitekturo, Ljubljana", range: "2016–2019" },
-  { label: "Delovne izkušnje — arhitekturni biro Ravna, projektantka", range: "2022–danes" },
-];
-
-export default function AboutPage() {
   return (
     <>
       <Header active="about" />
@@ -38,9 +28,9 @@ export default function AboutPage() {
         }}
       >
         <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
-          <ImageSlot label="portret" aspectRatio="4/5" />
+          <ImageSlot label="portret" aspectRatio="4/5" src={portrait?.url} alt={portrait?.alt} />
           <div style={{ display: "flex", flexDirection: "column", gap: 6, fontSize: 13, color: "oklch(20% 0.01 260 / 0.65)" }}>
-            <span>ime.priimek@email.com</span>
+            <span>{settings.email}</span>
           </div>
         </div>
 
@@ -56,17 +46,9 @@ export default function AboutPage() {
                 letterSpacing: "-0.01em",
               }}
             >
-              Ime Priimek
+              {settings.name}
             </h1>
-            <p style={{ fontSize: 16, lineHeight: 1.7, color: "oklch(20% 0.01 260 / 0.75)", margin: "0 0 16px" }}>
-              Sem arhitektka in avtorica, ki prostor razume kot besedilo — nekaj, kar se bere, preden se zgradi.
-              Ukvarjam se z arhitekturnim projektiranjem, pišem eseje o prostoru in spominu, občasno pa oblikujem tudi
-              vizualne identitete za manjše biroje in razstave.
-            </p>
-            <p style={{ fontSize: 16, lineHeight: 1.7, color: "oklch(20% 0.01 260 / 0.75)", margin: 0 }}>
-              Zanima me predvsem, kako stavbe nosijo čas — kako material stara, kako tišina postane del načrta. To
-              radovednost prenašam med disciplinami: iz skice v stavek in nazaj.
-            </p>
+            <div className="bio">{about.bio && <RichText data={about.bio} />}</div>
           </div>
 
           <div>
@@ -77,20 +59,20 @@ export default function AboutPage() {
               Izobrazba
             </h2>
             <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-              {EDUCATION.map((item, i) => (
+              {(about.education ?? []).map((item, i, arr) => (
                 <div
-                  key={item.label}
+                  key={item.id ?? i}
                   style={{
                     display: "flex",
                     justifyContent: "space-between",
                     gap: 16,
                     fontSize: 14,
-                    borderBottom: i < EDUCATION.length - 1 ? "1px solid oklch(20% 0.01 260 / 0.08)" : undefined,
-                    paddingBottom: i < EDUCATION.length - 1 ? 12 : 2,
+                    borderBottom: i < arr.length - 1 ? "1px solid oklch(20% 0.01 260 / 0.08)" : undefined,
+                    paddingBottom: i < arr.length - 1 ? 12 : 2,
                   }}
                 >
                   <span>{item.label}</span>
-                  <span style={{ color: "oklch(20% 0.01 260 / 0.45)", flexShrink: 0 }}>{item.range}</span>
+                  <span style={{ color: "oklch(20% 0.01 260 / 0.45)", flexShrink: 0 }}>{item.dateRange}</span>
                 </div>
               ))}
             </div>
@@ -104,7 +86,7 @@ export default function AboutPage() {
               Veščine in orodja
             </h2>
             <div style={{ fontSize: 14, color: "oklch(20% 0.01 260 / 0.75)", lineHeight: 2.3, letterSpacing: "0.01em" }}>
-              {SKILLS.join("     ·     ")}
+              {(about.skills ?? []).map((s) => s.skill).join("     ·     ")}
             </div>
           </div>
         </div>

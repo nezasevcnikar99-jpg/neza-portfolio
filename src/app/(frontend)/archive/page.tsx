@@ -1,10 +1,13 @@
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { PROJECTS, getArchiveGroups } from "@/lib/projects";
+import { getArchiveGroups } from "@/lib/projects-data";
 
-export default function ArchivePage() {
-  const groups = getArchiveGroups();
+export default async function ArchivePage() {
+  const groups = await getArchiveGroups();
+  const total = groups.reduce((sum, g) => sum + g.items.length, 0);
+  const years = groups.map((g) => g.year);
+  const yearRange = years.length ? `${Math.min(...years)}–${Math.max(...years)}` : "";
 
   return (
     <>
@@ -36,7 +39,9 @@ export default function ArchivePage() {
           >
             Arhiv <span style={{ fontStyle: "italic", color: "oklch(55% 0.18 258)" }}>projektov.</span>
           </h1>
-          <div style={{ fontSize: 13, color: "oklch(20% 0.01 260 / 0.45)" }}>{PROJECTS.length} del, 2020–2024</div>
+          <div style={{ fontSize: 13, color: "oklch(20% 0.01 260 / 0.45)" }}>
+            {total} del, {yearRange}
+          </div>
         </div>
 
         {groups.map((g) => (

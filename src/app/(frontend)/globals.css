@@ -26,6 +26,26 @@ a {
   color: inherit;
 }
 
+.concept p {
+  font-size: 16px;
+  line-height: 1.75;
+  color: oklch(20% 0.01 260 / 0.78);
+  margin: 0 0 18px;
+}
+.concept p:last-child {
+  margin-bottom: 0;
+}
+
+.bio p {
+  font-size: 16px;
+  line-height: 1.7;
+  color: oklch(20% 0.01 260 / 0.75);
+  margin: 0 0 16px;
+}
+.bio p:last-child {
+  margin-bottom: 0;
+}
+
 .nav-link {
   text-decoration: none;
   color: oklch(20% 0.01 260 / 0.6);
