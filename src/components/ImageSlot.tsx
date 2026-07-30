@@ -6,6 +6,8 @@ export default function ImageSlot({
   alt,
   mimeType,
   filename,
+  focalX,
+  focalY,
 }: {
   label: string;
   aspectRatio: string;
@@ -14,6 +16,8 @@ export default function ImageSlot({
   alt?: string;
   mimeType?: string | null;
   filename?: string | null;
+  focalX?: number | null;
+  focalY?: number | null;
 }) {
   const isDocument = Boolean(src) && mimeType != null && !mimeType.startsWith("image/");
 
@@ -68,7 +72,14 @@ export default function ImageSlot({
         <img
           src={src}
           alt={alt ?? label}
-          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
+          style={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            objectPosition: `${focalX ?? 50}% ${focalY ?? 50}%`,
+          }}
         />
       ) : (
         <span

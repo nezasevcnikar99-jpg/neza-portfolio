@@ -83,6 +83,8 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         alt={heroImage?.alt}
         mimeType={heroImage?.mimeType}
         filename={heroImage?.filename}
+        focalX={heroImage?.focalX}
+        focalY={heroImage?.focalY}
       />
 
       <section
@@ -139,6 +141,8 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                   alt={image?.alt ?? item.caption ?? undefined}
                   mimeType={image?.mimeType}
                   filename={image?.filename}
+                  focalX={image?.focalX}
+                  focalY={image?.focalY}
                 />
               );
             })}

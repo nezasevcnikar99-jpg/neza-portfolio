@@ -37,6 +37,8 @@ export default async function AboutPage() {
             alt={portrait?.alt}
             mimeType={portrait?.mimeType}
             filename={portrait?.filename}
+            focalX={portrait?.focalX}
+            focalY={portrait?.focalY}
           />
           <div style={{ display: "flex", flexDirection: "column", gap: 6, fontSize: 13, color: "oklch(20% 0.01 260 / 0.65)" }}>
             <span>{settings.email}</span>

@@ -67,7 +67,14 @@ export default function ProjectGrid({ projects }: { projects: Project[] }) {
                     <img
                       src={heroImage.url}
                       alt={heroImage.alt}
-                      style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
+                      style={{
+                        position: "absolute",
+                        inset: 0,
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                        objectPosition: `${heroImage.focalX ?? 50}% ${heroImage.focalY ?? 50}%`,
+                      }}
                     />
                   ) : (
                     <span
