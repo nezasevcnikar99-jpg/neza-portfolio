@@ -6,6 +6,7 @@ import PhotoSlider, { type Slide } from "./PhotoSlider";
 
 export default function ProjectPhotoMosaic({ slides }: { slides: Slide[] }) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
     if (openIndex === null) return;
@@ -22,6 +23,8 @@ export default function ProjectPhotoMosaic({ slides }: { slides: Slide[] }) {
 
   if (slides.length === 0) return null;
 
+  const active = openIndex !== null ? slides[activeIndex] : null;
+
   return (
     <>
       <div
@@ -36,7 +39,10 @@ export default function ProjectPhotoMosaic({ slides }: { slides: Slide[] }) {
             key={i}
             type="button"
             className="mosaic-thumb"
-            onClick={() => setOpenIndex(i)}
+            onClick={() => {
+              setActiveIndex(i);
+              setOpenIndex(i);
+            }}
             aria-label={slide.caption ?? `Odpri fotografijo ${i + 1}`}
           >
             <ImageSlot
@@ -59,7 +65,7 @@ export default function ProjectPhotoMosaic({ slides }: { slides: Slide[] }) {
           style={{
             position: "fixed",
             inset: 0,
-            background: "oklch(15% 0.01 260 / 0.94)",
+            background: "#ffffff",
             zIndex: 50,
             display: "flex",
             alignItems: "center",
@@ -70,8 +76,37 @@ export default function ProjectPhotoMosaic({ slides }: { slides: Slide[] }) {
           <button type="button" className="lightbox-close" onClick={() => setOpenIndex(null)} aria-label="Zapri">
             ×
           </button>
+
+          {active && (
+            <div
+              className="font-sans"
+              style={{
+                position: "fixed",
+                right: 28,
+                bottom: 32,
+                writingMode: "vertical-rl",
+                transform: "rotate(180deg)",
+                color: "oklch(55% 0.18 258)",
+                fontSize: 13,
+                letterSpacing: "0.02em",
+                lineHeight: 1.6,
+                whiteSpace: "nowrap",
+              }}
+            >
+              {active.caption ? `${active.caption} — ` : ""}
+              {activeIndex + 1} / {slides.length}
+            </div>
+          )}
+
           <div onClick={(e) => e.stopPropagation()} style={{ width: "100%", maxWidth: 1100 }}>
-            <PhotoSlider key={openIndex} slides={slides} initialIndex={openIndex} aspectRatio="16/10" dark />
+            <PhotoSlider
+              key={openIndex}
+              slides={slides}
+              initialIndex={openIndex}
+              aspectRatio="16/10"
+              showCaption={false}
+              onIndexChange={setActiveIndex}
+            />
           </div>
         </div>
       )}

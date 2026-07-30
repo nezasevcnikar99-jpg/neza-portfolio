@@ -107,13 +107,6 @@ a {
 .slider-arrow:hover {
   color: oklch(20% 0.01 260);
 }
-.slider-arrow.dark {
-  color: oklch(100% 0 0 / 0.6);
-  filter: drop-shadow(0 1px 3px oklch(0% 0 0 / 0.5));
-}
-.slider-arrow.dark:hover {
-  color: oklch(100% 0 0);
-}
 .slider-arrow:disabled {
   opacity: 0.3;
   cursor: default;
@@ -148,23 +141,21 @@ a {
 
 .lightbox-close {
   position: fixed;
-  top: 20px;
-  right: 24px;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
+  top: 24px;
+  right: 28px;
   border: none;
-  background: oklch(100% 0 0 / 0.15);
-  color: oklch(100% 0 0);
-  font-size: 20px;
+  background: none;
+  padding: 0;
+  color: oklch(20% 0.01 260 / 0.55);
+  font-size: 28px;
   line-height: 1;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.2s ease;
+  transition: color 0.2s ease;
   z-index: 60;
 }
 .lightbox-close:hover {
-  background: oklch(100% 0 0 / 0.28);
+  color: oklch(20% 0.01 260);
 }

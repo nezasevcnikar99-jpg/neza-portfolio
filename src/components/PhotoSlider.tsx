@@ -29,19 +29,23 @@ export default function PhotoSlider({
   initialIndex = 0,
   aspectRatio = "3/2",
   fallbackLabel = "fotografija",
-  dark = false,
+  showCaption = true,
+  onIndexChange,
 }: {
   slides: Slide[];
   initialIndex?: number;
   aspectRatio?: string;
   fallbackLabel?: string;
-  dark?: boolean;
+  showCaption?: boolean;
+  onIndexChange?: (index: number) => void;
 }) {
   const [index, setIndex] = useState(initialIndex);
   const total = slides.length;
 
-  const goPrev = () => setIndex((i) => (i - 1 + total) % total);
-  const goNext = () => setIndex((i) => (i + 1) % total);
+  useEffect(() => {
+    onIndexChange?.(index);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [index]);
 
   useEffect(() => {
     if (total <= 1) return;
@@ -58,6 +62,8 @@ export default function PhotoSlider({
   }
 
   const current = slides[index];
+  const goPrev = () => setIndex((i) => (i - 1 + total) % total);
+  const goNext = () => setIndex((i) => (i + 1) % total);
 
   return (
     <div>
@@ -67,7 +73,6 @@ export default function PhotoSlider({
           aspectRatio={aspectRatio}
           className="block"
           fit="contain"
-          containBg={dark ? "transparent" : "#ffffff"}
           src={current.image?.url}
           alt={current.image?.alt ?? current.caption ?? undefined}
           mimeType={current.image?.mimeType}
@@ -75,45 +80,26 @@ export default function PhotoSlider({
         />
         {total > 1 && (
           <>
-            <button
-              type="button"
-              className={`slider-arrow left${dark ? " dark" : ""}`}
-              onClick={goPrev}
-              aria-label="Prejšnja fotografija"
-            >
+            <button type="button" className="slider-arrow left" onClick={goPrev} aria-label="Prejšnja fotografija">
               <ArrowIcon direction="left" />
             </button>
-            <button
-              type="button"
-              className={`slider-arrow right${dark ? " dark" : ""}`}
-              onClick={goNext}
-              aria-label="Naslednja fotografija"
-            >
+            <button type="button" className="slider-arrow right" onClick={goNext} aria-label="Naslednja fotografija">
               <ArrowIcon direction="right" />
             </button>
           </>
         )}
       </div>
-      {(current.caption || total > 1) && (
+      {showCaption && (current.caption || total > 1) && (
         <div style={{ textAlign: "center", marginTop: 14 }}>
           {current.caption && (
             <div
               className="font-serif"
-              style={{
-                fontStyle: "italic",
-                fontSize: 14,
-                color: dark ? "oklch(100% 0 0 / 0.85)" : "oklch(20% 0.01 260 / 0.7)",
-                marginBottom: 4,
-              }}
+              style={{ fontStyle: "italic", fontSize: 14, color: "oklch(20% 0.01 260 / 0.7)", marginBottom: 4 }}
             >
               {current.caption}
             </div>
           )}
-          {total > 1 && (
-            <div style={{ fontSize: 12, color: dark ? "oklch(100% 0 0 / 0.5)" : "oklch(20% 0.01 260 / 0.4)" }}>
-              {index + 1} / {total}
-            </div>
-          )}
+          {total > 1 && <div style={{ fontSize: 12, color: "oklch(20% 0.01 260 / 0.4)" }}>{index + 1} / {total}</div>}
         </div>
       )}
     </div>
