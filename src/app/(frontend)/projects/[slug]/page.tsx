@@ -54,10 +54,11 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             className="font-sans"
             style={{
               fontWeight: 500,
-              fontSize: 16,
-              letterSpacing: "0.01em",
+              fontSize: 13,
+              letterSpacing: "0.04em",
+              textTransform: "uppercase",
               lineHeight: 1.5,
-              color: "oklch(20% 0.01 260 / 0.55)",
+              color: "oklch(20% 0.01 260)",
               margin: "0 0 24px",
             }}
           >
