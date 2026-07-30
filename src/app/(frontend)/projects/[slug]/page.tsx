@@ -4,6 +4,7 @@ import { RichText } from "@payloadcms/richtext-lexical/react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ImageSlot from "@/components/ImageSlot";
+import GalleryCarousel from "@/components/GalleryCarousel";
 import { getProjectBySlug, getNextProject } from "@/lib/projects-data";
 import type { Media } from "@/payload-types";
 
@@ -128,25 +129,8 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
       </section>
 
       {project.gallery && project.gallery.length > 0 && (
-        <section style={{ padding: "0 48px 80px", maxWidth: 1100, margin: "0 auto", width: "100%", boxSizing: "border-box" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "1.3fr 1fr", gap: 20 }}>
-            {project.gallery.map((item, i) => {
-              const image = typeof item.image === "object" ? (item.image as Media) : null;
-              return (
-                <ImageSlot
-                  key={item.id ?? i}
-                  label={item.caption ?? "slika"}
-                  aspectRatio="4/3"
-                  src={image?.url}
-                  alt={image?.alt ?? item.caption ?? undefined}
-                  mimeType={image?.mimeType}
-                  filename={image?.filename}
-                  focalX={image?.focalX}
-                  focalY={image?.focalY}
-                />
-              );
-            })}
-          </div>
+        <section style={{ padding: "0 48px 80px", maxWidth: 900, margin: "0 auto", width: "100%", boxSizing: "border-box" }}>
+          <GalleryCarousel items={project.gallery} />
         </section>
       )}
 
