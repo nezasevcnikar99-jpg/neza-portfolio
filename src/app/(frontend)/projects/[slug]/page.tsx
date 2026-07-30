@@ -45,7 +45,13 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         </div>
         <h1
           className="font-serif"
-          style={{ fontWeight: 500, fontSize: "clamp(32px, 4.5vw, 50px)", lineHeight: 1.15, margin: "0 0 24px", letterSpacing: "-0.01em" }}
+          style={{
+            fontWeight: 500,
+            fontSize: "clamp(32px, 4.5vw, 50px)",
+            lineHeight: 1.15,
+            margin: project.subtitle ? "0 0 10px" : "0 0 24px",
+            letterSpacing: "-0.01em",
+          }}
         >
           {project.title}
         </h1>
@@ -53,13 +59,12 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           <p
             className="font-sans"
             style={{
-              fontWeight: 500,
-              fontSize: 13,
+              fontSize: 11,
               letterSpacing: "0.04em",
               textTransform: "uppercase",
               lineHeight: 1.5,
               color: "oklch(20% 0.01 260)",
-              margin: "0 0 24px",
+              margin: "0 0 32px",
             }}
           >
             {project.subtitle}
