@@ -91,32 +91,38 @@ a {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 1px solid oklch(20% 0.01 260 / 0.1);
-  background: oklch(100% 0 0 / 0.85);
-  color: oklch(20% 0.01 260);
+  width: 44px;
+  height: 56px;
+  border: none;
+  background: none;
+  padding: 0;
+  color: oklch(20% 0.01 260 / 0.55);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
-  line-height: 1;
   cursor: pointer;
-  transition: background 0.2s ease;
+  filter: drop-shadow(0 1px 3px oklch(100% 0 0 / 0.7));
+  transition: color 0.2s ease;
 }
 .slider-arrow:hover {
-  background: oklch(100% 0 0);
+  color: oklch(20% 0.01 260);
+}
+.slider-arrow.dark {
+  color: oklch(100% 0 0 / 0.6);
+  filter: drop-shadow(0 1px 3px oklch(0% 0 0 / 0.5));
+}
+.slider-arrow.dark:hover {
+  color: oklch(100% 0 0);
 }
 .slider-arrow:disabled {
   opacity: 0.3;
   cursor: default;
 }
 .slider-arrow.left {
-  left: 16px;
+  left: 12px;
 }
 .slider-arrow.right {
-  right: 16px;
+  right: 12px;
 }
 
 .mosaic-thumb {

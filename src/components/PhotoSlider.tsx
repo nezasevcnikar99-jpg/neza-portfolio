@@ -9,6 +9,21 @@ export type Slide = {
   caption?: string | null;
 };
 
+function ArrowIcon({ direction }: { direction: "left" | "right" }) {
+  const points = direction === "left" ? "18,4 8,16 18,28" : "10,4 20,16 10,28";
+  return (
+    <svg width="20" height="28" viewBox="0 0 28 32" fill="none" aria-hidden="true">
+      <polyline
+        points={points}
+        stroke="currentColor"
+        strokeWidth="1.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
 export default function PhotoSlider({
   slides,
   initialIndex = 0,
@@ -52,6 +67,7 @@ export default function PhotoSlider({
           aspectRatio={aspectRatio}
           className="block"
           fit="contain"
+          containBg={dark ? "transparent" : "#ffffff"}
           src={current.image?.url}
           alt={current.image?.alt ?? current.caption ?? undefined}
           mimeType={current.image?.mimeType}
@@ -59,11 +75,21 @@ export default function PhotoSlider({
         />
         {total > 1 && (
           <>
-            <button type="button" className="slider-arrow left" onClick={goPrev} aria-label="Prejšnja fotografija">
-              ‹
+            <button
+              type="button"
+              className={`slider-arrow left${dark ? " dark" : ""}`}
+              onClick={goPrev}
+              aria-label="Prejšnja fotografija"
+            >
+              <ArrowIcon direction="left" />
             </button>
-            <button type="button" className="slider-arrow right" onClick={goNext} aria-label="Naslednja fotografija">
-              ›
+            <button
+              type="button"
+              className={`slider-arrow right${dark ? " dark" : ""}`}
+              onClick={goNext}
+              aria-label="Naslednja fotografija"
+            >
+              <ArrowIcon direction="right" />
             </button>
           </>
         )}

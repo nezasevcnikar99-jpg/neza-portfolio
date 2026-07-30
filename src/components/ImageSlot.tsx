@@ -9,6 +9,7 @@ export default function ImageSlot({
   focalX,
   focalY,
   fit = "cover",
+  containBg = "#ffffff",
 }: {
   label: string;
   aspectRatio: string;
@@ -20,6 +21,7 @@ export default function ImageSlot({
   focalX?: number | null;
   focalY?: number | null;
   fit?: "cover" | "contain";
+  containBg?: string;
 }) {
   const isDocument = Boolean(src) && mimeType != null && !mimeType.startsWith("image/");
   const hasImage = Boolean(src) && !isDocument;
@@ -35,7 +37,7 @@ export default function ImageSlot({
         overflow: "hidden",
         background: hasImage
           ? fit === "contain"
-            ? "oklch(97% 0.004 260)"
+            ? containBg
             : undefined
           : "repeating-linear-gradient(135deg, oklch(20% 0.01 260 / 0.05) 0px, oklch(20% 0.01 260 / 0.05) 1px, transparent 1px, transparent 9px), oklch(96% 0.006 260)",
         display: "flex",
