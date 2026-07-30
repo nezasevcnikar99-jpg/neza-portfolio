@@ -8,6 +8,7 @@ export default function ImageSlot({
   filename,
   focalX,
   focalY,
+  fit = "cover",
 }: {
   label: string;
   aspectRatio: string;
@@ -18,8 +19,10 @@ export default function ImageSlot({
   filename?: string | null;
   focalX?: number | null;
   focalY?: number | null;
+  fit?: "cover" | "contain";
 }) {
   const isDocument = Boolean(src) && mimeType != null && !mimeType.startsWith("image/");
+  const hasImage = Boolean(src) && !isDocument;
 
   return (
     <div
@@ -30,10 +33,11 @@ export default function ImageSlot({
         aspectRatio,
         borderRadius: 2,
         overflow: "hidden",
-        background:
-          src && !isDocument
-            ? undefined
-            : "repeating-linear-gradient(135deg, oklch(20% 0.01 260 / 0.05) 0px, oklch(20% 0.01 260 / 0.05) 1px, transparent 1px, transparent 9px), oklch(96% 0.006 260)",
+        background: hasImage
+          ? fit === "contain"
+            ? "oklch(97% 0.004 260)"
+            : undefined
+          : "repeating-linear-gradient(135deg, oklch(20% 0.01 260 / 0.05) 0px, oklch(20% 0.01 260 / 0.05) 1px, transparent 1px, transparent 9px), oklch(96% 0.006 260)",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -77,8 +81,8 @@ export default function ImageSlot({
             inset: 0,
             width: "100%",
             height: "100%",
-            objectFit: "cover",
-            objectPosition: `${focalX ?? 50}% ${focalY ?? 50}%`,
+            objectFit: fit,
+            objectPosition: fit === "cover" ? `${focalX ?? 50}% ${focalY ?? 50}%` : "center",
           }}
         />
       ) : (

@@ -3,8 +3,8 @@ import { notFound } from "next/navigation";
 import { RichText } from "@payloadcms/richtext-lexical/react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import ImageSlot from "@/components/ImageSlot";
-import GalleryCarousel from "@/components/GalleryCarousel";
+import PhotoSlider, { type Slide } from "@/components/PhotoSlider";
+import ProjectPhotoMosaic from "@/components/ProjectPhotoMosaic";
 import { getProjectBySlug, getNextProject } from "@/lib/projects-data";
 import type { Media } from "@/payload-types";
 
@@ -20,6 +20,14 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
   const next = await getNextProject(slug);
   const heroImage = typeof project.heroImage === "object" ? (project.heroImage as Media | null) : null;
+
+  const slides: Slide[] = [
+    ...(heroImage ? [{ image: heroImage, caption: null }] : []),
+    ...(project.gallery ?? []).map((item) => ({
+      image: typeof item.image === "object" ? (item.image as Media) : null,
+      caption: item.caption,
+    })),
+  ];
 
   return (
     <>
@@ -76,17 +84,9 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         </p>
       </section>
 
-      <ImageSlot
-        label={`glavna ${project.imgLabel ?? "fotografija"}`}
-        aspectRatio="16/9"
-        className="block"
-        src={heroImage?.url}
-        alt={heroImage?.alt}
-        mimeType={heroImage?.mimeType}
-        filename={heroImage?.filename}
-        focalX={heroImage?.focalX}
-        focalY={heroImage?.focalY}
-      />
+      <div style={{ padding: "0 48px", maxWidth: 1100, margin: "0 auto", width: "100%", boxSizing: "border-box" }}>
+        <PhotoSlider slides={slides} aspectRatio="16/10" fallbackLabel={`glavna ${project.imgLabel ?? "fotografija"}`} />
+      </div>
 
       <section
         style={{
@@ -95,25 +95,26 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           margin: "0 auto",
           width: "100%",
           boxSizing: "border-box",
-          display: "grid",
-          gridTemplateColumns: "repeat(3, 1fr)",
-          gap: 24,
+          display: "flex",
+          justifyContent: "center",
+          gap: 64,
+          flexWrap: "wrap",
           borderBottom: "1px solid oklch(20% 0.01 260 / 0.08)",
         }}
       >
-        <div>
+        <div style={{ textAlign: "center" }}>
           <div style={{ fontSize: 11, letterSpacing: "0.04em", textTransform: "uppercase", color: "oklch(20% 0.01 260 / 0.45)", marginBottom: 6 }}>
             Leto
           </div>
           <div style={{ fontSize: 15 }}>{project.year}</div>
         </div>
-        <div>
+        <div style={{ textAlign: "center" }}>
           <div style={{ fontSize: 11, letterSpacing: "0.04em", textTransform: "uppercase", color: "oklch(20% 0.01 260 / 0.45)", marginBottom: 6 }}>
             Stranka
           </div>
           <div style={{ fontSize: 15 }}>{project.stranka}</div>
         </div>
-        <div>
+        <div style={{ textAlign: "center" }}>
           <div style={{ fontSize: 11, letterSpacing: "0.04em", textTransform: "uppercase", color: "oklch(20% 0.01 260 / 0.45)", marginBottom: 6 }}>
             Vloga
           </div>
@@ -128,9 +129,9 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         <div className="concept">{project.concept && <RichText data={project.concept} />}</div>
       </section>
 
-      {project.gallery && project.gallery.length > 0 && (
-        <section style={{ padding: "0 48px 80px", maxWidth: 900, margin: "0 auto", width: "100%", boxSizing: "border-box" }}>
-          <GalleryCarousel items={project.gallery} />
+      {slides.length > 0 && (
+        <section style={{ padding: "0 48px 80px", maxWidth: 1100, margin: "0 auto", width: "100%", boxSizing: "border-box" }}>
+          <ProjectPhotoMosaic slides={slides} />
         </section>
       )}
 
