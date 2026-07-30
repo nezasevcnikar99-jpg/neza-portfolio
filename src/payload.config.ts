@@ -44,6 +44,7 @@ export default buildConfig({
             collections: { media: { disablePayloadAccessControl: true } },
             token: process.env.BLOB_READ_WRITE_TOKEN,
             clientUploads: true,
+            addRandomSuffix: true,
           }),
         ]
       : []),
