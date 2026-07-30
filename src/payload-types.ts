@@ -178,6 +178,10 @@ export interface Media {
 export interface Project {
   id: number;
   title: string;
+  /**
+   * Prikazan pod naslovom na strani projekta.
+   */
+  subtitle?: string | null;
   slug: string;
   /**
    * Vrstni red v mreži na Domov (manjše število = prej).
@@ -349,6 +353,7 @@ export interface MediaSelect<T extends boolean = true> {
  */
 export interface ProjectsSelect<T extends boolean = true> {
   title?: T;
+  subtitle?: T;
   slug?: T;
   order?: T;
   category?: T;

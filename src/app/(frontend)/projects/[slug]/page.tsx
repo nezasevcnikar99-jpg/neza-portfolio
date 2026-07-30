@@ -49,6 +49,20 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         >
           {project.title}
         </h1>
+        {project.subtitle && (
+          <p
+            className="font-serif"
+            style={{
+              fontStyle: "italic",
+              fontSize: 20,
+              lineHeight: 1.4,
+              color: "oklch(20% 0.01 260 / 0.8)",
+              margin: "0 0 24px",
+            }}
+          >
+            {project.subtitle}
+          </p>
+        )}
         <p style={{ fontSize: 16, lineHeight: 1.7, color: "oklch(20% 0.01 260 / 0.75)", margin: "0 0 56px" }}>
           {project.intro}
         </p>

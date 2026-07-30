@@ -24,6 +24,14 @@ export const Projects: CollectionConfig = {
       required: true,
     },
     {
+      name: "subtitle",
+      type: "text",
+      label: "Podnaslov",
+      admin: {
+        description: "Prikazan pod naslovom na strani projekta.",
+      },
+    },
+    {
       name: "slug",
       type: "text",
       required: true,
