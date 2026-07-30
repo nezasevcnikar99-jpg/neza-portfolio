@@ -60,6 +60,8 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         className="block"
         src={heroImage?.url}
         alt={heroImage?.alt}
+        mimeType={heroImage?.mimeType}
+        filename={heroImage?.filename}
       />
 
       <section
@@ -114,6 +116,8 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                   aspectRatio="4/3"
                   src={image?.url}
                   alt={image?.alt ?? item.caption ?? undefined}
+                  mimeType={image?.mimeType}
+                  filename={image?.filename}
                 />
               );
             })}

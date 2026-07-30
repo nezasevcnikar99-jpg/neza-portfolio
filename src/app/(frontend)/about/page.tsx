@@ -30,7 +30,14 @@ export default async function AboutPage() {
         }}
       >
         <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
-          <ImageSlot label="portret" aspectRatio="4/5" src={portrait?.url} alt={portrait?.alt} />
+          <ImageSlot
+            label="portret"
+            aspectRatio="4/5"
+            src={portrait?.url}
+            alt={portrait?.alt}
+            mimeType={portrait?.mimeType}
+            filename={portrait?.filename}
+          />
           <div style={{ display: "flex", flexDirection: "column", gap: 6, fontSize: 13, color: "oklch(20% 0.01 260 / 0.65)" }}>
             <span>{settings.email}</span>
           </div>

@@ -31,7 +31,8 @@ export default function ProjectGrid({ projects }: { projects: Project[] }) {
         >
           {filtered.map((p, i) => {
             const size = GRID_SIZES[i % GRID_SIZES.length];
-            const heroImage = typeof p.heroImage === "object" ? (p.heroImage as Media | null) : null;
+            const heroImageDoc = typeof p.heroImage === "object" ? (p.heroImage as Media | null) : null;
+            const heroImage = heroImageDoc?.mimeType?.startsWith("image/") ? heroImageDoc : null;
             return (
               <Link
                 key={p.slug}
