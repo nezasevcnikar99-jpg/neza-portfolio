@@ -187,6 +187,10 @@ export interface Project {
    * Vrstni red v mreži na Domov (manjše število = prej).
    */
   order?: number | null;
+  /**
+   * Nadzoruje obliko in velikost kartice tega projekta v mreži na Domov strani.
+   */
+  gridSize?: ('auto' | '2x2' | '2x1' | '1x2' | '1x1') | null;
   category: 'Arhitektura' | 'Literarni esej' | 'Grafika';
   year: number;
   /**
@@ -356,6 +360,7 @@ export interface ProjectsSelect<T extends boolean = true> {
   subtitle?: T;
   slug?: T;
   order?: T;
+  gridSize?: T;
   category?: T;
   year?: T;
   quote?: T;

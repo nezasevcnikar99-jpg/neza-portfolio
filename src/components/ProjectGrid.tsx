@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import type { Media } from "@/payload-types";
-import { CATEGORIES, GRID_SIZES, filterByCategory, type Project } from "@/lib/projects";
+import { CATEGORIES, filterByCategory, getGridSize, type Project } from "@/lib/projects";
 
 export default function ProjectGrid({ projects }: { projects: Project[] }) {
   const [filter, setFilter] = useState<(typeof CATEGORIES)[number]>("Vse");
@@ -30,7 +30,7 @@ export default function ProjectGrid({ projects }: { projects: Project[] }) {
           }}
         >
           {filtered.map((p, i) => {
-            const size = GRID_SIZES[i % GRID_SIZES.length];
+            const size = getGridSize(p, i);
             const heroImageDoc = typeof p.heroImage === "object" ? (p.heroImage as Media | null) : null;
             const heroImage = heroImageDoc?.mimeType?.startsWith("image/") ? heroImageDoc : null;
             return (

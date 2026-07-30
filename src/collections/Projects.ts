@@ -60,6 +60,23 @@ export const Projects: CollectionConfig = {
       },
     },
     {
+      name: "gridSize",
+      type: "select",
+      label: "Velikost na mreži (Domov)",
+      defaultValue: "auto",
+      options: [
+        { label: "Samodejno", value: "auto" },
+        { label: "Veliko, kvadratno (2×2)", value: "2x2" },
+        { label: "Široko (2×1)", value: "2x1" },
+        { label: "Visoko, pokončno (1×2)", value: "1x2" },
+        { label: "Majhno, kvadratno (1×1)", value: "1x1" },
+      ],
+      admin: {
+        position: "sidebar",
+        description: "Nadzoruje obliko in velikost kartice tega projekta v mreži na Domov strani.",
+      },
+    },
+    {
       name: "category",
       type: "select",
       required: true,
