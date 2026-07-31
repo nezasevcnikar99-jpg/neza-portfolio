@@ -190,7 +190,7 @@ export interface Project {
   /**
    * Oblika naslovne slike v mreži na prvi strani. Pri »Samodejno« se oblike izmenjujejo same. Postavitev se prilagodi ne glede na to, kaj izbereš.
    */
-  gridSize?: ('auto' | '2x2' | '1x1' | '2x1' | '1x2') | null;
+  gridSize?: ('auto' | '1x1' | '2x2' | '2x1') | null;
   category: 'Arhitektura' | 'Literarni esej' | 'Grafika';
   year: number;
   /**

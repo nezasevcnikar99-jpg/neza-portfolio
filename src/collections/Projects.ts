@@ -69,10 +69,9 @@ export const Projects: CollectionConfig = {
       // need a production migration, and only the labels are ever seen.
       options: [
         { label: "Samodejno", value: "auto" },
-        { label: "Ležeča (4:3)", value: "2x2" },
-        { label: "Kvadrat (1:1)", value: "1x1" },
-        { label: "Široka (16:10)", value: "2x1" },
-        { label: "Pokončna (3:4)", value: "1x2" },
+        { label: "Kvadrat", value: "1x1" },
+        { label: "Velik kvadrat", value: "2x2" },
+        { label: "Ležeča (dva kvadrata)", value: "2x1" },
       ],
       admin: {
         position: "sidebar",

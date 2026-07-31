@@ -3,24 +3,25 @@ import type { Project } from "@/payload-types";
 export type { Project };
 
 /**
- * Home composition: a 12-column grid with tight gutters.
+ * Home composition: a six-column grid built on one square module.
  *
- * Four picture footprints, and every picture starts on one of four column lines
- * (1, 4, 7, 10). Repeating so few sizes and so few left edges is what makes the
- * grid legible.
+ * Three footprints only — a square, a double square, and a landscape two
+ * squares wide — so every picture is a whole number of modules and the grid
+ * stays readable however the sizes are mixed.
  *
- * Pictures are packed two to a band. Labels are placed in the band's leftover
- * columns and pinned to its top or bottom corner, alternating, so they read as
- * part of the grid rather than as captions. Because a label shares the band
- * with its picture instead of sitting under it, labels add no height.
+ * Rows are half modules, which lets bands sit closer together than a full
+ * module would allow while pictures stay exactly square.
+ *
+ * Each picture keeps the column to its left empty. That is where its vertical
+ * label goes, and it is also what keeps the composition open.
  */
-export type SizeKey = "wide" | "landscape" | "square" | "portrait";
+export type SizeKey = "small" | "big" | "landscape";
 
-const SIZES: Record<SizeKey, { span: number; ratio: string }> = {
-  wide: { span: 4, ratio: "16 / 10" },
-  landscape: { span: 3, ratio: "4 / 3" },
-  square: { span: 2, ratio: "1 / 1" },
-  portrait: { span: 2, ratio: "3 / 4" },
+/** Width in columns, height in half-module rows. */
+const SIZES: Record<SizeKey, { w: number; h: number }> = {
+  small: { w: 1, h: 2 },
+  big: { w: 2, h: 4 },
+  landscape: { w: 2, h: 2 },
 };
 
 /**
@@ -28,32 +29,25 @@ const SIZES: Record<SizeKey, { span: number; ratio: string }> = {
  * avoid a Postgres enum migration — see the field definition in Projects.ts.
  */
 const SIZE_BY_FIELD: Record<string, SizeKey> = {
-  "2x2": "landscape",
-  "1x1": "square",
-  "2x1": "wide",
-  "1x2": "portrait",
+  "1x1": "small",
+  "2x2": "big",
+  "2x1": "landscape",
+  "1x2": "small",
 };
 
 /** Shape order used for projects left on "auto". */
 const AUTO_CYCLE: SizeKey[] = [
   "landscape",
-  "portrait",
-  "wide",
-  "square",
-  "portrait",
+  "small",
+  "small",
+  "big",
+  "small",
   "landscape",
-  "square",
-  "wide",
+  "small",
+  "small",
 ];
 
-const ANCHORS = [1, 4, 7, 10];
-const COLUMNS = 12;
-const PER_BAND = 2;
-
-const fits = (anchor: number, span: number) => anchor + span - 1 <= COLUMNS;
-
-/** Bands alternate where they begin so the page does not all hug the left. */
-const bandStart = (band: number) => (band % 2 === 0 ? 1 : 4);
+const COLUMNS = 6;
 
 function resolveSize(project: Project, index: number): SizeKey {
   const chosen = project.gridSize;
@@ -61,102 +55,42 @@ function resolveSize(project: Project, index: number): SizeKey {
   return AUTO_CYCLE[index % AUTO_CYCLE.length];
 }
 
-type Placed = { index: number; start: number; span: number; ratio: string };
-
-function freeRanges(items: Placed[]): [number, number][] {
-  const taken = new Array(COLUMNS + 2).fill(false);
-  for (const it of items) {
-    for (let c = it.start; c < it.start + it.span; c++) taken[c] = true;
-  }
-
-  const ranges: [number, number][] = [];
-  let open: number | null = null;
-  for (let c = 1; c <= COLUMNS; c++) {
-    if (!taken[c]) {
-      if (open === null) open = c;
-    } else if (open !== null) {
-      ranges.push([open, c - 1]);
-      open = null;
-    }
-  }
-  if (open !== null) ranges.push([open, COLUMNS]);
-  return ranges;
-}
-
-export type Slot = {
-  image: { gridColumn: string; gridRow: string; aspectRatio: string };
-  label: { gridColumn: string; gridRow: string; alignSelf: "start" | "end"; textAlign: "left" | "right" };
-};
+export type Slot = { gridColumn: string; gridRow: string };
 
 export function buildScatterLayout(projects: Project[]): Slot[] {
-  const bands: Placed[][] = [];
-  let band: Placed[] = [];
-  let cursor = bandStart(0);
-
-  projects.forEach((project, index) => {
-    const { span, ratio } = SIZES[resolveSize(project, index)];
-    let start = ANCHORS.find((a) => a >= cursor && fits(a, span));
-
-    if (start === undefined || band.length >= PER_BAND) {
-      if (band.length) bands.push(band);
-      band = [];
-      cursor = bandStart(bands.length);
-      start = ANCHORS.find((a) => a >= cursor && fits(a, span)) ?? ANCHORS.find((a) => fits(a, span)) ?? 1;
-    }
-
-    band.push({ index, start, span, ratio });
-    cursor = start + span + 1;
-  });
-  if (band.length) bands.push(band);
-
   const slots: Slot[] = [];
 
-  bands.forEach((items, bandIndex) => {
-    const ranges = freeRanges(items);
-    const used = new Set<number>();
-    const row = String(bandIndex + 1);
+  let bandIndex = 0;
+  let bandRow = 1;
+  let bandHeight = 0;
+  let cursor = 1;
+  let firstInBand = true;
 
-    items.forEach((item, positionInBand) => {
-      const end = item.start + item.span - 1;
+  projects.forEach((project, index) => {
+    const { w, h } = SIZES[resolveSize(project, index)];
 
-      let pick = -1;
-      let bestScore = Infinity;
-      ranges.forEach(([from, to], rangeIndex) => {
-        const distance = from > end ? from - end : item.start - to;
-        // Prefer an unused range, but fall back to sharing one. A single column
-        // is too narrow to set a title in, so treat it as a last resort.
-        const shared = used.has(rangeIndex) ? COLUMNS : 0;
-        const narrow = to - from + 1 < 2 ? COLUMNS * 2 : 0;
-        const score = distance + shared + narrow;
-        if (score < bestScore) {
-          bestScore = score;
-          pick = rangeIndex;
-        }
-      });
+    // Every picture but the first in a band leaves a column free on its left.
+    let col = firstInBand ? cursor : cursor + 1;
 
-      const range = pick >= 0 ? ranges[pick] : ([item.start, end] as [number, number]);
-      if (pick >= 0) used.add(pick);
+    if (col + w - 1 > COLUMNS) {
+      bandRow += bandHeight + 1;
+      bandHeight = 0;
+      bandIndex += 1;
+      // Bands alternate between starting flush left and one column in, so the
+      // page does not read as a single left-hand stack.
+      cursor = bandIndex % 2 === 0 ? 1 : 2;
+      firstInBand = true;
+      col = cursor;
+    }
 
-      // Two labels can end up in the same gap, so the first hangs from the top
-      // of the band and the second from the bottom. Bands flip the order.
-      const topFirst = bandIndex % 2 === 0;
-      const alignSelf: "start" | "end" =
-        (positionInBand === 0) === topFirst ? "start" : "end";
+    slots[index] = {
+      gridColumn: `${col} / span ${w}`,
+      gridRow: `${bandRow} / span ${h}`,
+    };
 
-      slots[item.index] = {
-        image: {
-          gridColumn: `${item.start} / span ${item.span}`,
-          gridRow: row,
-          aspectRatio: item.ratio,
-        },
-        label: {
-          gridColumn: `${range[0]} / span ${range[1] - range[0] + 1}`,
-          gridRow: row,
-          alignSelf,
-          textAlign: range[1] === COLUMNS ? "right" : "left",
-        },
-      };
-    });
+    cursor = col + w;
+    firstInBand = false;
+    bandHeight = Math.max(bandHeight, h);
   });
 
   return slots;
