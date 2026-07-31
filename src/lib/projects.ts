@@ -74,21 +74,35 @@ export type Slot = {
 
 type Banded = { index: number; w: number; h: number };
 
+/**
+ * Pictures are taken two at a time, and each pair shares the single column
+ * between them: the left picture's label hangs from the top of it, the right
+ * one's from the bottom. Halving the columns spent on labels is what lets a
+ * band hold three or four pictures instead of two.
+ */
+const columnsUsed = (items: Banded[]) =>
+  items.reduce((total, item) => total + item.w, 0) + Math.ceil(items.length / 2);
+
+/**
+ * Bands are not all flush to both margins — that reads as too regular. Every
+ * third one is indented by a column, and only every third is pushed out to the
+ * right edge, so some rows float clear of one margin or the other.
+ */
+const bandStart = (band: number) => (band % 3 === 1 ? 2 : 1);
+const bandJustifies = (band: number) => band % 3 === 0;
+
 export function buildScatterLayout(projects: Project[]): Slot[] {
-  // Group into bands first, so a band's total width is known before placing it.
   const bands: Banded[][] = [];
   let band: Banded[] = [];
-  let cursor = 1;
 
   projects.forEach((project, index) => {
     const { w, h } = SIZES[resolveSize(project, index)];
-    if (cursor + w > COLUMNS) {
+    const available = COLUMNS - (bandStart(bands.length) - 1);
+    if (band.length > 0 && columnsUsed([...band, { index, w, h }]) > available) {
       bands.push(band);
       band = [];
-      cursor = 1;
     }
     band.push({ index, w, h });
-    cursor += w + 1;
   });
   if (band.length) bands.push(band);
 
@@ -96,28 +110,44 @@ export function buildScatterLayout(projects: Project[]): Slot[] {
   let bandRow = 1;
 
   bands.forEach((items, bandIndex) => {
-    let column = 1;
-    const placed = items.map((item, position) => {
-      const first = position === 0;
-      const imageCol = first ? column : column + 1;
-      column += item.w + 1;
-      return { ...item, position, imageCol };
-    });
+    type Placed = Banded & { imageCol: number; side: "left" | "right"; top: boolean };
+    const groups: Placed[][] = [];
+    let column = bandStart(bandIndex);
 
-    // Push the last picture out to the right edge so the band spans the full
-    // width. Without this a leftover column reads as a much wider right margin
-    // than the left one. A lone picture stays put — it has no band to justify.
-    const slack = COLUMNS - (column - 1);
-    if (slack > 0 && placed.length > 1) {
-      placed[placed.length - 1].imageCol += slack;
+    for (let i = 0; i < items.length; i += 2) {
+      const left = items[i];
+      const right = items[i + 1];
+      // Alternate which of the pair takes the top of the shared column.
+      const flip = (bandIndex + groups.length) % 2 === 1;
+
+      if (right) {
+        const labelCol = column + left.w;
+        groups.push([
+          { ...left, imageCol: column, side: "right", top: !flip },
+          { ...right, imageCol: labelCol + 1, side: "left", top: flip },
+        ]);
+        column = labelCol + 1 + right.w;
+      } else {
+        groups.push([{ ...left, imageCol: column, side: "right", top: !flip }]);
+        column += left.w + 1;
+      }
     }
 
-    placed.forEach((item) => {
+    // Shift the whole last group, never a single picture out of a pair, or the
+    // two would lose the column they share.
+    const slack = COLUMNS - (column - 1);
+    if (bandJustifies(bandIndex) && slack > 0 && groups.length > 1) {
+      groups[groups.length - 1].forEach((item) => {
+        item.imageCol += slack;
+      });
+    }
+
+    groups.flat().forEach((item) => {
       slots[item.index] = {
         gridColumn: `${item.imageCol} / span ${item.w}`,
         gridRow: `${bandRow} / span ${item.h}`,
-        labelSide: item.position === 0 ? "right" : "left",
-        labelTop: (item.position + bandIndex) % 2 === 0,
+        labelSide: item.side,
+        labelTop: item.top,
       };
     });
 
