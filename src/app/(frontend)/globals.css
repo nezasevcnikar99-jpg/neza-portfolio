@@ -129,9 +129,10 @@ a {
 .scatter-grid {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-  column-gap: 24px;
-  row-gap: 72px;
-  /* Everything in a band hangs from the same top line. */
+  column-gap: 16px;
+  row-gap: 28px;
+  /* Pictures in a band hang from the same top line; labels override this to
+     pin themselves to the top or bottom of the band. */
   align-items: start;
   max-width: 1500px;
   margin: 0 auto;
@@ -169,10 +170,8 @@ a {
   text-align: center;
 }
 
-/* Sits under its own picture, sharing its left edge, so the labels reinforce
-   the column lines instead of floating beside the images. */
+/* Lives in the band's empty columns, pinned to its top or bottom corner. */
 .scatter-label {
-  margin-top: 12px;
   font-size: 11px;
   line-height: 1.55;
   letter-spacing: 0.02em;
@@ -192,11 +191,17 @@ a {
 @media (max-width: 1024px) {
   .scatter-grid {
     grid-template-columns: 1fr;
-    row-gap: 44px;
+    row-gap: 10px;
   }
-  .scatter-item {
+  .scatter-media,
+  .scatter-label {
     grid-column: 1 / -1 !important;
     grid-row: auto !important;
+    align-self: start !important;
+    text-align: left !important;
+  }
+  .scatter-label {
+    margin-bottom: 34px;
   }
 }
 

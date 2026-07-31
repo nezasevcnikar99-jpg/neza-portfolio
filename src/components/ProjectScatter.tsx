@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import Link from "next/link";
 import type { Media } from "@/payload-types";
 import { buildScatterLayout, type Project } from "@/lib/projects";
@@ -13,15 +14,15 @@ export default function ProjectScatter({ projects }: { projects: Project[] }) {
         const hero = heroDoc?.mimeType?.startsWith("image/") ? heroDoc : null;
 
         return (
-          <div
-            key={p.slug}
-            className="scatter-item"
-            style={{ gridColumn: slot.gridColumn, gridRow: slot.gridRow }}
-          >
+          <Fragment key={p.slug}>
             <Link
               href={`/projects/${p.slug}`}
               className="scatter-media project-cell"
-              style={{ aspectRatio: slot.aspectRatio }}
+              style={{
+                gridColumn: slot.image.gridColumn,
+                gridRow: slot.image.gridRow,
+                aspectRatio: slot.image.aspectRatio,
+              }}
             >
               {hero?.url ? (
                 // eslint-disable-next-line @next/next/no-img-element
@@ -44,20 +45,28 @@ export default function ProjectScatter({ projects }: { projects: Project[] }) {
               <div className="project-cell-overlay">
                 <div
                   className="font-serif"
-                  style={{ fontStyle: "italic", fontSize: 16, lineHeight: 1.4, color: "#fff", textAlign: "center" }}
+                  style={{ fontStyle: "italic", fontSize: 15, lineHeight: 1.4, color: "#fff", textAlign: "center" }}
                 >
                   {`"${p.quote}"`}
                 </div>
               </div>
             </Link>
 
-            <div className="scatter-label font-sans">
+            <div
+              className="scatter-label font-sans"
+              style={{
+                gridColumn: slot.label.gridColumn,
+                gridRow: slot.label.gridRow,
+                alignSelf: slot.label.alignSelf,
+                textAlign: slot.label.textAlign,
+              }}
+            >
               <div className="scatter-label-title">{p.title}</div>
               <div className="scatter-label-meta">
                 {p.category}, {p.year}
               </div>
             </div>
-          </div>
+          </Fragment>
         );
       })}
     </div>
