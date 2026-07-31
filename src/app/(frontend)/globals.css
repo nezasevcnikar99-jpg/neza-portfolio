@@ -4,7 +4,9 @@
   --color-ink: oklch(20% 0.01 260);
   --color-accent: oklch(55% 0.18 258);
   --color-stripe-bg: oklch(96% 0.006 260);
-  --page-pad: clamp(14px, 1.6vw, 32px);
+  /* One gutter for the whole page: header, intro, gallery and footer all start
+     on this line, so the logo sits above the first picture's left edge. */
+  --page-pad: clamp(16px, 2.2vw, 40px);
 }
 
 @theme inline {
@@ -137,7 +139,7 @@ a {
 }
 
 .scatter-grid {
-  --cols: 7;
+  --cols: 6;
   --gap: 16px;
   --module: calc((100cqw - (var(--cols) - 1) * var(--gap)) / var(--cols));
   display: grid;
@@ -150,6 +152,9 @@ a {
 
 .scatter-item {
   position: relative;
+  /* Grid items refuse to shrink below their content by default, which lets a
+     single-column track blow past the viewport. */
+  min-width: 0;
 }
 
 .scatter-media {
@@ -238,7 +243,10 @@ a {
     grid-column: 1 / -1 !important;
     grid-row: auto !important;
   }
+  /* Rows are auto here, so there is no row height for a full-height picture to
+     resolve against; the ratio sets the height instead. */
   .scatter-media {
+    height: auto;
     aspect-ratio: 4 / 3;
   }
   /* No room for a column beside the picture on a phone. */

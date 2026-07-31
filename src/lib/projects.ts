@@ -39,24 +39,25 @@ const SIZE_BY_FIELD: Record<string, SizeKey> = {
   "1x2": "small",
 };
 
-/** Shape order used for projects left on "auto". */
+/**
+ * Shape order used for projects left on "auto".
+ *
+ * Weighted towards squares: three of them fill a band exactly, while anything
+ * two columns wide leaves room for only one more picture. Leaning on squares
+ * keeps bands full and the page shorter.
+ */
 const AUTO_CYCLE: SizeKey[] = [
+  "small",
+  "small",
+  "small",
   "landscape",
   "small",
   "small",
   "big",
   "small",
-  "landscape",
-  "small",
-  "small",
 ];
 
-/**
- * Seven rather than six: each picture spends one column on its label, so a
- * coarser grid would only fit two pictures to a band and the page would grow
- * taller, not shorter.
- */
-const COLUMNS = 7;
+const COLUMNS = 6;
 
 function resolveSize(project: Project, index: number): SizeKey {
   const chosen = project.gridSize;
@@ -71,40 +72,57 @@ export type Slot = {
   labelTop: boolean;
 };
 
-export function buildScatterLayout(projects: Project[]): Slot[] {
-  const slots: Slot[] = [];
+type Banded = { index: number; w: number; h: number };
 
-  let bandIndex = 0;
-  let bandRow = 1;
-  let bandHeight = 0;
+export function buildScatterLayout(projects: Project[]): Slot[] {
+  // Group into bands first, so a band's total width is known before placing it.
+  const bands: Banded[][] = [];
+  let band: Banded[] = [];
   let cursor = 1;
-  let positionInBand = 0;
 
   projects.forEach((project, index) => {
     const { w, h } = SIZES[resolveSize(project, index)];
-
     if (cursor + w > COLUMNS) {
-      // One spacer row between bands: a quarter module, not a whole one.
-      bandRow += bandHeight + 1;
-      bandHeight = 0;
-      bandIndex += 1;
+      bands.push(band);
+      band = [];
       cursor = 1;
-      positionInBand = 0;
+    }
+    band.push({ index, w, h });
+    cursor += w + 1;
+  });
+  if (band.length) bands.push(band);
+
+  const slots: Slot[] = [];
+  let bandRow = 1;
+
+  bands.forEach((items, bandIndex) => {
+    let column = 1;
+    const placed = items.map((item, position) => {
+      const first = position === 0;
+      const imageCol = first ? column : column + 1;
+      column += item.w + 1;
+      return { ...item, position, imageCol };
+    });
+
+    // Push the last picture out to the right edge so the band spans the full
+    // width. Without this a leftover column reads as a much wider right margin
+    // than the left one. A lone picture stays put — it has no band to justify.
+    const slack = COLUMNS - (column - 1);
+    if (slack > 0 && placed.length > 1) {
+      placed[placed.length - 1].imageCol += slack;
     }
 
-    const first = positionInBand === 0;
-    const imageCol = first ? cursor : cursor + 1;
+    placed.forEach((item) => {
+      slots[item.index] = {
+        gridColumn: `${item.imageCol} / span ${item.w}`,
+        gridRow: `${bandRow} / span ${item.h}`,
+        labelSide: item.position === 0 ? "right" : "left",
+        labelTop: (item.position + bandIndex) % 2 === 0,
+      };
+    });
 
-    slots[index] = {
-      gridColumn: `${imageCol} / span ${w}`,
-      gridRow: `${bandRow} / span ${h}`,
-      labelSide: first ? "right" : "left",
-      labelTop: (positionInBand + bandIndex) % 2 === 0,
-    };
-
-    cursor = cursor + w + 1;
-    positionInBand += 1;
-    bandHeight = Math.max(bandHeight, h);
+    // One spacer row between bands: a quarter module, not a whole one.
+    bandRow += Math.max(...items.map((item) => item.h)) + 1;
   });
 
   return slots;

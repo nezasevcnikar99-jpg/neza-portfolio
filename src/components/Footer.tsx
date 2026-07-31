@@ -5,7 +5,7 @@ export default async function Footer() {
   return (
     <footer
       style={{
-        padding: "56px 48px",
+        padding: "56px var(--page-pad)",
         borderTop: "1px solid oklch(20% 0.01 260 / 0.08)",
         display: "flex",
         justifyContent: "space-between",

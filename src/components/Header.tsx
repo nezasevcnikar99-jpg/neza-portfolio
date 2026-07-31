@@ -20,7 +20,7 @@ export default async function Header({ active }: { active: NavKey }) {
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
-        padding: "26px 48px",
+        padding: "26px var(--page-pad)",
         background: "#ffffffee",
         backdropFilter: "blur(6px)",
         borderBottom: "1px solid oklch(20% 0.01 260 / 0.08)",
