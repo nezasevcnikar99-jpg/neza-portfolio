@@ -14,7 +14,11 @@ export default function ProjectScatter({ projects }: { projects: Project[] }) {
           const hero = heroDoc?.mimeType?.startsWith("image/") ? heroDoc : null;
 
           return (
-            <div key={p.slug} className="scatter-item" style={slot}>
+            <div
+              key={p.slug}
+              className={`scatter-item label-${slot.labelSide} ${slot.labelTop ? "label-top" : "label-bottom"}`}
+              style={{ gridColumn: slot.gridColumn, gridRow: slot.gridRow }}
+            >
               <Link href={`/projects/${p.slug}`} className="scatter-media project-cell">
                 {hero?.url ? (
                   // eslint-disable-next-line @next/next/no-img-element

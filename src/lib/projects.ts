@@ -5,23 +5,27 @@ export type { Project };
 /**
  * Home composition: a six-column grid built on one square module.
  *
- * Three footprints only — a square, a double square, and a landscape two
- * squares wide — so every picture is a whole number of modules and the grid
- * stays readable however the sizes are mixed.
+ * Three footprints — a square, a double square, and a landscape two squares
+ * wide — so every picture is a whole number of modules.
  *
- * Rows are half modules, which lets bands sit closer together than a full
- * module would allow while pictures stay exactly square.
+ * Each picture claims one extra column for its label, which sits horizontally
+ * beside it. Reserving that column during packing rather than afterwards is
+ * what stops two neighbours from wanting the same gap: the first picture in a
+ * band takes the column to its right, everyone after it takes the column to
+ * its left, so no column is ever claimed twice. It also means the picture that
+ * starts at column one never puts its label out in the page margin.
  *
- * Each picture keeps the column to its left empty. That is where its vertical
- * label goes, and it is also what keeps the composition open.
+ * Rows are quarter modules. Four of them plus the gaps add back up to a whole
+ * module, so pictures stay exactly square while bands can sit a quarter module
+ * apart — close enough to read as one field rather than separate rows.
  */
 export type SizeKey = "small" | "big" | "landscape";
 
-/** Width in columns, height in half-module rows. */
+/** Width in columns, height in quarter-module rows. */
 const SIZES: Record<SizeKey, { w: number; h: number }> = {
-  small: { w: 1, h: 2 },
-  big: { w: 2, h: 4 },
-  landscape: { w: 2, h: 2 },
+  small: { w: 1, h: 4 },
+  big: { w: 2, h: 8 },
+  landscape: { w: 2, h: 4 },
 };
 
 /**
@@ -47,7 +51,12 @@ const AUTO_CYCLE: SizeKey[] = [
   "small",
 ];
 
-const COLUMNS = 6;
+/**
+ * Seven rather than six: each picture spends one column on its label, so a
+ * coarser grid would only fit two pictures to a band and the page would grow
+ * taller, not shorter.
+ */
+const COLUMNS = 7;
 
 function resolveSize(project: Project, index: number): SizeKey {
   const chosen = project.gridSize;
@@ -55,7 +64,12 @@ function resolveSize(project: Project, index: number): SizeKey {
   return AUTO_CYCLE[index % AUTO_CYCLE.length];
 }
 
-export type Slot = { gridColumn: string; gridRow: string };
+export type Slot = {
+  gridColumn: string;
+  gridRow: string;
+  labelSide: "left" | "right";
+  labelTop: boolean;
+};
 
 export function buildScatterLayout(projects: Project[]): Slot[] {
   const slots: Slot[] = [];
@@ -64,32 +78,32 @@ export function buildScatterLayout(projects: Project[]): Slot[] {
   let bandRow = 1;
   let bandHeight = 0;
   let cursor = 1;
-  let firstInBand = true;
+  let positionInBand = 0;
 
   projects.forEach((project, index) => {
     const { w, h } = SIZES[resolveSize(project, index)];
 
-    // Every picture but the first in a band leaves a column free on its left.
-    let col = firstInBand ? cursor : cursor + 1;
-
-    if (col + w - 1 > COLUMNS) {
+    if (cursor + w > COLUMNS) {
+      // One spacer row between bands: a quarter module, not a whole one.
       bandRow += bandHeight + 1;
       bandHeight = 0;
       bandIndex += 1;
-      // Bands alternate between starting flush left and one column in, so the
-      // page does not read as a single left-hand stack.
-      cursor = bandIndex % 2 === 0 ? 1 : 2;
-      firstInBand = true;
-      col = cursor;
+      cursor = 1;
+      positionInBand = 0;
     }
 
+    const first = positionInBand === 0;
+    const imageCol = first ? cursor : cursor + 1;
+
     slots[index] = {
-      gridColumn: `${col} / span ${w}`,
+      gridColumn: `${imageCol} / span ${w}`,
       gridRow: `${bandRow} / span ${h}`,
+      labelSide: first ? "right" : "left",
+      labelTop: (positionInBand + bandIndex) % 2 === 0,
     };
 
-    cursor = col + w;
-    firstInBand = false;
+    cursor = cursor + w + 1;
+    positionInBand += 1;
     bandHeight = Math.max(bandHeight, h);
   });
 
