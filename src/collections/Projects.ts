@@ -62,22 +62,22 @@ export const Projects: CollectionConfig = {
     {
       name: "gridSize",
       type: "select",
-      label: "Velikost na mreži (Domov)",
+      label: "Dimenzija na prvi strani",
       defaultValue: "auto",
+      // The stored values are leftovers from an earlier grid. They are kept as
+      // they are because this column is a Postgres enum: renaming them would
+      // need a production migration, and only the labels are ever seen.
       options: [
         { label: "Samodejno", value: "auto" },
-        { label: "Veliko, kvadratno (2×2)", value: "2x2" },
-        { label: "Široko (2×1)", value: "2x1" },
-        { label: "Visoko, pokončno (1×2)", value: "1x2" },
-        { label: "Majhno, kvadratno (1×1)", value: "1x1" },
+        { label: "Ležeča (4:3)", value: "2x2" },
+        { label: "Kvadrat (1:1)", value: "1x1" },
+        { label: "Široka (16:10)", value: "2x1" },
+        { label: "Pokončna (3:4)", value: "1x2" },
       ],
       admin: {
         position: "sidebar",
-        // The home composition is now a fixed set of interlocking modules, so an
-        // arbitrary per-project size would break the edge and corner alignments.
-        // The field is kept (data preserved) but hidden until it means something.
-        hidden: true,
-        description: "Nadzoruje obliko in velikost kartice tega projekta v mreži na Domov strani.",
+        description:
+          "Oblika naslovne slike v mreži na prvi strani. Pri »Samodejno« se oblike izmenjujejo same. Postavitev se prilagodi ne glede na to, kaj izbereš.",
       },
     },
     {

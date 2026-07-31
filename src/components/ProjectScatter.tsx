@@ -1,12 +1,14 @@
 import Link from "next/link";
 import type { Media } from "@/payload-types";
-import { getScatterSlot, type Project } from "@/lib/projects";
+import { buildScatterLayout, type Project } from "@/lib/projects";
 
 export default function ProjectScatter({ projects }: { projects: Project[] }) {
+  const layout = buildScatterLayout(projects);
+
   return (
     <div className="scatter-grid">
       {projects.map((p, i) => {
-        const slot = getScatterSlot(i);
+        const slot = layout[i];
         const heroDoc = typeof p.heroImage === "object" ? (p.heroImage as Media | null) : null;
         const hero = heroDoc?.mimeType?.startsWith("image/") ? heroDoc : null;
 
