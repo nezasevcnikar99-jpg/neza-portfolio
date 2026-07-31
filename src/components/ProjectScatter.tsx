@@ -1,7 +1,6 @@
-import { Fragment } from "react";
 import Link from "next/link";
 import type { Media } from "@/payload-types";
-import { area, getScatterSlot, type Project } from "@/lib/projects";
+import { getScatterSlot, type Project } from "@/lib/projects";
 
 export default function ProjectScatter({ projects }: { projects: Project[] }) {
   return (
@@ -12,8 +11,16 @@ export default function ProjectScatter({ projects }: { projects: Project[] }) {
         const hero = heroDoc?.mimeType?.startsWith("image/") ? heroDoc : null;
 
         return (
-          <Fragment key={p.slug}>
-            <Link href={`/projects/${p.slug}`} className="scatter-media project-cell" style={area(slot.image)}>
+          <div
+            key={p.slug}
+            className="scatter-item"
+            style={{ gridColumn: slot.gridColumn, gridRow: slot.gridRow }}
+          >
+            <Link
+              href={`/projects/${p.slug}`}
+              className="scatter-media project-cell"
+              style={{ aspectRatio: slot.aspectRatio }}
+            >
               {hero?.url ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
@@ -42,13 +49,13 @@ export default function ProjectScatter({ projects }: { projects: Project[] }) {
               </div>
             </Link>
 
-            <div className="scatter-label font-sans" style={area(slot.label)}>
+            <div className="scatter-label font-sans">
               <div className="scatter-label-title">{p.title}</div>
               <div className="scatter-label-meta">
                 {p.category}, {p.year}
               </div>
             </div>
-          </Fragment>
+          </div>
         );
       })}
     </div>

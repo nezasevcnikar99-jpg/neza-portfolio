@@ -3,57 +3,47 @@ import type { Project } from "@/payload-types";
 export type { Project };
 
 /**
- * The home composition is a 12-column module grid with no gutters, so placements
- * are exact: images that sit in neighbouring cells meet edge to edge, and images
- * placed one module apart diagonally meet at a single corner.
+ * Home composition: a 12-column grid with even gutters.
  *
- * A unit of five projects repeats down the page. Within a unit:
- *   0 — 1  share a vertical edge
- *   1 — 2  meet at a corner
- *   2 — 3  meet at a corner
- *   4      stands alone, giving the composition somewhere to breathe
+ * Only four picture sizes exist, and every image starts on one of four column
+ * lines (1, 4, 7, 10). Repeating so few sizes and so few left edges is what
+ * makes the grid legible — the eye picks up the alignment down the page.
  *
- * Each image reserves an empty cell beside it for its label, which is why the
- * labels line up with the grid instead of floating against the pictures.
+ * Images are placed in explicit bands rather than left to flow, and everything
+ * in a band hangs from the same top line. No per-image vertical offsets: those
+ * are what made earlier versions read as scattered rather than composed.
  */
-type Cell = { col: number; colSpan: number; row: number; rowSpan: number };
-type Slot = { image: Cell; label: Cell };
+type SizeKey = "landscape" | "portrait" | "square" | "wide";
 
-const UNIT: Slot[] = [
-  {
-    image: { col: 1, colSpan: 5, row: 1, rowSpan: 4 },
-    label: { col: 6, colSpan: 3, row: 1, rowSpan: 1 },
-  },
-  {
-    image: { col: 6, colSpan: 5, row: 3, rowSpan: 5 },
-    label: { col: 11, colSpan: 2, row: 3, rowSpan: 1 },
-  },
-  {
-    image: { col: 3, colSpan: 3, row: 8, rowSpan: 4 },
-    label: { col: 6, colSpan: 3, row: 8, rowSpan: 1 },
-  },
-  {
-    image: { col: 6, colSpan: 5, row: 12, rowSpan: 4 },
-    label: { col: 11, colSpan: 2, row: 12, rowSpan: 1 },
-  },
-  {
-    image: { col: 1, colSpan: 4, row: 17, rowSpan: 5 },
-    label: { col: 5, colSpan: 3, row: 17, rowSpan: 1 },
-  },
+const SIZES: Record<SizeKey, { span: number; ratio: string }> = {
+  landscape: { span: 4, ratio: "4 / 3" },
+  portrait: { span: 3, ratio: "3 / 4" },
+  square: { span: 3, ratio: "1 / 1" },
+  wide: { span: 5, ratio: "16 / 10" },
+};
+
+/** Each size appears exactly twice per unit, so no shape dominates. */
+const UNIT: { band: number; start: number; size: SizeKey }[] = [
+  { band: 1, start: 1, size: "landscape" },
+  { band: 1, start: 7, size: "square" },
+  { band: 2, start: 4, size: "wide" },
+  { band: 3, start: 1, size: "portrait" },
+  { band: 3, start: 7, size: "landscape" },
+  { band: 4, start: 4, size: "square" },
+  { band: 4, start: 10, size: "portrait" },
+  { band: 5, start: 1, size: "wide" },
 ];
 
-/** Height of one repeat, leaving a blank row before the next unit starts. */
-const UNIT_ROWS = 22;
+const UNIT_BANDS = 5;
 
-const shift = (cell: Cell, rows: number): Cell => ({ ...cell, row: cell.row + rows });
-
-export function getScatterSlot(index: number): Slot {
+export function getScatterSlot(index: number) {
   const slot = UNIT[index % UNIT.length];
-  const rows = Math.floor(index / UNIT.length) * UNIT_ROWS;
-  return { image: shift(slot.image, rows), label: shift(slot.label, rows) };
-}
+  const unit = Math.floor(index / UNIT.length);
+  const size = SIZES[slot.size];
 
-export const area = (cell: Cell) => ({
-  gridColumn: `${cell.col} / span ${cell.colSpan}`,
-  gridRow: `${cell.row} / span ${cell.rowSpan}`,
-});
+  return {
+    gridColumn: `${slot.start} / span ${size.span}`,
+    gridRow: String(unit * UNIT_BANDS + slot.band),
+    aspectRatio: size.ratio,
+  };
+}
