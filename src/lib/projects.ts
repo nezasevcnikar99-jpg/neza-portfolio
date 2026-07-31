@@ -42,15 +42,18 @@ const SIZE_BY_FIELD: Record<string, SizeKey> = {
 /**
  * Shape order used for projects left on "auto".
  *
- * Weighted towards squares: three of them fill a band exactly, while anything
- * two columns wide leaves room for only one more picture. Leaning on squares
- * keeps bands full and the page shorter.
+ * Weighted towards squares, and towards runs of four of them: four squares fill
+ * a band exactly, which both puts a picture in the last column and sets two
+ * pairs side by side so their inner edges meet. Anything two columns wide
+ * breaks the run, so the wider shapes are spaced out.
  */
 const AUTO_CYCLE: SizeKey[] = [
   "small",
   "small",
   "small",
+  "small",
   "landscape",
+  "small",
   "small",
   "small",
   "big",
@@ -128,7 +131,9 @@ export function buildScatterLayout(projects: Project[]): Slot[] {
         ]);
         column = labelCol + 1 + right.w;
       } else {
-        groups.push([{ ...left, imageCol: column, side: "right", top: !flip }]);
+        // A picture with no partner takes its label on the left instead, so the
+        // picture itself can sit against the right edge rather than its caption.
+        groups.push([{ ...left, imageCol: column + 1, side: "left", top: !flip }]);
         column += left.w + 1;
       }
     }
