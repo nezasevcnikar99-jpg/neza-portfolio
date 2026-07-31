@@ -4,6 +4,7 @@
   --color-ink: oklch(20% 0.01 260);
   --color-accent: oklch(55% 0.18 258);
   --color-stripe-bg: oklch(96% 0.006 260);
+  --page-pad: clamp(20px, 3.5vw, 60px);
 }
 
 @theme inline {
@@ -67,8 +68,117 @@ a {
   opacity: 1;
 }
 .project-cell-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 22px;
+  /* Fully opaque: the photograph must not read through the blue. */
+  background: oklch(55% 0.18 258);
   opacity: 0;
   transition: opacity 0.3s ease;
+}
+
+/* --- Home: pinned intro ------------------------------------------------- */
+
+.intro-lead {
+  font-weight: 500;
+  font-size: clamp(36px, 5vw, 58px);
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.intro-description {
+  font-size: 16px;
+  line-height: 1.6;
+  color: oklch(20% 0.01 260 / 0.7);
+  max-width: 560px;
+  margin: 0;
+}
+
+.intro-static {
+  padding: 104px var(--page-pad) 64px;
+  max-width: 1680px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.intro-arrow {
+  position: absolute;
+  left: var(--page-pad);
+  bottom: 56px;
+  color: oklch(20% 0.01 260 / 0.4);
+  animation: intro-arrow-bob 2.4s ease-in-out infinite;
+}
+
+@keyframes intro-arrow-bob {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 7px;
+  }
+}
+
+/* --- Home: scattered composition ---------------------------------------- */
+
+.scatter-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: 28px;
+  row-gap: 72px;
+  align-items: start;
+  max-width: 1680px;
+  margin: 0 auto;
+  padding: 0 var(--page-pad);
+  box-sizing: border-box;
+}
+
+.scatter-media {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border-radius: 2px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.scatter-label {
+  position: absolute;
+  width: 160px;
+  font-size: 11px;
+  line-height: 1.5;
+  letter-spacing: 0.03em;
+  pointer-events: none;
+}
+
+/* Below this the 12-column composition gets too cramped for the labels to sit
+   beside the images, so it collapses to a single full-width column. */
+@media (max-width: 1024px) {
+  .scatter-grid {
+    grid-template-columns: 1fr;
+    row-gap: 44px;
+  }
+  .scatter-item {
+    grid-column: 1 / -1 !important;
+    margin-top: 0 !important;
+  }
+  .scatter-label {
+    position: static !important;
+    width: auto !important;
+    text-align: left !important;
+    margin-top: 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-arrow {
+    animation: none;
+  }
 }
 
 .back-link {
