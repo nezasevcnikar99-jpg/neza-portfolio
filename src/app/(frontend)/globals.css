@@ -4,7 +4,7 @@
   --color-ink: oklch(20% 0.01 260);
   --color-accent: oklch(55% 0.18 258);
   --color-stripe-bg: oklch(96% 0.006 260);
-  --page-pad: clamp(20px, 3.5vw, 60px);
+  --page-pad: clamp(14px, 1.6vw, 32px);
 }
 
 @theme inline {
@@ -100,7 +100,7 @@ a {
 
 .intro-static {
   padding: 104px var(--page-pad) 64px;
-  max-width: 1680px;
+  max-width: 2000px;
   margin: 0 auto;
   width: 100%;
   box-sizing: border-box;
@@ -129,7 +129,7 @@ a {
 /* Establishes the container the module is measured against, so one square
    module can be derived exactly from the grid's own width. */
 .scatter-wrap {
-  max-width: 1500px;
+  max-width: 2000px;
   margin: 0 auto;
   padding: 0 var(--page-pad);
   box-sizing: border-box;
