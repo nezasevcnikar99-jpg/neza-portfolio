@@ -5,6 +5,8 @@
   --color-accent: oklch(55% 0.18 258);
   --color-stripe-bg: oklch(96% 0.006 260);
   --page-pad: clamp(20px, 3.5vw, 60px);
+  /* One grid module. Roughly square against a 12-column content width. */
+  --scatter-row: clamp(34px, 4.2vw, 62px);
 }
 
 @theme inline {
@@ -129,9 +131,10 @@ a {
 .scatter-grid {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-  column-gap: 28px;
-  row-gap: 72px;
-  align-items: start;
+  /* No gutters: neighbouring cells must meet exactly, edge to edge and corner
+     to corner. Separation between images comes from empty modules instead. */
+  gap: 0;
+  grid-auto-rows: var(--scatter-row);
   max-width: 1680px;
   margin: 0 auto;
   padding: 0 var(--page-pad);
@@ -141,19 +144,49 @@ a {
 .scatter-media {
   position: relative;
   display: block;
+  height: 100%;
   overflow: hidden;
-  border-radius: 2px;
   text-decoration: none;
   color: inherit;
 }
 
-.scatter-label {
+.scatter-placeholder {
   position: absolute;
-  width: 160px;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 14px;
+  background: repeating-linear-gradient(
+      135deg,
+      oklch(20% 0.01 260 / 0.05) 0px,
+      oklch(20% 0.01 260 / 0.05) 1px,
+      transparent 1px,
+      transparent 9px
+    ),
+    oklch(96% 0.006 260);
+  font-family: ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  color: oklch(20% 0.01 260 / 0.35);
+  text-align: center;
+}
+
+.scatter-label {
+  align-self: start;
+  padding-left: 16px;
   font-size: 11px;
-  line-height: 1.5;
-  letter-spacing: 0.03em;
+  line-height: 1.55;
+  letter-spacing: 0.02em;
   pointer-events: none;
+}
+
+.scatter-label-title {
+  color: oklch(20% 0.01 260 / 0.85);
+}
+
+.scatter-label-meta {
+  color: oklch(20% 0.01 260 / 0.42);
 }
 
 /* Below this the 12-column composition gets too cramped for the labels to sit
@@ -161,17 +194,19 @@ a {
 @media (max-width: 1024px) {
   .scatter-grid {
     grid-template-columns: 1fr;
-    row-gap: 44px;
+    grid-auto-rows: auto;
   }
-  .scatter-item {
+  .scatter-media {
     grid-column: 1 / -1 !important;
-    margin-top: 0 !important;
+    grid-row: auto !important;
+    height: auto;
+    aspect-ratio: 4 / 3;
   }
   .scatter-label {
-    position: static !important;
-    width: auto !important;
-    text-align: left !important;
-    margin-top: 10px;
+    grid-column: 1 / -1 !important;
+    grid-row: auto !important;
+    padding-left: 0;
+    margin: 10px 0 44px;
   }
 }
 

@@ -73,6 +73,10 @@ export const Projects: CollectionConfig = {
       ],
       admin: {
         position: "sidebar",
+        // The home composition is now a fixed set of interlocking modules, so an
+        // arbitrary per-project size would break the edge and corner alignments.
+        // The field is kept (data preserved) but hidden until it means something.
+        hidden: true,
         description: "Nadzoruje obliko in velikost kartice tega projekta v mreži na Domov strani.",
       },
     },
