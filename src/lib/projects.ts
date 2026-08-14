@@ -3,29 +3,36 @@ import type { Project } from "@/payload-types";
 export type { Project };
 
 /**
- * Home composition: a six-column grid built on one square module.
+ * Home composition: a twelve-column grid built on one square module.
  *
- * Three footprints — a square, a double square, and a landscape two squares
- * wide — so every picture is a whole number of modules.
+ * Three footprints — a square two columns wide, a bigger square three wide, and
+ * a landscape three by two — so every picture is a whole number of modules.
+ *
+ * Twelve columns rather than six so the two squares can differ by a half step
+ * instead of a whole one. At six, the big square was twice the small one in
+ * each direction and so four times its area; at twelve it is one and a half
+ * times, or 2.4 times the area, and the dead space left under a short picture
+ * sharing a band with a tall one halves along with it.
  *
  * Each picture claims one extra column for its label, which sits horizontally
- * beside it. Reserving that column during packing rather than afterwards is
- * what stops two neighbours from wanting the same gap: the first picture in a
- * band takes the column to its right, everyone after it takes the column to
- * its left, so no column is ever claimed twice. It also means the picture that
- * starts at column one never puts its label out in the page margin.
+ * beside it. That column is now a twelfth of the width rather than a sixth.
+ * Reserving it during packing rather than afterwards is what stops two
+ * neighbours from wanting the same gap: the first picture in a band takes the
+ * column to its right, everyone after it takes the column to its left, so no
+ * column is ever claimed twice. It also means the picture that starts at column
+ * one never puts its label out in the page margin.
  *
  * Rows are quarter modules. Four of them plus the gaps add back up to a whole
- * module, so pictures stay exactly square while bands can sit a quarter module
- * apart — close enough to read as one field rather than separate rows.
+ * module, so pictures stay exactly square while bands can sit a fraction of a
+ * module apart — close enough to read as one field rather than separate rows.
  */
 export type SizeKey = "small" | "big" | "landscape";
 
 /** Width in columns, height in quarter-module rows. */
 const SIZES: Record<SizeKey, { w: number; h: number }> = {
-  small: { w: 1, h: 4 },
-  big: { w: 2, h: 8 },
-  landscape: { w: 2, h: 4 },
+  small: { w: 2, h: 8 },
+  big: { w: 3, h: 12 },
+  landscape: { w: 3, h: 8 },
 };
 
 /**
@@ -60,7 +67,7 @@ const AUTO_CYCLE: SizeKey[] = [
   "small",
 ];
 
-const COLUMNS = 6;
+const COLUMNS = 12;
 
 function resolveSize(project: Project, index: number): SizeKey {
   const chosen = project.gridSize;
@@ -91,7 +98,7 @@ const columnsUsed = (items: Banded[]) =>
  * third one is indented by a column, and only every third is pushed out to the
  * right edge, so some rows float clear of one margin or the other.
  */
-const bandStart = (band: number) => (band % 3 === 1 ? 2 : 1);
+const bandStart = (band: number) => (band % 3 === 1 ? 3 : 1);
 const bandJustifies = (band: number) => band % 3 === 0;
 
 export function buildScatterLayout(projects: Project[]): Slot[] {
@@ -156,8 +163,9 @@ export function buildScatterLayout(projects: Project[]): Slot[] {
       };
     });
 
-    // One spacer row between bands: a quarter module, not a whole one.
-    bandRow += Math.max(...items.map((item) => item.h)) + 1;
+    // Two spacer rows: on a twelve-column grid a quarter row is half what it
+    // was at six, so two of them keep the gap between bands where it was.
+    bandRow += Math.max(...items.map((item) => item.h)) + 2;
   });
 
   return slots;

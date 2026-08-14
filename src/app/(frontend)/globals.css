@@ -139,7 +139,7 @@ a {
 }
 
 .scatter-grid {
-  --cols: 6;
+  --cols: 12;
   --gap: 16px;
   --module: calc((100cqw - (var(--cols) - 1) * var(--gap)) / var(--cols));
   display: grid;
