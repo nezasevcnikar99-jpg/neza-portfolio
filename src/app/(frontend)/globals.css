@@ -287,13 +287,9 @@ a {
 .project {
   max-width: 1700px;
   margin: 0 auto;
-  padding: 0 var(--page-pad) 40px;
+  padding: 44px var(--page-pad) 40px;
   width: 100%;
   box-sizing: border-box;
-}
-
-.project-head {
-  padding: 48px 0 56px;
 }
 
 .project-back {
@@ -311,17 +307,13 @@ a {
   margin-bottom: 18px;
 }
 
-/* Sized off the viewport so long titles shrink to fit rather than wrap: the
-   title is meant to read as a single line. */
 .project-title {
   font-weight: 500;
-  font-size: clamp(30px, 5.2vw, 68px);
-  line-height: 1.05;
-  letter-spacing: -0.02em;
+  font-size: clamp(27px, 2.5vw, 38px);
+  line-height: 1.15;
+  letter-spacing: -0.015em;
   margin: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  text-wrap: balance;
 }
 
 .project-subtitle {
@@ -343,7 +335,7 @@ a {
   font-size: 16px;
   line-height: 1.65;
   color: oklch(20% 0.01 260 / 0.8);
-  margin: 0;
+  margin: 28px 0 0;
 }
 
 .project-facts {
@@ -604,12 +596,6 @@ a {
   .project-body {
     grid-template-columns: 1fr;
     gap: 48px;
-  }
-
-  /* A single column has no room to shrink a long title into one line. */
-  .project-title {
-    white-space: normal;
-    font-size: clamp(28px, 8vw, 42px);
   }
 
   .collage-grid {

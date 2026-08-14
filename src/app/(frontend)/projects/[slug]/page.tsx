@@ -40,19 +40,17 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
       <Header active="delo" />
 
       <article className="project">
-        <header className="project-head">
-          <Link href="/" className="back-link project-back">
-            ← Projekti
-          </Link>
-          <div className="project-eyebrow">
-            {project.category} · {project.year}
-          </div>
-          <h1 className="project-title">{project.title}</h1>
-          {project.subtitle && <p className="project-subtitle">{project.subtitle}</p>}
-        </header>
-
         <div className="project-body">
           <aside className="project-info">
+            <Link href="/" className="back-link project-back">
+              ← Projekti
+            </Link>
+            <div className="project-eyebrow">
+              {project.category} · {project.year}
+            </div>
+            <h1 className="project-title">{project.title}</h1>
+            {project.subtitle && <p className="project-subtitle">{project.subtitle}</p>}
+
             {project.intro && <p className="project-intro">{project.intro}</p>}
 
             {facts.length > 0 && (
