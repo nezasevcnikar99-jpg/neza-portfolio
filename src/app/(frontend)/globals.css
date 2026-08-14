@@ -58,30 +58,6 @@ a {
   color: oklch(20% 0.01 260);
 }
 
-.project-cell {
-  transition: transform 0.25s ease;
-  transform-origin: center;
-  will-change: transform;
-}
-.project-cell:hover {
-  transform: scale(0.99);
-}
-.project-cell:hover .project-cell-overlay {
-  opacity: 1;
-}
-.project-cell-overlay {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 22px;
-  /* Fully opaque: the photograph must not read through the blue. */
-  background: oklch(55% 0.18 258);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
 /* --- Home: pinned intro ------------------------------------------------- */
 
 .intro-lead {
@@ -123,140 +99,6 @@ a {
   }
   50% {
     translate: 0 7px;
-  }
-}
-
-/* --- Home: scattered composition ---------------------------------------- */
-
-/* Establishes the container the module is measured against, so one square
-   module can be derived exactly from the grid's own width. */
-.scatter-wrap {
-  max-width: 2000px;
-  margin: 0 auto;
-  padding: 0 var(--page-pad);
-  box-sizing: border-box;
-  container-type: inline-size;
-}
-
-.scatter-grid {
-  --cols: 12;
-  --gap: 16px;
-  --module: calc((100cqw - (var(--cols) - 1) * var(--gap)) / var(--cols));
-  display: grid;
-  grid-template-columns: repeat(var(--cols), 1fr);
-  /* Quarter modules: four rows plus their gaps add back up to one whole module,
-     so squares stay square while bands can sit a quarter module apart. */
-  grid-auto-rows: calc((var(--module) - 3 * var(--gap)) / 4);
-  gap: var(--gap);
-}
-
-.scatter-item {
-  position: relative;
-  /* Grid items refuse to shrink below their content by default, which lets a
-     single-column track blow past the viewport. */
-  min-width: 0;
-}
-
-.scatter-media {
-  position: relative;
-  display: block;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  text-decoration: none;
-  color: inherit;
-}
-
-.scatter-placeholder {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 14px;
-  background: repeating-linear-gradient(
-      135deg,
-      oklch(20% 0.01 260 / 0.05) 0px,
-      oklch(20% 0.01 260 / 0.05) 1px,
-      transparent 1px,
-      transparent 9px
-    ),
-    oklch(96% 0.006 260);
-  font-family: ui-monospace, monospace;
-  font-size: 10px;
-  letter-spacing: 0.04em;
-  color: oklch(20% 0.01 260 / 0.35);
-  text-align: center;
-}
-
-/* Sits horizontally in the column reserved beside its picture, hugging the
-   picture's edge and aligned to its top or bottom. */
-.scatter-label {
-  position: absolute;
-  width: var(--module);
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  font-size: 11px;
-  line-height: 1.5;
-  letter-spacing: 0.02em;
-  pointer-events: none;
-}
-
-.label-left .scatter-label {
-  right: 100%;
-  margin-right: var(--gap);
-  text-align: right;
-}
-
-.label-right .scatter-label {
-  left: 100%;
-  margin-left: var(--gap);
-  text-align: left;
-}
-
-.label-top .scatter-label {
-  top: 0;
-}
-
-.label-bottom .scatter-label {
-  bottom: 0;
-}
-
-.scatter-label-title {
-  color: oklch(20% 0.01 260 / 0.85);
-}
-
-.scatter-label-meta {
-  color: oklch(20% 0.01 260 / 0.42);
-}
-
-/* Below this the 12-column composition gets too cramped for the labels to sit
-   beside the images, so it collapses to a single full-width column. */
-@media (max-width: 1024px) {
-  .scatter-grid {
-    grid-template-columns: 1fr;
-    grid-auto-rows: auto;
-    row-gap: 40px;
-  }
-  .scatter-item {
-    grid-column: 1 / -1 !important;
-    grid-row: auto !important;
-  }
-  /* Rows are auto here, so there is no row height for a full-height picture to
-     resolve against; the ratio sets the height instead. */
-  .scatter-media {
-    height: auto;
-    aspect-ratio: 4 / 3;
-  }
-  /* No room for a column beside the picture on a phone. */
-  .scatter-label,
-  .label-left .scatter-label,
-  .label-right .scatter-label {
-    position: static;
-    width: auto;
-    margin: 10px 0 0;
-    text-align: left;
   }
 }
 
@@ -633,5 +475,123 @@ a {
 
   .gallery-arrow {
     width: 44px;
+  }
+}
+
+/* --- Home: work index ---------------------------------------------------- */
+
+/* A plain column grid. Every picture is one column wide and starts on the same
+   vertical line as the one above, which is what stops the page reading as a
+   pile; only the proportions vary. */
+.work-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 32px;
+  row-gap: 68px;
+  align-items: start;
+  max-width: 1700px;
+  margin: 0 auto;
+  padding: 0 var(--page-pad);
+  box-sizing: border-box;
+}
+
+.work-item {
+  display: block;
+  min-width: 0;
+  text-decoration: none;
+  color: inherit;
+}
+
+.work-media {
+  position: relative;
+  overflow: hidden;
+  background: repeating-linear-gradient(
+      135deg,
+      oklch(20% 0.01 260 / 0.05) 0px,
+      oklch(20% 0.01 260 / 0.05) 1px,
+      transparent 1px,
+      transparent 9px
+    ),
+    oklch(96% 0.006 260);
+}
+
+.work-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.work-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 14px;
+  font-family: ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  color: oklch(20% 0.01 260 / 0.5);
+  text-align: center;
+}
+
+.work-quote {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: oklch(55% 0.18 258);
+  color: #fff;
+  font-style: italic;
+  font-size: 17px;
+  line-height: 1.4;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.work-item:hover .work-quote,
+.work-item:focus-visible .work-quote {
+  opacity: 1;
+}
+
+/* Directly under its own picture, sharing its left edge, so there is never a
+   question which label belongs to which. */
+.work-label {
+  display: block;
+  margin-top: 14px;
+}
+
+.work-title {
+  display: block;
+  font-size: 14px;
+  line-height: 1.4;
+  color: oklch(20% 0.01 260);
+}
+
+.work-meta {
+  display: block;
+  margin-top: 3px;
+  font-size: 12px;
+  line-height: 1.4;
+  color: oklch(20% 0.01 260 / 0.55);
+}
+
+@media (max-width: 1100px) {
+  .work-grid {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 24px;
+    row-gap: 52px;
+  }
+}
+
+@media (max-width: 680px) {
+  .work-grid {
+    grid-template-columns: 1fr;
+    row-gap: 44px;
   }
 }
