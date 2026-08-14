@@ -48,11 +48,18 @@ const AUTO_CYCLE: SizeKey[] = [
   "portrait",
 ];
 
-export function getProjectRatio(project: Project, index: number): string {
+/** Height as a multiple of the column width, used to balance the columns. */
+const REL_HEIGHT: Record<SizeKey, number> = {
+  landscape: 2 / 3,
+  square: 1,
+  portrait: 5 / 4,
+};
+
+export function getProjectShape(project: Project, index: number) {
   const chosen = project.gridSize;
   const key =
     chosen && chosen !== "auto" && SIZE_BY_FIELD[chosen]
       ? SIZE_BY_FIELD[chosen]
       : AUTO_CYCLE[index % AUTO_CYCLE.length];
-  return RATIOS[key];
+  return { ratio: RATIOS[key], relHeight: REL_HEIGHT[key] };
 }
