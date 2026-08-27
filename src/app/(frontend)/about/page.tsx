@@ -1,107 +1,69 @@
 import { RichText } from "@payloadcms/richtext-lexical/react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import ImageSlot from "@/components/ImageSlot";
-import { getAbout } from "@/lib/settings";
-import { getSettings } from "@/lib/settings";
+import { getAbout, getSettings } from "@/lib/settings";
 import type { Media } from "@/payload-types";
 
 export const dynamic = "force-dynamic";
 
 export default async function AboutPage() {
   const [about, settings] = await Promise.all([getAbout(), getSettings()]);
-  const portrait = typeof about.portrait === "object" ? (about.portrait as Media | null) : null;
+  const doc = typeof about.portrait === "object" ? (about.portrait as Media | null) : null;
+  const portrait = doc?.mimeType?.startsWith("image/") ? doc : null;
 
   return (
     <div className="sheet">
-      <Header active="about" title="About" />
+      <Header active="about" title="O meni" />
 
-      <section
-        style={{
-          flex: 1,
-          padding: "80px 48px 100px",
-          maxWidth: 920,
-          margin: "0 auto",
-          width: "100%",
-          boxSizing: "border-box",
-          display: "grid",
-          gridTemplateColumns: "280px 1fr",
-          gap: 64,
-        }}
-      >
-        <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
-          <ImageSlot
-            label="portret"
-            aspectRatio="4/5"
-            src={portrait?.url}
-            alt={portrait?.alt}
-            mimeType={portrait?.mimeType}
-            filename={portrait?.filename}
-            focalX={portrait?.focalX}
-            focalY={portrait?.focalY}
-          />
-          <div style={{ display: "flex", flexDirection: "column", gap: 6, fontSize: 13, color: "var(--muted)" }}>
-            <span>{settings.email}</span>
-          </div>
+      <div className="ruled page-grid">
+        <div className="cell cell-image is-static">
+          <span className="cell-inner">
+            {portrait?.url ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={portrait.url}
+                alt={portrait.alt}
+                className="cell-photo"
+                style={{ objectPosition: `${portrait.focalX ?? 50}% ${portrait.focalY ?? 50}%` }}
+              />
+            ) : (
+              <span className="cell-blank">portret</span>
+            )}
+          </span>
         </div>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: 48 }}>
-          <div>
-            <h1
-             
-              style={{
-                fontWeight: 500,
-                fontSize: "clamp(32px, 4vw, 44px)",
-                lineHeight: 1.15,
-                margin: "0 0 20px",
-                letterSpacing: "-0.01em",
-              }}
-            >
-              {settings.name}
-            </h1>
-            <div className="bio">{about.bio && <RichText data={about.bio} />}</div>
-          </div>
-
-          <div>
-            <h2
-             
-              style={{ fontSize: 11, fontWeight: 500, letterSpacing: "0.09em", textTransform: "uppercase", margin: "0 0 18px", color: "var(--muted)" }}
-            >
-              Izobrazba
-            </h2>
-            <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-              {(about.education ?? []).map((item, i, arr) => (
-                <div
-                  key={item.id ?? i}
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    gap: 16,
-                    fontSize: 14,
-                    borderBottom: i < arr.length - 1 ? "1px solid var(--rule)" : undefined,
-                    paddingBottom: i < arr.length - 1 ? 12 : 2,
-                  }}
-                >
-                  <span>{item.label}</span>
-                  <span style={{ color: "var(--faint)", flexShrink: 0 }}>{item.dateRange}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <h2
-             
-              style={{ fontSize: 11, fontWeight: 500, letterSpacing: "0.09em", textTransform: "uppercase", margin: "0 0 18px", color: "var(--muted)" }}
-            >
-              Veščine in orodja
-            </h2>
-            <div style={{ fontSize: 14, color: "var(--muted)", lineHeight: 2.3, letterSpacing: "0.01em" }}>
-              {(about.skills ?? []).map((s) => s.skill).join("     ·     ")}
-            </div>
-          </div>
+        <div className="cell page-cell" style={{ gridColumn: "span 2" }}>
+          <div className="bio">{about.bio && <RichText data={about.bio} />}</div>
         </div>
-      </section>
+
+        <div className="cell page-cell">
+          <span className="page-label">Pošta</span>
+          <a href={`mailto:${settings.email}`} className="page-note">
+            {settings.email}
+          </a>
+        </div>
+
+        <div className="cell page-cell">
+          <span className="page-label">Izobrazba</span>
+        </div>
+        <div className="cell page-cell" style={{ gridColumn: "span 3" }}>
+          <ul className="fact-list">
+            {(about.education ?? []).map((item, i) => (
+              <li key={item.id ?? i}>
+                <span>{item.label}</span>
+                <span className="page-note">{item.dateRange}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="cell page-cell">
+          <span className="page-label">Veščine</span>
+        </div>
+        <div className="cell page-cell" style={{ gridColumn: "span 3" }}>
+          <p className="page-text">{(about.skills ?? []).map((s) => s.skill).join(" · ")}</p>
+        </div>
+      </div>
 
       <Footer />
     </div>

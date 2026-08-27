@@ -69,13 +69,6 @@ a {
   color: var(--ink);
 }
 
-.archive-row {
-  padding-left: 0;
-  transition: padding-left 0.2s ease;
-}
-.archive-row:hover {
-  padding-left: 10px;
-}
 
 /* --- Project page -------------------------------------------------------- */
 
@@ -660,5 +653,136 @@ a {
     flex-basis: 100%;
     margin: 16px 0 0;
     font-size: clamp(24px, 8vw, 34px);
+  }
+}
+
+/* --- Inner pages on the same grid ---------------------------------------- */
+
+/* Content pages share the rules but let their bands grow with the text, or a
+   long biography would be cut off by a square cell. */
+.page-grid .cell {
+  min-height: calc(var(--module) * 0.6);
+}
+
+.page-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: var(--inset);
+}
+
+.page-label {
+  font-size: 11px;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.page-note {
+  font-size: 13px;
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.page-lead {
+  font-size: clamp(18px, 2.2cqw, 26px);
+  letter-spacing: -0.01em;
+  text-decoration: none;
+}
+
+.page-lead:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.page-text {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--muted);
+  max-width: 62ch;
+}
+
+.is-static {
+  pointer-events: none;
+}
+
+.fact-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fact-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--rule);
+  font-size: 14px;
+}
+
+.fact-list li:last-child {
+  border-bottom: none;
+}
+
+.archive-cell {
+  gap: 28px;
+}
+
+.archive-year {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+.archive-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.archive-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--rule);
+  text-decoration: none;
+  font-size: 15px;
+  transition: padding-left 0.2s ease;
+}
+
+.archive-row:hover {
+  padding-left: 8px;
+}
+
+.archive-num {
+  color: var(--faint);
+  font-size: 12px;
+}
+
+@media (max-width: 900px) {
+  .page-grid {
+    display: block;
+  }
+  .page-grid .cell {
+    grid-column: auto !important;
+    min-height: 0;
+    border: none;
+    border-bottom: 1px solid var(--rule);
+    padding: 20px var(--page-pad);
+  }
+  .page-grid .cell:empty {
+    display: none;
+  }
+  .page-grid .cell-image {
+    aspect-ratio: 4 / 5;
+    padding: 0;
+  }
+  .archive-year {
+    grid-template-columns: 1fr;
+    gap: 6px;
   }
 }

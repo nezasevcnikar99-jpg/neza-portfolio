@@ -37,7 +37,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
   return (
     <div className="sheet">
-      <Header active="projects" title="Projekt" />
+      <Header title={project.title} />
 
       <article className="project">
         <div className="project-body">

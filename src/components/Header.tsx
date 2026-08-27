@@ -1,14 +1,21 @@
 import Link from "next/link";
 import { getSettings } from "@/lib/settings";
 
-type NavKey = "projects" | "about" | "contact";
+export type NavKey = "arhiv" | "about" | "kontakt";
+
+const NAV: { key: NavKey; label: string; href: string }[] = [
+  { key: "arhiv", label: "Arhiv", href: "/archive" },
+  { key: "about", label: "O meni", href: "/about" },
+  { key: "kontakt", label: "Kontakt", href: "/kontakt" },
+];
 
 /**
- * The masthead is the grid's first band: four ruled cells, one item each, the
- * way the reference sets it. The page title, when there is one, hangs from the
- * bottom of the second cell.
+ * The masthead is the grid's first band: four ruled cells, the name and the
+ * three subpages one to a cell. The page's own title hangs from the bottom of
+ * the second, where the reference sets it — so the same slot always says where
+ * you are.
  */
-export default async function Header({ active, title }: { active?: NavKey; title?: string }) {
+export default async function Header({ active, title }: { active?: NavKey; title: string }) {
   const settings = await getSettings();
 
   return (
@@ -18,22 +25,15 @@ export default async function Header({ active, title }: { active?: NavKey; title
           {settings.name}
         </Link>
       </div>
-      <div className="cell head-cell">
-        <Link href="/" className={`head-link${active === "projects" ? " is-active" : ""}`}>
-          Projects
-        </Link>
-        {title && <h1 className="head-title">{title}</h1>}
-      </div>
-      <div className="cell head-cell">
-        <Link href="/about" className={`head-link${active === "about" ? " is-active" : ""}`}>
-          About
-        </Link>
-      </div>
-      <div className="cell head-cell head-end">
-        <a href={`mailto:${settings.email}`} className="head-link">
-          Contact
-        </a>
-      </div>
+
+      {NAV.map((item, i) => (
+        <div key={item.key} className={`cell head-cell${i === NAV.length - 1 ? " head-end" : ""}`}>
+          <Link href={item.href} className={`head-link${active === item.key ? " is-active" : ""}`}>
+            {item.label}
+          </Link>
+          {i === 0 && <h1 className="head-title">{title}</h1>}
+        </div>
+      ))}
     </header>
   );
 }
