@@ -799,15 +799,19 @@ a {
   inset: var(--inset);
 }
 
-/* Names the picture on hover and doubles as the cue that it opens. */
+/* Same colour wash as the index, but the name sits in the corner rather than
+   across the middle — it should say what the picture is, not announce it. */
 .cell-shot-caption {
   position: absolute;
-  inset: auto 0 0;
-  padding: 12px 14px;
-  background: linear-gradient(to top, rgba(17, 17, 17, 0.72), transparent);
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  padding: calc(var(--inset) * 0.8);
+  background: var(--hover);
   color: var(--sheet);
   font-size: 12px;
   line-height: 1.4;
+  letter-spacing: 0.02em;
   text-align: left;
   opacity: 0;
   transition: opacity 0.25s ease;
