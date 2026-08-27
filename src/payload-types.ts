@@ -426,6 +426,14 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  */
 export interface Home {
   id: number;
+  /**
+   * Zapolni prvi zaslon. Video naj bo kratek in brez zvoka — brskalniki drugače ne predvajajo samodejno.
+   */
+  landingMedia?: (number | null) | Media;
+  /**
+   * Prikaže se na telefonih in dokler se video ne naloži. Pri sliki zgoraj je ne rabiš.
+   */
+  landingPoster?: (number | null) | Media;
   heroLead: string;
   heroAccent: string;
   heroDescription: string;
@@ -486,6 +494,8 @@ export interface Setting {
  * via the `definition` "home_select".
  */
 export interface HomeSelect<T extends boolean = true> {
+  landingMedia?: T;
+  landingPoster?: T;
   heroLead?: T;
   heroAccent?: T;
   heroDescription?: T;

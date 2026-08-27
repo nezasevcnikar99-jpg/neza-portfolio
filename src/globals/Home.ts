@@ -8,21 +8,41 @@ export const Home: GlobalConfig = {
   },
   fields: [
     {
+      name: "landingMedia",
+      type: "upload",
+      relationTo: "media",
+      label: "Uvodna slika ali video",
+      admin: {
+        description:
+          "Zapolni prvi zaslon. Video naj bo kratek in brez zvoka \u2014 brskalniki drugače ne predvajajo samodejno.",
+      },
+    },
+    {
+      name: "landingPoster",
+      type: "upload",
+      relationTo: "media",
+      label: "Nadomestna slika za video",
+      admin: {
+        description:
+          "Prikaže se na telefonih in dokler se video ne naloži. Pri sliki zgoraj je ne rabiš.",
+      },
+    },
+    {
       name: "heroLead",
       type: "text",
-      label: "Naslov (navadni del)",
+      label: "Uvodni stavek (prvi del)",
       required: true,
     },
     {
       name: "heroAccent",
       type: "text",
-      label: "Naslov (poudarjeni, ležeči del)",
+      label: "Uvodni stavek (drugi del)",
       required: true,
     },
     {
       name: "heroDescription",
       type: "textarea",
-      label: "Opis pod naslovom",
+      label: "Opis pod stavkom",
       required: true,
     },
   ],

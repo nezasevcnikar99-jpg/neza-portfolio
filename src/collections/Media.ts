@@ -13,7 +13,7 @@ export const Media: CollectionConfig = {
     },
   ],
   upload: {
-    mimeTypes: ["image/jpeg", "image/png", "image/webp", "application/pdf"],
+    mimeTypes: ["image/jpeg", "image/png", "image/webp", "application/pdf", "video/mp4", "video/webm"],
     // Payload's server-side type sniffing can't inspect real file bytes when a file is
     // uploaded directly to Vercel Blob (clientUploads), so it falls back to a hardcoded
     // extension map that doesn't know jpg/png/pdf and misidentifies them as text/plain,
