@@ -9,6 +9,13 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  // sharp loads its libvips binary at runtime through dlopen, which file
+  // tracing cannot see. Without these the deployed server throws
+  // "libvips-cpp.so: cannot open shared object file" on every request.
+  outputFileTracingIncludes: {
+    "/**": ["./node_modules/@img/**"],
+  },
+  serverExternalPackages: ["sharp"],
 };
 
 export default withPayload(nextConfig, { devBundleServerPackages: false });
