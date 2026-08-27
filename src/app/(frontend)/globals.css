@@ -425,9 +425,12 @@ a {
     font-size: 15px;
   }
 
-  /* Name on its own line, the three links spread beneath it, title last. */
+  /* Name on its own line, the three links spread beneath it, title last. The
+     direction has to be stated: the masthead also carries .ruled, which turns
+     into a column here, and that would stack the links one per line. */
   .head {
     display: flex;
+    flex-direction: row;
     flex-wrap: wrap;
     align-items: baseline;
     justify-content: space-between;
