@@ -7,6 +7,7 @@ function ImageCell({ cell }: { cell: Extract<Cell, { kind: "image" }> }) {
   const p = cell.project;
   const doc = typeof p.heroImage === "object" ? (p.heroImage as Media | null) : null;
   const hero = doc?.mimeType?.startsWith("image/") ? doc : null;
+  const quote = p.quote?.trim();
 
   return (
     <Link
@@ -25,6 +26,14 @@ function ImageCell({ cell }: { cell: Extract<Cell, { kind: "image" }> }) {
           />
         ) : (
           <span className="cell-blank">{p.imgLabel ?? "fotografija"}</span>
+        )}
+
+        {/* Only when there is something to say — an empty quote used to render
+            as the literal word "null" across the picture. */}
+        {quote && (
+          <span className="cell-quote">
+            <span className="cell-quote-text">{`\u201c${quote}\u201d`}</span>
+          </span>
         )}
       </span>
     </Link>

@@ -8,6 +8,8 @@
   --sheet: #ffffff;
   --rule: #dcdbd8;
   --fill: #f4f3f1;
+  /* The one colour on the site, kept for the hover over a project. */
+  --hover: #1f3fd8;
   --page-pad: clamp(16px, 2.2vw, 40px);
 }
 
@@ -478,8 +480,31 @@ a {
   transition: opacity 0.25s ease;
 }
 
-.cell-image:hover .cell-photo {
-  opacity: 0.82;
+/* Covers the picture on hover and carries the project's line. */
+.cell-quote {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: calc(var(--inset) * 0.9);
+  background: var(--hover);
+  color: var(--sheet);
+  opacity: 0;
+  transition: opacity 0.28s ease;
+}
+
+.cell-quote-text {
+  font-size: clamp(13px, 1.25cqw, 18px);
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  text-align: center;
+  text-wrap: balance;
+}
+
+.cell-image:hover .cell-quote,
+.cell-image:focus-visible .cell-quote {
+  opacity: 1;
 }
 
 .cell-blank {
