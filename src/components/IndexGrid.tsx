@@ -31,6 +31,7 @@ function ImageCell({ cell }: { cell: Extract<Cell, { kind: "image" }> }) {
         {/* Always the colour, so every project answers the pointer; the line
             only where one is written, or an empty quote prints as bare marks. */}
         <span className="cell-quote">
+          <span className="cell-quote-name">{p.title}</span>
           {quote && <span className="cell-quote-text">{`\u201c${quote}\u201d`}</span>}
         </span>
       </span>

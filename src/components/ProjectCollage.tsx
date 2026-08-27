@@ -6,18 +6,29 @@ import ProjectGallery, { type Slide } from "./ProjectGallery";
 export type { Slide };
 
 /**
- * The collage shows a handful of pictures, not the whole set — the rest live in
- * the gallery. Slots are placed by hand on a six-column square module so the
- * composition reads as deliberate rather than as a contact sheet, with empty
- * modules doing the spacing.
+ * The collage occupies the three right-hand columns of the project's grid — the
+ * first belongs to the writing. Cells are the same square module as the index,
+ * so the two pages read as one grid.
+ *
+ * It shows four pictures at most; the rest are in the gallery. Empty cells are
+ * emitted alongside them so every rule is drawn, as on the index.
  */
 const SLOTS = [
-  { col: 1, colSpan: 4, row: 1, rowSpan: 3 },
-  { col: 5, colSpan: 2, row: 2, rowSpan: 3 },
-  { col: 2, colSpan: 2, row: 5, rowSpan: 2 },
-  { col: 4, colSpan: 3, row: 6, rowSpan: 2 },
-  { col: 1, colSpan: 3, row: 8, rowSpan: 2 },
+  { col: 2, span: 2, row: 1 },
+  { col: 3, span: 2, row: 2 },
+  { col: 2, span: 2, row: 3 },
+  { col: 4, span: 1, row: 3 },
 ];
+
+/** Cells the pictures leave open, plus the one the gallery button sits in. */
+const BLANKS = [
+  { col: 4, row: 1 },
+  { col: 2, row: 2 },
+  { col: 2, row: 4 },
+  { col: 3, row: 4 },
+];
+
+const BUTTON = { col: 4, row: 4 };
 
 export default function ProjectCollage({
   slides,
@@ -29,54 +40,72 @@ export default function ProjectCollage({
   placeholderLabel: string;
 }) {
   const [openAt, setOpenAt] = useState<number | null>(null);
-  const featured = slides.slice(0, SLOTS.length);
-  const hidden = slides.length - featured.length;
-
-  if (slides.length === 0) {
-    return <div className="collage-empty">{placeholderLabel}</div>;
-  }
+  const shown = SLOTS.slice(0, Math.max(slides.length, 1));
+  const hidden = Math.max(0, slides.length - shown.length);
 
   return (
-    <div className="collage">
-      <div className="collage-grid">
-        {featured.map((slide, i) => {
-          const slot = SLOTS[i];
-          const label = slide.caption?.trim() || slide.image?.alt?.trim() || `${fallbackTitle} ${i + 1}`;
+    <>
+      {shown.map((slot, i) => {
+        const slide = slides[i];
+        const label =
+          slide?.caption?.trim() || slide?.image?.alt?.trim() || `${fallbackTitle} ${i + 1}`;
 
-          return (
-            <button
-              key={i}
-              type="button"
-              className="collage-tile"
-              style={{
-                gridColumn: `${slot.col} / span ${slot.colSpan}`,
-                gridRow: `${slot.row} / span ${slot.rowSpan}`,
-              }}
-              onClick={() => setOpenAt(i)}
-              aria-label={`Odpri galerijo — ${label}`}
-            >
-              {slide.image?.url ? (
+        return (
+          <button
+            key={`shot-${i}`}
+            type="button"
+            className="cell cell-shot"
+            style={{ gridColumn: `${slot.col} / span ${slot.span}`, gridRow: slot.row }}
+            onClick={() => slides.length > 0 && setOpenAt(i)}
+            aria-label={`Odpri galerijo — ${label}`}
+          >
+            <span className="cell-inner">
+              {slide?.image?.url ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
                   src={slide.image.url}
                   alt={slide.image.alt ?? label}
-                  className="collage-image"
-                  style={{ objectPosition: `${slide.image.focalX ?? 50}% ${slide.image.focalY ?? 50}%` }}
+                  className="cell-photo"
+                  style={{
+                    objectPosition: `${slide.image.focalX ?? 50}% ${slide.image.focalY ?? 50}%`,
+                  }}
                 />
               ) : (
-                <span className="collage-placeholder">{placeholderLabel}</span>
+                <span className="cell-blank">{placeholderLabel}</span>
               )}
-              <span className="collage-caption">{label}</span>
-            </button>
-          );
-        })}
-      </div>
+              <span className="cell-shot-caption">{label}</span>
+            </span>
+          </button>
+        );
+      })}
 
-      {slides.length > 1 && (
-        <button type="button" className="collage-all" onClick={() => setOpenAt(0)}>
-          {hidden > 0 ? `Vse fotografije (${slides.length})` : "Odpri galerijo"} →
-        </button>
-      )}
+      {/* The slots the pictures did not fill, so the rules still run through. */}
+      {SLOTS.slice(shown.length).map((slot, i) => (
+        <span
+          key={`unused-${i}`}
+          className="cell"
+          style={{ gridColumn: `${slot.col} / span ${slot.span}`, gridRow: slot.row }}
+        />
+      ))}
+
+      {BLANKS.map((cell, i) => (
+        <span
+          key={`blank-${i}`}
+          className="cell"
+          style={{ gridColumn: cell.col, gridRow: cell.row }}
+        />
+      ))}
+
+      <div className="cell cell-action" style={{ gridColumn: BUTTON.col, gridRow: BUTTON.row }}>
+        {slides.length > 0 && (
+          <button type="button" className="gallery-open" onClick={() => setOpenAt(0)}>
+            <span className="gallery-open-label">Galerija</span>
+            <span className="gallery-open-count">
+              {hidden > 0 ? `${slides.length} fotografij` : `${slides.length} v galeriji`}
+            </span>
+          </button>
+        )}
+      </div>
 
       {openAt !== null && (
         <ProjectGallery
@@ -86,6 +115,6 @@ export default function ProjectCollage({
           onClose={() => setOpenAt(null)}
         />
       )}
-    </div>
+    </>
   );
 }

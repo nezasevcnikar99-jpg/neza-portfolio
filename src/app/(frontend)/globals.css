@@ -72,214 +72,6 @@ a {
 }
 
 
-/* --- Project page -------------------------------------------------------- */
-
-.project {
-  max-width: 1700px;
-  margin: 0 auto;
-  padding: 44px var(--page-pad) 40px;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.project-back {
-  display: inline-block;
-  font-size: 13px;
-  text-decoration: none;
-  margin-bottom: 40px;
-}
-
-.project-eyebrow {
-  font-size: 11px;
-  letter-spacing: 0.09em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 18px;
-}
-
-.project-title {
-  font-weight: 500;
-  font-size: clamp(27px, 2.5vw, 38px);
-  line-height: 1.15;
-  letter-spacing: -0.015em;
-  margin: 0;
-  text-wrap: balance;
-}
-
-.project-subtitle {
-  font-size: 13px;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin: 18px 0 0;
-}
-
-.project-body {
-  display: grid;
-  grid-template-columns: minmax(260px, 28%) 1fr;
-  gap: clamp(40px, 6vw, 96px);
-  align-items: start;
-}
-
-.project-intro {
-  font-size: 16px;
-  line-height: 1.65;
-  color: var(--muted);
-  margin: 28px 0 0;
-}
-
-.project-facts {
-  margin: 40px 0 0;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.project-fact dt {
-  font-size: 11px;
-  letter-spacing: 0.09em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 5px;
-}
-
-.project-fact dd {
-  margin: 0;
-  font-size: 15px;
-  line-height: 1.5;
-}
-
-.project-concept {
-  margin-top: 44px;
-  padding-top: 32px;
-  border-top: 1px solid var(--rule);
-}
-
-.project-concept h2 {
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.09em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin: 0 0 16px;
-}
-
-.project-nav {
-  display: flex;
-  justify-content: space-between;
-  gap: 24px;
-  margin-top: 96px;
-  padding-top: 28px;
-  border-top: 1px solid var(--rule);
-  font-size: 14px;
-}
-
-.project-nav a {
-  text-decoration: none;
-}
-
-/* --- Project collage ----------------------------------------------------- */
-
-.collage {
-  container-type: inline-size;
-}
-
-.collage-grid {
-  --cols: 6;
-  --gap: 14px;
-  --module: calc((100cqw - (var(--cols) - 1) * var(--gap)) / var(--cols));
-  display: grid;
-  grid-template-columns: repeat(var(--cols), 1fr);
-  grid-auto-rows: var(--module);
-  gap: var(--gap);
-}
-
-.collage-tile {
-  position: relative;
-  display: block;
-  width: 100%;
-  height: 100%;
-  min-width: 0;
-  padding: 0;
-  border: none;
-  background: none;
-  overflow: hidden;
-  cursor: pointer;
-}
-
-.collage-image {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.collage-placeholder,
-.collage-empty {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 14px;
-  background: repeating-linear-gradient(
-      135deg,
-      var(--rule) 0px,
-      var(--rule) 1px,
-      transparent 1px,
-      transparent 9px
-    ),
-    var(--fill);
-  font-family: ui-monospace, monospace;
-  font-size: 10px;
-  letter-spacing: 0.04em;
-  color: var(--faint);
-  text-align: center;
-}
-
-.collage-empty {
-  position: relative;
-  aspect-ratio: 4 / 3;
-}
-
-/* Says what the picture is on hover, and doubles as the cue that it opens. */
-.collage-caption {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: flex-end;
-  padding: 16px;
-  background: rgba(17,17,17,0.88);
-  color: #fff;
-  font-size: 13px;
-  line-height: 1.45;
-  text-align: left;
-  opacity: 0;
-  transition: opacity 0.25s ease;
-}
-
-.collage-tile:hover .collage-caption,
-.collage-tile:focus-visible .collage-caption {
-  opacity: 1;
-}
-
-.collage-all {
-  margin-top: 24px;
-  padding: 0;
-  border: none;
-  background: none;
-  font: inherit;
-  font-size: 13px;
-  color: var(--muted);
-  cursor: pointer;
-  transition: color 0.2s ease;
-}
-
-.collage-all:hover {
-  color: var(--ink);
-}
-
 /* --- Project gallery (full screen) --------------------------------------- */
 
 .gallery {
@@ -382,50 +174,6 @@ a {
   right: 4px;
 }
 
-@media (max-width: 900px) {
-  .project-body {
-    grid-template-columns: 1fr;
-    gap: 48px;
-  }
-
-  .collage-grid {
-    grid-template-columns: 1fr;
-    grid-auto-rows: auto;
-    --gap: 12px;
-  }
-
-  .collage-tile {
-    grid-column: 1 !important;
-    grid-row: auto !important;
-    height: auto;
-    aspect-ratio: 4 / 3;
-  }
-
-  /* Nothing hovers on a phone, so the label sits under the picture instead. */
-  .collage-caption {
-    position: static;
-    opacity: 1;
-    background: none;
-    color: var(--muted);
-    padding: 8px 0 0;
-    font-size: 12px;
-  }
-
-  .collage-tile {
-    aspect-ratio: auto;
-  }
-
-  .collage-image,
-  .collage-placeholder {
-    position: relative;
-    aspect-ratio: 4 / 3;
-  }
-
-  .gallery-arrow {
-    width: 44px;
-  }
-}
-
 /* --- Sheet and ruled grid ------------------------------------------------ */
 
 /* Full bleed: the grid holds the whole window rather than sitting on it as a
@@ -485,13 +233,24 @@ a {
   position: absolute;
   inset: 0;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 10px;
   padding: calc(var(--inset) * 0.9);
   background: var(--hover);
   color: var(--sheet);
   opacity: 0;
   transition: opacity 0.28s ease;
+}
+
+/* Quiet against the quote — it names the project without competing with it. */
+.cell-quote-name {
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.65;
+  text-align: center;
 }
 
 .cell-quote-text {
@@ -625,10 +384,16 @@ a {
 /* Square cells two across leave more rule than picture on a phone, so the grid
    gives way to a plain stack. Cells carry their sequence so a caption follows
    its own picture even where the desktop band puts it first. */
+/* Square cells two across leave more rule than picture on a phone, so the grid
+   gives way to a plain stack. Cells carry their sequence so a caption follows
+   its own picture even where the desktop band puts it first. */
 @media (max-width: 900px) {
   .ruled {
     display: flex;
     flex-direction: column;
+    /* The stack still needs the page's margin, or pictures and captions run
+       flush into the edge of the screen. */
+    padding: 0 var(--page-pad);
     border-top: none;
   }
   .cell {
@@ -641,7 +406,7 @@ a {
   }
   .cell-image {
     aspect-ratio: 4 / 3;
-    margin-top: 28px;
+    margin-top: 44px;
   }
   .cell-inner {
     inset: 0;
@@ -653,31 +418,41 @@ a {
   .corner-br .cell-caption {
     position: static;
     max-width: none;
-    margin-top: 10px;
+    margin-top: 12px;
     text-align: left;
   }
+  .caption-title {
+    font-size: 15px;
+  }
 
+  /* Name on its own line, the three links spread beneath it, title last. */
   .head {
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;
-    gap: 8px 20px;
-    padding: 20px var(--page-pad);
+    justify-content: space-between;
+    gap: 0;
+    padding: 20px var(--page-pad) 26px;
     border-bottom: 1px solid var(--rule);
   }
   .head-cell {
     display: contents;
   }
-  .head-end .head-link,
-  .head-link {
+  .head-name {
+    flex: 1 0 100%;
+    margin-bottom: 18px;
+    font-size: 17px;
+  }
+  .head-link,
+  .head-end .head-link {
     align-self: auto;
+    font-size: 14px;
   }
   .head-title {
-    /* After the links rather than between them, or the row breaks twice. */
     order: 1;
-    flex-basis: 100%;
-    margin: 16px 0 0;
-    font-size: clamp(24px, 8vw, 34px);
+    flex: 1 0 100%;
+    margin: 26px 0 0;
+    font-size: clamp(26px, 8.5vw, 38px);
   }
 }
 
@@ -923,5 +698,186 @@ a {
   }
   .landing-still.is-fallback {
     z-index: auto;
+  }
+}
+
+/* --- Project page -------------------------------------------------------- */
+
+/* One column of writing, three of pictures — the same square module and the
+   same rules as the index, so the two pages read as one grid. */
+.project-grid > .cell {
+  min-height: var(--module);
+}
+
+.project-side {
+  grid-column: 1;
+  grid-row: 1 / span 4;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: var(--inset);
+}
+
+.project-back {
+  font-size: 13px;
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.project-back:hover {
+  color: var(--ink);
+}
+
+.project-subtitle {
+  margin: 0;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.project-intro {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+.project-facts {
+  margin: 6px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.project-fact dt {
+  font-size: 11px;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 3px;
+}
+
+.project-fact dd {
+  margin: 0;
+  font-size: 14px;
+}
+
+.project-concept {
+  margin-top: 6px;
+  padding-top: 16px;
+  border-top: 1px solid var(--rule);
+}
+
+.project-concept h2 {
+  margin: 0 0 10px;
+}
+
+.project-concept .concept p {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+/* Keeps its shape even where a long concept stretches the row it sits in. */
+.cell-shot {
+  padding: 0;
+  border-top: none;
+  background: none;
+  cursor: pointer;
+  align-self: start;
+  aspect-ratio: var(--shot-ratio, 1);
+}
+
+.cell-shot[style*="span 2"] {
+  --shot-ratio: 2;
+}
+
+.cell-shot .cell-inner {
+  inset: var(--inset);
+}
+
+/* Names the picture on hover and doubles as the cue that it opens. */
+.cell-shot-caption {
+  position: absolute;
+  inset: auto 0 0;
+  padding: 12px 14px;
+  background: linear-gradient(to top, rgba(17, 17, 17, 0.72), transparent);
+  color: var(--sheet);
+  font-size: 12px;
+  line-height: 1.4;
+  text-align: left;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.cell-shot:hover .cell-shot-caption,
+.cell-shot:focus-visible .cell-shot-caption {
+  opacity: 1;
+}
+
+.cell-action {
+  display: flex;
+  align-items: flex-end;
+  padding: var(--inset);
+}
+
+.gallery-open {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 0;
+  border: none;
+  background: none;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  color: var(--ink);
+}
+
+.gallery-open-label {
+  font-size: 15px;
+  border-bottom: 1px solid var(--ink);
+  padding-bottom: 2px;
+}
+
+.gallery-open-count {
+  font-size: 11px;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.project-nav .cell {
+  min-height: 0;
+  padding: 22px var(--inset);
+}
+
+@media (max-width: 900px) {
+  .project-side {
+    grid-column: auto;
+    grid-row: auto;
+  }
+  .project-grid,
+  .project-nav {
+    display: block;
+  }
+  .project-grid > .cell,
+  .project-nav > .cell {
+    min-height: 0;
+    border: none;
+    border-bottom: 1px solid var(--rule);
+    padding: 20px var(--page-pad);
+  }
+  .project-grid > .cell:empty,
+  .project-nav > .cell:empty {
+    display: none;
+  }
+  .cell-shot {
+    aspect-ratio: 4 / 3;
+    padding: 0;
+    border-bottom: none;
+  }
+  .cell-shot .cell-inner {
+    inset: 0;
   }
 }

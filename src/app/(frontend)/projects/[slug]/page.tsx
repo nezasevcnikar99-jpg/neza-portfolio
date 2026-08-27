@@ -28,7 +28,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
     })),
   ];
 
-  // Only the facts that are actually filled in — an empty label reads as broken.
+  // Only the facts that are filled in — an empty label reads as broken.
   const facts = [
     { label: "Leto", value: project.year ? String(project.year) : null },
     { label: "Stranka", value: project.stranka },
@@ -39,61 +39,63 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
     <div className="sheet">
       <Header title={project.title} />
 
-      <article className="project">
-        <div className="project-body">
-          <aside className="project-info">
-            <Link href="/" className="back-link project-back">
-              ← Projekti
-            </Link>
-            <div className="project-eyebrow">
-              {project.category} · {project.year}
-            </div>
-            <h1 className="project-title">{project.title}</h1>
-            {project.subtitle && <p className="project-subtitle">{project.subtitle}</p>}
+      <div className="ruled project-grid">
+        <aside className="cell project-side">
+          <Link href="/" className="project-back">
+            ← Projekti
+          </Link>
 
-            {project.intro && <p className="project-intro">{project.intro}</p>}
+          <span className="page-label">
+            {project.category} · {project.year}
+          </span>
 
-            {facts.length > 0 && (
-              <dl className="project-facts">
-                {facts.map((fact) => (
-                  <div key={fact.label} className="project-fact">
-                    <dt>{fact.label}</dt>
-                    <dd>{fact.value}</dd>
-                  </div>
-                ))}
-              </dl>
-            )}
+          {project.subtitle && <p className="project-subtitle">{project.subtitle}</p>}
+          {project.intro && <p className="project-intro">{project.intro}</p>}
 
-            {project.concept && (
-              <section className="project-concept">
-                <h2>Koncept</h2>
-                <div className="concept">
-                  <RichText data={project.concept} />
+          {facts.length > 0 && (
+            <dl className="project-facts">
+              {facts.map((fact) => (
+                <div key={fact.label} className="project-fact">
+                  <dt>{fact.label}</dt>
+                  <dd>{fact.value}</dd>
                 </div>
-              </section>
-            )}
-          </aside>
+              ))}
+            </dl>
+          )}
 
-          <div className="project-visual">
-            <ProjectCollage
-              slides={slides}
-              fallbackTitle={project.title}
-              placeholderLabel={project.imgLabel ?? "fotografija"}
-            />
-          </div>
-        </div>
+          {project.concept && (
+            <section className="project-concept">
+              <h2 className="page-label">Koncept</h2>
+              <div className="concept">
+                <RichText data={project.concept} />
+              </div>
+            </section>
+          )}
+        </aside>
 
-        <nav className="project-nav">
-          <Link href="/" className="nav-link">
+        <ProjectCollage
+          slides={slides}
+          fallbackTitle={project.title}
+          placeholderLabel={project.imgLabel ?? "fotografija"}
+        />
+      </div>
+
+      <nav className="ruled project-nav">
+        <div className="cell page-cell">
+          <Link href="/" className="head-link">
             ← Vsi projekti
           </Link>
+        </div>
+        <div className="cell" />
+        <div className="cell" />
+        <div className="cell page-cell head-end">
           {next && (
-            <Link href={`/projects/${next.slug}`} className="nav-link">
-              Naslednji projekt →
+            <Link href={`/projects/${next.slug}`} className="head-link">
+              {next.title} →
             </Link>
           )}
-        </nav>
-      </article>
+        </div>
+      </nav>
 
       <Footer />
     </div>
