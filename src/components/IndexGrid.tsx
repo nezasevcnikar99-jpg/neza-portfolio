@@ -1,7 +1,7 @@
 import type React from "react";
 import Link from "next/link";
 import type { Media } from "@/payload-types";
-import { buildIndexBands, type Cell, type Project } from "@/lib/projects";
+import { buildIndexCells, type Cell, type Project } from "@/lib/projects";
 
 function ImageCell({ cell }: { cell: Extract<Cell, { kind: "image" }> }) {
   const p = cell.project;
@@ -36,7 +36,7 @@ function LabelCell({ cell }: { cell: Extract<Cell, { kind: "label" }> }) {
   return (
     <Link
       href={`/projects/${p.slug}`}
-      className={`cell cell-label corner-${cell.corner}`}
+      className={`cell cell-label corner-${cell.align}`}
       style={{ "--seq": cell.index * 2 + 1 } as React.CSSProperties}
     >
       <span className="cell-caption">
@@ -48,11 +48,11 @@ function LabelCell({ cell }: { cell: Extract<Cell, { kind: "label" }> }) {
 }
 
 export default function IndexGrid({ projects }: { projects: Project[] }) {
-  const bands = buildIndexBands(projects);
+  const cells = buildIndexCells(projects);
 
   return (
     <div className="ruled">
-      {bands.flat().map((cell, i) => {
+      {cells.map((cell, i) => {
         if (cell.kind === "image") return <ImageCell key={i} cell={cell} />;
         if (cell.kind === "label") return <LabelCell key={i} cell={cell} />;
         return <span key={i} className="cell" />;

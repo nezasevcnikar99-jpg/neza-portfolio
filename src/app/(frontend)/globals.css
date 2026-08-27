@@ -4,7 +4,7 @@
   --ink: #111111;
   --muted: #5c5c5c;
   --faint: #767676;
-  --page: #efeeec;
+  --page: #ffffff;
   --sheet: #ffffff;
   --rule: #dcdbd8;
   --fill: #f4f3f1;
@@ -433,20 +433,11 @@ a {
 
 /* --- Sheet and ruled grid ------------------------------------------------ */
 
-/* A white sheet on a grey page, the way the reference frames its work. The
-   grey margin is wide enough to read as a margin rather than a hairline. */
+/* Full bleed: the grid holds the whole window rather than sitting on it as a
+   sheet with empty ground around. */
 .sheet {
-  background: var(--sheet);
-  width: min(1280px, 84vw);
-  margin: clamp(24px, 4vw, 64px) auto;
+  width: 100%;
   container-type: inline-size;
-}
-
-@media (max-width: 900px) {
-  .sheet {
-    width: 100%;
-    margin: 0;
-  }
 }
 
 .ruled {
@@ -528,6 +519,17 @@ a {
 
 .corner-tl .cell-caption {
   top: var(--inset);
+  left: var(--inset);
+}
+
+.corner-tr .cell-caption {
+  top: var(--inset);
+  right: var(--inset);
+  text-align: right;
+}
+
+.corner-bl .cell-caption {
+  bottom: var(--inset);
   left: var(--inset);
 }
 
@@ -628,6 +630,8 @@ a {
   }
   .cell-caption,
   .corner-tl .cell-caption,
+  .corner-tr .cell-caption,
+  .corner-bl .cell-caption,
   .corner-br .cell-caption {
     position: static;
     max-width: none;
