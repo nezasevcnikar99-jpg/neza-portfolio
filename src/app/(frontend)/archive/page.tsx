@@ -12,8 +12,8 @@ export default async function ArchivePage() {
   const yearRange = years.length ? `${Math.min(...years)}–${Math.max(...years)}` : "";
 
   return (
-    <>
-      <Header active="arhiv" />
+    <div className="sheet">
+      <Header active="projects" title="Arhiv" />
 
       <section
         style={{
@@ -36,12 +36,12 @@ export default async function ArchivePage() {
           }}
         >
           <h1
-            className="font-serif"
+           
             style={{ fontWeight: 500, fontSize: "clamp(32px, 4.5vw, 50px)", lineHeight: 1.15, margin: 0, letterSpacing: "-0.01em" }}
           >
-            Arhiv <span style={{ fontStyle: "italic", color: "oklch(55% 0.18 258)" }}>projektov.</span>
+            Arhiv
           </h1>
-          <div style={{ fontSize: 13, color: "oklch(20% 0.01 260 / 0.45)" }}>
+          <div style={{ fontSize: 13, color: "var(--faint)" }}>
             {total} del, {yearRange}
           </div>
         </div>
@@ -49,8 +49,8 @@ export default async function ArchivePage() {
         {groups.map((g) => (
           <div key={g.year} style={{ display: "grid", gridTemplateColumns: "110px 1fr", gap: 32, marginBottom: 8 }}>
             <div
-              className="font-sans"
-              style={{ fontWeight: 500, fontSize: 14, letterSpacing: "0.06em", color: "oklch(20% 0.01 260 / 0.35)", paddingTop: 20 }}
+             
+              style={{ fontWeight: 500, fontSize: 14, letterSpacing: "0.06em", color: "var(--faint)", paddingTop: 20 }}
             >
               {g.year}
             </div>
@@ -62,23 +62,20 @@ export default async function ArchivePage() {
                   className="archive-row"
                   style={{
                     display: "grid",
-                    gridTemplateColumns: "1fr auto auto",
+                    gridTemplateColumns: "1fr auto",
                     alignItems: "baseline",
                     gap: 20,
                     paddingTop: 14,
                     paddingBottom: 14,
-                    borderBottom: "1px solid oklch(20% 0.01 260 / 0.08)",
+                    borderBottom: "1px solid var(--rule)",
                     textDecoration: "none",
                     color: "inherit",
                   }}
                 >
-                  <span className="font-serif" style={{ fontSize: 19 }}>
+                  <span style={{ fontSize: 19 }}>
                     {p.title}
                   </span>
-                  <span style={{ fontSize: 12, letterSpacing: "0.03em", textTransform: "uppercase", color: "oklch(55% 0.18 258)" }}>
-                    {p.category}
-                  </span>
-                  <span style={{ fontSize: 13, color: "oklch(20% 0.01 260 / 0.3)" }}>{p.num}</span>
+                  <span style={{ fontSize: 13, color: "var(--faint)" }}>{p.num}</span>
                 </Link>
               ))}
             </div>
@@ -87,6 +84,6 @@ export default async function ArchivePage() {
       </section>
 
       <Footer />
-    </>
+    </div>
   );
 }

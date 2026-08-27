@@ -6,7 +6,7 @@ export default async function Footer() {
     <footer
       style={{
         padding: "56px var(--page-pad)",
-        borderTop: "1px solid oklch(20% 0.01 260 / 0.08)",
+        borderTop: "1px solid var(--rule)",
         display: "flex",
         justifyContent: "space-between",
         alignItems: "flex-end",
@@ -15,12 +15,12 @@ export default async function Footer() {
       }}
     >
       <div>
-        <div className="font-serif" style={{ fontSize: 15, marginBottom: 8 }}>
+        <div style={{ fontSize: 15, marginBottom: 8 }}>
           {settings.name}
         </div>
-        <div style={{ fontSize: 13, color: "oklch(20% 0.01 260 / 0.55)" }}>{settings.email}</div>
+        <div style={{ fontSize: 13, color: "var(--muted)" }}>{settings.email}</div>
       </div>
-      <div style={{ fontSize: 12, color: "oklch(20% 0.01 260 / 0.4)" }}>© {new Date().getFullYear()}</div>
+      <div style={{ fontSize: 12, color: "var(--faint)" }}>© {new Date().getFullYear()}</div>
     </footer>
   );
 }

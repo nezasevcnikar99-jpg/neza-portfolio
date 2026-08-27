@@ -13,8 +13,8 @@ export default async function AboutPage() {
   const portrait = typeof about.portrait === "object" ? (about.portrait as Media | null) : null;
 
   return (
-    <>
-      <Header active="about" />
+    <div className="sheet">
+      <Header active="about" title="About" />
 
       <section
         style={{
@@ -40,7 +40,7 @@ export default async function AboutPage() {
             focalX={portrait?.focalX}
             focalY={portrait?.focalY}
           />
-          <div style={{ display: "flex", flexDirection: "column", gap: 6, fontSize: 13, color: "oklch(20% 0.01 260 / 0.65)" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 6, fontSize: 13, color: "var(--muted)" }}>
             <span>{settings.email}</span>
           </div>
         </div>
@@ -48,7 +48,7 @@ export default async function AboutPage() {
         <div style={{ display: "flex", flexDirection: "column", gap: 48 }}>
           <div>
             <h1
-              className="font-serif"
+             
               style={{
                 fontWeight: 500,
                 fontSize: "clamp(32px, 4vw, 44px)",
@@ -64,8 +64,8 @@ export default async function AboutPage() {
 
           <div>
             <h2
-              className="font-serif"
-              style={{ fontStyle: "italic", fontWeight: 400, fontSize: 20, margin: "0 0 18px", color: "oklch(55% 0.18 258)" }}
+             
+              style={{ fontSize: 11, fontWeight: 500, letterSpacing: "0.09em", textTransform: "uppercase", margin: "0 0 18px", color: "var(--muted)" }}
             >
               Izobrazba
             </h2>
@@ -78,12 +78,12 @@ export default async function AboutPage() {
                     justifyContent: "space-between",
                     gap: 16,
                     fontSize: 14,
-                    borderBottom: i < arr.length - 1 ? "1px solid oklch(20% 0.01 260 / 0.08)" : undefined,
+                    borderBottom: i < arr.length - 1 ? "1px solid var(--rule)" : undefined,
                     paddingBottom: i < arr.length - 1 ? 12 : 2,
                   }}
                 >
                   <span>{item.label}</span>
-                  <span style={{ color: "oklch(20% 0.01 260 / 0.45)", flexShrink: 0 }}>{item.dateRange}</span>
+                  <span style={{ color: "var(--faint)", flexShrink: 0 }}>{item.dateRange}</span>
                 </div>
               ))}
             </div>
@@ -91,12 +91,12 @@ export default async function AboutPage() {
 
           <div>
             <h2
-              className="font-serif"
-              style={{ fontStyle: "italic", fontWeight: 400, fontSize: 20, margin: "0 0 18px", color: "oklch(55% 0.18 258)" }}
+             
+              style={{ fontSize: 11, fontWeight: 500, letterSpacing: "0.09em", textTransform: "uppercase", margin: "0 0 18px", color: "var(--muted)" }}
             >
               Veščine in orodja
             </h2>
-            <div style={{ fontSize: 14, color: "oklch(20% 0.01 260 / 0.75)", lineHeight: 2.3, letterSpacing: "0.01em" }}>
+            <div style={{ fontSize: 14, color: "var(--muted)", lineHeight: 2.3, letterSpacing: "0.01em" }}>
               {(about.skills ?? []).map((s) => s.skill).join("     ·     ")}
             </div>
           </div>
@@ -104,6 +104,6 @@ export default async function AboutPage() {
       </section>
 
       <Footer />
-    </>
+    </div>
   );
 }

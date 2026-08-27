@@ -36,8 +36,8 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   ].filter((fact) => fact.value);
 
   return (
-    <>
-      <Header active="delo" />
+    <div className="sheet">
+      <Header active="projects" title="Projekt" />
 
       <article className="project">
         <div className="project-body">
@@ -96,6 +96,6 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
       </article>
 
       <Footer />
-    </>
+    </div>
   );
 }

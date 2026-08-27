@@ -39,7 +39,7 @@ export default function ImageSlot({
           ? fit === "contain"
             ? containBg
             : undefined
-          : "repeating-linear-gradient(135deg, oklch(20% 0.01 260 / 0.05) 0px, oklch(20% 0.01 260 / 0.05) 1px, transparent 1px, transparent 9px), oklch(96% 0.006 260)",
+          : "repeating-linear-gradient(135deg, var(--rule) 0px, var(--rule) 1px, transparent 1px, transparent 9px), var(--fill)",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -57,7 +57,7 @@ export default function ImageSlot({
             alignItems: "center",
             gap: 8,
             textDecoration: "none",
-            color: "oklch(20% 0.01 260 / 0.55)",
+            color: "var(--muted)",
             padding: "0 14px",
           }}
         >
@@ -93,7 +93,7 @@ export default function ImageSlot({
             fontFamily: "ui-monospace, monospace",
             fontSize: 10,
             letterSpacing: "0.04em",
-            color: "oklch(20% 0.01 260 / 0.35)",
+            color: "var(--faint)",
             padding: "0 14px",
           }}
         >

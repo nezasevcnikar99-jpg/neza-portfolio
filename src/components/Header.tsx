@@ -1,51 +1,39 @@
 import Link from "next/link";
 import { getSettings } from "@/lib/settings";
 
-type NavKey = "delo" | "about" | "arhiv";
+type NavKey = "projects" | "about" | "contact";
 
-const NAV: { key: NavKey; label: string; href: string }[] = [
-  { key: "delo", label: "Delo", href: "/" },
-  { key: "about", label: "O meni", href: "/about" },
-  { key: "arhiv", label: "Arhiv", href: "/archive" },
-];
-
-export default async function Header({ active }: { active: NavKey }) {
+/**
+ * The masthead is the grid's first band: four ruled cells, one item each, the
+ * way the reference sets it. The page title, when there is one, hangs from the
+ * bottom of the second cell.
+ */
+export default async function Header({ active, title }: { active?: NavKey; title?: string }) {
   const settings = await getSettings();
+
   return (
-    <header
-      style={{
-        position: "sticky",
-        top: 0,
-        zIndex: 10,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        padding: "26px var(--page-pad)",
-        background: "#ffffffee",
-        backdropFilter: "blur(6px)",
-        borderBottom: "1px solid oklch(20% 0.01 260 / 0.08)",
-      }}
-    >
-      <Link
-        href="/"
-        className="font-serif"
-        style={{ fontSize: 20, letterSpacing: "0.02em", textDecoration: "none", color: "oklch(20% 0.01 260)" }}
-      >
-        {settings.name}
-      </Link>
-      <nav style={{ display: "flex", gap: 36, fontSize: 13 }}>
-        {NAV.map((item) =>
-          item.key === active ? (
-            <span key={item.key} style={{ borderBottom: "1px solid currentColor", paddingBottom: 2 }}>
-              {item.label}
-            </span>
-          ) : (
-            <Link key={item.key} href={item.href} className="nav-link">
-              {item.label}
-            </Link>
-          )
-        )}
-      </nav>
+    <header className="ruled head">
+      <div className="cell head-cell">
+        <Link href="/" className="head-name">
+          {settings.name}
+        </Link>
+      </div>
+      <div className="cell head-cell">
+        <Link href="/" className={`head-link${active === "projects" ? " is-active" : ""}`}>
+          Projects
+        </Link>
+        {title && <h1 className="head-title">{title}</h1>}
+      </div>
+      <div className="cell head-cell">
+        <Link href="/about" className={`head-link${active === "about" ? " is-active" : ""}`}>
+          About
+        </Link>
+      </div>
+      <div className="cell head-cell head-end">
+        <a href={`mailto:${settings.email}`} className="head-link">
+          Contact
+        </a>
+      </div>
     </header>
   );
 }

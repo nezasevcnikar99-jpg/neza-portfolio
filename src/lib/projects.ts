@@ -3,63 +3,74 @@ import type { Project } from "@/payload-types";
 export type { Project };
 
 /**
- * The home index is a plain column grid: every picture is one column wide and
- * starts on the same vertical line as the one above it, and its label sits
- * directly underneath. Nothing is packed or placed by hand.
+ * The index is a ruled grid of square cells, four across.
  *
- * What a project chooses is its proportion, not its size. Keeping the width
- * fixed is what makes the columns read; letting the height vary is what keeps
- * the page from looking like a contact sheet.
- */
-export type SizeKey = "landscape" | "square" | "portrait";
-
-const RATIOS: Record<SizeKey, string> = {
-  landscape: "3 / 2",
-  square: "1 / 1",
-  portrait: "4 / 5",
-};
-
-/**
- * Maps the stored field value onto a proportion. The keys are legacy names kept
- * to avoid a Postgres enum migration — see the field definition in Projects.ts.
- */
-const SIZE_BY_FIELD: Record<string, SizeKey> = {
-  "2x1": "landscape",
-  "1x1": "square",
-  "2x2": "portrait",
-  "1x2": "portrait",
-};
-
-/**
- * Proportion order used for projects left on "auto".
+ * Every cell is drawn, including the empty ones — that is what the whole layout
+ * rests on. A caption pinned to the corner of a ruled cell reads as belonging
+ * to that cell; the same caption floating in open white does not, which is why
+ * earlier versions of this page never settled.
  *
- * Seven entries, which shares no factor with three or two columns. A cycle
- * whose length divides the column count locks each column to one proportion —
- * at six entries and three columns the right-hand column came out portrait
- * every single time.
+ * A picture fills one or two cells across and always one down, so the only
+ * thing that varies is width. Each picture reserves the cell beside it for its
+ * caption, and the caption sits in the corner nearest the picture.
  */
-const AUTO_CYCLE: SizeKey[] = [
-  "square",
-  "landscape",
-  "portrait",
-  "square",
-  "landscape",
-  "square",
-  "portrait",
-];
+export const COLUMNS = 4;
 
-/** Height as a multiple of the column width, used to balance the columns. */
-const REL_HEIGHT: Record<SizeKey, number> = {
-  landscape: 2 / 3,
-  square: 1,
-  portrait: 5 / 4,
+export type Cell =
+  | { kind: "image"; project: Project; index: number; span: number }
+  | { kind: "label"; project: Project; index: number; corner: "tl" | "br" }
+  | { kind: "empty" };
+
+/** Legacy stored values — see the field definition in Projects.ts. */
+const WIDE_BY_FIELD: Record<string, boolean> = {
+  "1x1": false,
+  "1x2": false,
+  "2x1": true,
+  "2x2": true,
 };
 
-export function getProjectShape(project: Project, index: number) {
+/** Width order used for projects left on "auto". Five, so it does not fall into
+ *  step with the four columns and leave one of them always the same. */
+const AUTO_CYCLE = [false, true, false, false, true];
+
+function isWide(project: Project, index: number): boolean {
   const chosen = project.gridSize;
-  const key =
-    chosen && chosen !== "auto" && SIZE_BY_FIELD[chosen]
-      ? SIZE_BY_FIELD[chosen]
-      : AUTO_CYCLE[index % AUTO_CYCLE.length];
-  return { ratio: RATIOS[key], relHeight: REL_HEIGHT[key] };
+  if (chosen && chosen !== "auto" && chosen in WIDE_BY_FIELD) return WIDE_BY_FIELD[chosen];
+  return AUTO_CYCLE[index % AUTO_CYCLE.length];
+}
+
+export function buildIndexBands(projects: Project[]): Cell[][] {
+  const bands: Cell[][] = [];
+  let band: Cell[] = [];
+  let used = 0;
+
+  const closeBand = () => {
+    while (used < COLUMNS) {
+      band.push({ kind: "empty" });
+      used += 1;
+    }
+    bands.push(band);
+    band = [];
+    used = 0;
+  };
+
+  projects.forEach((project, index) => {
+    const span = isWide(project, index) ? 2 : 1;
+    const needed = span + 1; // the picture plus the cell its caption sits in
+
+    if (used + needed > COLUMNS) closeBand();
+
+    // Alternate which side the caption takes, band by band, so the page does
+    // not settle into one repeating figure.
+    const labelFirst = bands.length % 2 === 1;
+    const image: Cell = { kind: "image", project, index, span };
+    const label: Cell = { kind: "label", project, index, corner: labelFirst ? "tl" : "br" };
+
+    band.push(...(labelFirst ? [label, image] : [image, label]));
+    used += needed;
+  });
+
+  if (band.length) closeBand();
+
+  return bands;
 }
