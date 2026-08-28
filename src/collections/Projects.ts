@@ -108,8 +108,11 @@ export const Projects: CollectionConfig = {
       type: "group",
       label: "Izrez naslovne slike na prvi strani",
       admin: {
-        description:
-          "Kateri del naslovne slike se vidi v mreži na prvi strani. Pusti prazno, da velja izrez, nastavljen pri sami sliki. 0 je levo oziroma zgoraj, 100 desno oziroma spodaj, 50 je sredina.",
+        // Replaced by a crosshair on the picture itself — the two numbers below
+        // are still what gets stored, this only fills them in by clicking.
+        components: {
+          Field: "/components/admin/IndexFocalField#IndexFocalField",
+        },
       },
       fields: [
         { name: "x", type: "number", min: 0, max: 100, label: "Vodoravno (%)" },
