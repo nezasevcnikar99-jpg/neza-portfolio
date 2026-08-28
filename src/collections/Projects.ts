@@ -104,6 +104,19 @@ export const Projects: CollectionConfig = {
       },
     },
     {
+      name: "indexFocal",
+      type: "group",
+      label: "Izrez naslovne slike na prvi strani",
+      admin: {
+        description:
+          "Kateri del naslovne slike se vidi v mreži na prvi strani. Pusti prazno, da velja izrez, nastavljen pri sami sliki. 0 je levo oziroma zgoraj, 100 desno oziroma spodaj, 50 je sredina.",
+      },
+      fields: [
+        { name: "x", type: "number", min: 0, max: 100, label: "Vodoravno (%)" },
+        { name: "y", type: "number", min: 0, max: 100, label: "Navpično (%)" },
+      ],
+    },
+    {
       name: "heroImage",
       type: "upload",
       relationTo: "media",

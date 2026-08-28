@@ -8,6 +8,10 @@ function ImageCell({ cell }: { cell: Extract<Cell, { kind: "image" }> }) {
   const doc = typeof p.heroImage === "object" ? (p.heroImage as Media | null) : null;
   const hero = doc?.mimeType?.startsWith("image/") ? doc : null;
   const quote = p.quote?.trim();
+  // The index may crop the picture differently from the project page, which
+  // uses whatever was set on the image itself.
+  const x = p.indexFocal?.x ?? hero?.focalX ?? 50;
+  const y = p.indexFocal?.y ?? hero?.focalY ?? 50;
 
   return (
     <Link
@@ -22,7 +26,7 @@ function ImageCell({ cell }: { cell: Extract<Cell, { kind: "image" }> }) {
             src={hero.url}
             alt={hero.alt}
             className="cell-photo"
-            style={{ objectPosition: `${hero.focalX ?? 50}% ${hero.focalY ?? 50}%` }}
+            style={{ objectPosition: `${x}% ${y}%` }}
           />
         ) : (
           <span className="cell-blank">{p.imgLabel ?? "fotografija"}</span>

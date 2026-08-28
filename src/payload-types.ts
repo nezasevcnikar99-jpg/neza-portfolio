@@ -197,6 +197,13 @@ export interface Project {
    * Kratek citat, prikazan ob prehodu miške čez projekt na Domov.
    */
   quote?: string | null;
+  /**
+   * Kateri del naslovne slike se vidi v mreži na prvi strani. Pusti prazno, da velja izrez, nastavljen pri sami sliki. 0 je levo oziroma zgoraj, 100 desno oziroma spodaj, 50 je sredina.
+   */
+  indexFocal?: {
+    x?: number | null;
+    y?: number | null;
+  };
   heroImage?: (number | null) | Media;
   /**
    * Prikazano dokler glavna fotografija ni naložena (npr. "fotografija objekta", "vizualizacija").
@@ -364,6 +371,12 @@ export interface ProjectsSelect<T extends boolean = true> {
   category?: T;
   year?: T;
   quote?: T;
+  indexFocal?:
+    | T
+    | {
+        x?: T;
+        y?: T;
+      };
   heroImage?: T;
   imgLabel?: T;
   intro?: T;
@@ -426,6 +439,14 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  */
 export interface Home {
   id: number;
+  /**
+   * Zapolni prvi zaslon. Video naj bo kratek in brez zvoka — brskalniki drugače ne predvajajo samodejno.
+   */
+  landingMedia?: (number | null) | Media;
+  /**
+   * Prikaže se na telefonih in dokler se video ne naloži. Pri sliki zgoraj je ne rabiš.
+   */
+  landingPoster?: (number | null) | Media;
   heroLead: string;
   heroAccent: string;
   heroDescription: string;
@@ -486,6 +507,8 @@ export interface Setting {
  * via the `definition` "home_select".
  */
 export interface HomeSelect<T extends boolean = true> {
+  landingMedia?: T;
+  landingPoster?: T;
   heroLead?: T;
   heroAccent?: T;
   heroDescription?: T;
