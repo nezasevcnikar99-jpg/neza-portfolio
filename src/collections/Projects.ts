@@ -158,6 +158,10 @@ export const Projects: CollectionConfig = {
       name: "gallery",
       type: "array",
       labels: { singular: "Slika", plural: "Galerija" },
+      admin: {
+        description:
+          "Na strani projekta so vidne štiri slike: naslovna in prve tri od tu. Vse nadaljnje se pokažejo šele, ko obiskovalec odpre galerijo. Katera je kje, določiš z vlečenjem vrstic.",
+      },
       fields: [
         {
           name: "image",
