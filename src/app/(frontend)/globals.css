@@ -316,8 +316,13 @@ a {
   text-align: right;
 }
 
+/* A heading, so the index has real structure — sized like the text it was. */
 .caption-title {
   display: block;
+  margin: 0;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
   color: var(--ink);
 }
 

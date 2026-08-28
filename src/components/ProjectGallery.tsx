@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type { Media } from "@/payload-types";
 
 export type Slide = {
@@ -37,18 +37,58 @@ export default function ProjectGallery({
   const [index, setIndex] = useState(startIndex);
   const total = slides.length;
 
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
+  /** Where the keyboard was before this opened, so it can be handed back. */
+  const openerRef = useRef<Element | null>(null);
+
   const step = useCallback(
     (delta: number) => setIndex((i) => (i + delta + total) % total),
     [total]
   );
 
+  // Take the keyboard on open and give it back on close. Without this the
+  // gallery covers the page but Tab walks straight into the links behind it.
+  useEffect(() => {
+    openerRef.current = document.activeElement;
+    closeRef.current?.focus();
+    return () => {
+      const opener = openerRef.current;
+      if (opener instanceof HTMLElement) opener.focus();
+    };
+  }, []);
+
   useEffect(() => {
     document.body.style.overflow = "hidden";
+
     const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
+      if (e.key === "Escape") {
+        onClose();
+        return;
+      }
       if (e.key === "ArrowLeft") step(-1);
       if (e.key === "ArrowRight") step(1);
+
+      if (e.key === "Tab") {
+        const focusable = dialogRef.current?.querySelectorAll<HTMLElement>(
+          'button, [href], [tabindex]:not([tabindex="-1"])'
+        );
+        if (!focusable?.length) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        const active = document.activeElement;
+
+        // Keep the cycle inside the dialog, in both directions.
+        if (e.shiftKey && (active === first || !dialogRef.current?.contains(active))) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && (active === last || !dialogRef.current?.contains(active))) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
     };
+
     window.addEventListener("keydown", onKeyDown);
     return () => {
       document.body.style.overflow = "";
@@ -62,8 +102,20 @@ export default function ProjectGallery({
   const title = current.caption?.trim() || current.image?.alt?.trim() || fallbackTitle;
 
   return (
-    <div className="gallery" role="dialog" aria-modal="true" aria-label="Galerija projekta">
-      <button type="button" className="gallery-close" onClick={onClose} aria-label="Zapri galerijo">
+    <div
+      ref={dialogRef}
+      className="gallery"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Galerija projekta"
+    >
+      <button
+        ref={closeRef}
+        type="button"
+        className="gallery-close"
+        onClick={onClose}
+        aria-label="Zapri galerijo"
+      >
         ×
       </button>
 

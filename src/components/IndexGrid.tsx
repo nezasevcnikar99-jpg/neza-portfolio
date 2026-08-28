@@ -52,7 +52,7 @@ function LabelCell({ cell }: { cell: Extract<Cell, { kind: "label" }> }) {
       style={{ "--seq": cell.index * 2 + 1 } as React.CSSProperties}
     >
       <span className="cell-caption">
-        <span className="caption-title">{p.title}</span>
+        <h2 className="caption-title">{p.title}</h2>
         <span className="caption-meta">{p.year}</span>
       </span>
     </Link>
