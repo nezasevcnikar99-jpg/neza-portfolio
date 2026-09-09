@@ -78,6 +78,10 @@ navedeš v `galerija`.
 | `--pages 1,3-5`   | samo te strani; brez tega vse                                 |
 | `--px 2400`       | daljša stranica slike v pikslih                               |
 | `--format png`    | za čiste risbe s tankimi črtami; privzeto je `jpg`            |
+| `--crop x,y,š,v`  | izreže del strani; štiri števila v odstotkih strani, od zgoraj levo |
+
+Izrez je za portfolijske strani: ena stran je postavitev z naslovi, opisi in
+številko strani, na spletno stran pa gre navadno samo slika s te strani.
 
 PDF-i ostanejo samo pri tebi — v repozitorij se ne shranjujejo, na stran gredo
 šele slike.

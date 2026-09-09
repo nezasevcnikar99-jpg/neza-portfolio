@@ -26,7 +26,7 @@ let inputs = args.enumerated()
     .map(\.element)
 
 guard let input = inputs.first else {
-    print("Uporaba: swift scripts/pdf-to-images.swift <datoteka.pdf> [--name ime] [--out mapa] [--px 2400] [--format jpg|png] [--pages 1,3-5]")
+    print("Uporaba: swift scripts/pdf-to-images.swift <datoteka.pdf> [--name ime] [--out mapa] [--px 2400] [--format jpg|png] [--pages 1,3-5] [--crop x,y,s,v]")
     exit(1)
 }
 
@@ -40,6 +40,16 @@ let fallback = stem.lowercased()
     .replacingOccurrences(of: "[^a-z0-9]+", with: "-", options: .regularExpression)
     .trimmingCharacters(in: CharacterSet(charactersIn: "-"))
 let name = flag("name") ?? (fallback.isEmpty ? "stran" : fallback)
+
+/// `--crop 38,6,60,89` — levo, zgoraj, širina, višina, v odstotkih strani.
+/// Portfolio pages are layouts: the picture worth showing is usually one region
+/// of the page, not the page with its captions and folio.
+let crop: (x: Double, y: Double, w: Double, h: Double)? = {
+    guard let spec = flag("crop") else { return nil }
+    let n = spec.split(separator: ",").compactMap { Double($0.trimmingCharacters(in: .whitespaces)) }
+    guard n.count == 4, n[2] > 0, n[3] > 0 else { return nil }
+    return (n[0], n[1], n[2], n[3])
+}()
 
 let url = URL(fileURLWithPath: input)
 guard let doc = CGPDFDocument(url as CFURL) else {
@@ -75,7 +85,11 @@ for page in wanted {
     let size = rotated ? CGSize(width: box.height, height: box.width) : box.size
     guard size.width > 0, size.height > 0 else { continue }
 
-    let scale = maxPx / max(size.width, size.height)
+    // With a crop, the wanted piece — not the whole page — is what has to come
+    // out at the asked-for size.
+    let longest: Double = crop.map { max(Double(size.width) * $0.w, Double(size.height) * $0.h) / 100 }
+        ?? Double(max(size.width, size.height))
+    let scale = maxPx / longest
     let width = Int((size.width * scale).rounded())
     let height = Int((size.height * scale).rounded())
 
@@ -99,7 +113,21 @@ for page in wanted {
     ))
     ctx.drawPDFPage(pdfPage)
 
-    guard let image = ctx.makeImage() else { continue }
+    guard let full = ctx.makeImage() else { continue }
+
+    // Percentages are read off the rendered page, top-left down — the way the
+    // page is looked at — so the crop rect needs no flipping.
+    var image = full
+    if let c = crop {
+        let rect = CGRect(
+            x: (c.x / 100 * Double(width)).rounded(),
+            y: (c.y / 100 * Double(height)).rounded(),
+            width: (c.w / 100 * Double(width)).rounded(),
+            height: (c.h / 100 * Double(height)).rounded()
+        ).intersection(CGRect(x: 0, y: 0, width: width, height: height))
+        guard !rect.isEmpty, let piece = full.cropping(to: rect) else { continue }
+        image = piece
+    }
 
     let file = String(format: "%@-%02d.%@", name, page, ext)
     let out = URL(fileURLWithPath: outDir).appendingPathComponent(file)
@@ -109,7 +137,7 @@ for page in wanted {
 
     let attrs = try? FileManager.default.attributesOfItem(atPath: out.path)
     let kb = ((attrs?[.size] as? Int) ?? 0) / 1024
-    print("  \(file)  \(width)×\(height)  \(kb) kB")
+    print("  \(file)  \(image.width)×\(image.height)  \(kb) kB")
     written += 1
 }
 
