@@ -59,3 +59,25 @@ prazen.
 
 Slike naj imajo govoreča imena (`hisa-01.jpg`), ker so ta imena tudi to, po
 čemer stran ve, da je slika že naložena.
+
+## Načrti v PDF
+
+Načrte ni treba pretvarjati ročno. PDF odloži v `content/pdf/`, potem:
+
+```
+npm run pdf -- content/pdf/hisa-nacrti.pdf --name hisa-nacrt
+```
+
+Vsaka stran postane slika v `content/images/` — `hisa-nacrt-01.jpg`,
+`hisa-nacrt-02.jpg` … — s številko strani iz PDF-ja, tako da jo lahko takoj
+navedeš v `galerija`.
+
+| Možnost           | Pomen                                                        |
+|-------------------|--------------------------------------------------------------|
+| `--name ime`      | začetek imena datotek; brez tega velja ime PDF-ja             |
+| `--pages 1,3-5`   | samo te strani; brez tega vse                                 |
+| `--px 2400`       | daljša stranica slike v pikslih                               |
+| `--format png`    | za čiste risbe s tankimi črtami; privzeto je `jpg`            |
+
+PDF-i ostanejo samo pri tebi — v repozitorij se ne shranjujejo, na stran gredo
+šele slike.

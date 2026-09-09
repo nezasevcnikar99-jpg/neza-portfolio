@@ -47,3 +47,7 @@ next-env.d.ts
 # gradivo za uvoz: besedila so v repozitoriju, fotografije ne (te gredo v Blob)
 /content/images/*
 !/content/images/.gitkeep
+
+# PDF-i za pretvorbo ostanejo lokalno; v repozitorij gredo samo besedila
+/content/pdf/*
+!/content/pdf/.gitkeep

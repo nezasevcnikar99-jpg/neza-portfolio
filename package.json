@@ -11,7 +11,8 @@
     "payload": "payload",
     "generate:types": "payload generate:types",
     "generate:importmap": "payload generate:importmap",
-    "import": "node scripts/import-content.mjs"
+    "import": "node scripts/import-content.mjs",
+    "pdf": "swift scripts/pdf-to-images.swift"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "^3.86.0",
