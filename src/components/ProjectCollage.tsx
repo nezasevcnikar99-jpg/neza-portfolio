@@ -40,13 +40,23 @@ export default function ProjectCollage({
   placeholderLabel: string;
 }) {
   const [openAt, setOpenAt] = useState<number | null>(null);
-  const shown = SLOTS.slice(0, Math.max(slides.length, 1));
-  const hidden = Math.max(0, slides.length - shown.length);
+
+  // Which pictures stand on the page is chosen in the admin, one tick per row;
+  // the slots only limit how many of them fit. Each keeps its place in the full
+  // run so a click opens the gallery on the same picture.
+  const onPage = slides
+    .map((slide, index) => ({ slide, index }))
+    .filter((entry) => entry.slide.onPage !== false)
+    .slice(0, SLOTS.length);
+
+  const shown = SLOTS.slice(0, Math.max(onPage.length, 1));
+  const hidden = Math.max(0, slides.length - onPage.length);
 
   return (
     <>
       {shown.map((slot, i) => {
-        const slide = slides[i];
+        const entry = onPage[i];
+        const slide = entry?.slide;
         const label =
           slide?.caption?.trim() || slide?.image?.alt?.trim() || `${fallbackTitle} ${i + 1}`;
 
@@ -56,7 +66,7 @@ export default function ProjectCollage({
             type="button"
             className="cell cell-shot"
             style={{ gridColumn: `${slot.col} / span ${slot.span}`, gridRow: slot.row }}
-            onClick={() => slides.length > 0 && setOpenAt(i)}
+            onClick={() => entry && setOpenAt(entry.index)}
             aria-label={`Odpri galerijo — ${label}`}
           >
             <span className="cell-inner">

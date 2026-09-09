@@ -20,11 +20,15 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   const next = await getNextProject(slug);
   const heroImage = typeof project.heroImage === "object" ? (project.heroImage as Media | null) : null;
 
+  // The hero always holds the first slot on the page; every other picture is
+  // there because it was ticked. Rows saved before the tick existed count as
+  // ticked, so nothing disappeared when it was added.
   const slides: Slide[] = [
-    ...(heroImage ? [{ image: heroImage, caption: null }] : []),
+    ...(heroImage ? [{ image: heroImage, caption: null, onPage: true }] : []),
     ...(project.gallery ?? []).map((item) => ({
       image: typeof item.image === "object" ? (item.image as Media) : null,
       caption: item.caption,
+      onPage: item.onPage !== false,
     })),
   ];
 

@@ -10,7 +10,8 @@
     "lint": "eslint",
     "payload": "payload",
     "generate:types": "payload generate:types",
-    "generate:importmap": "payload generate:importmap"
+    "generate:importmap": "payload generate:importmap",
+    "import": "node scripts/import-content.mjs"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "^3.86.0",

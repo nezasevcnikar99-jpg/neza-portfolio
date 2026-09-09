@@ -6,6 +6,8 @@ import type { Media } from "@/payload-types";
 export type Slide = {
   image: Media | null;
   caption?: string | null;
+  /** Shown on the project page itself, not only inside the gallery. */
+  onPage?: boolean;
 };
 
 function Chevron({ direction }: { direction: "left" | "right" }) {

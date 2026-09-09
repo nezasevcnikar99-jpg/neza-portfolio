@@ -43,3 +43,7 @@ next-env.d.ts
 
 # payload local media storage (dev only; production uses Vercel Blob)
 /media
+
+# gradivo za uvoz: besedila so v repozitoriju, fotografije ne (te gredo v Blob)
+/content/images/*
+!/content/images/.gitkeep

@@ -160,7 +160,7 @@ export const Projects: CollectionConfig = {
       labels: { singular: "Slika", plural: "Galerija" },
       admin: {
         description:
-          "Na strani projekta so vidne štiri slike: naslovna in prve tri od tu. Vse nadaljnje se pokažejo šele, ko obiskovalec odpre galerijo. Katera je kje, določiš z vlečenjem vrstic.",
+          "Naslovna slika je na strani projekta vedno prva. Tu odkljukaj še tiste, ki naj se vidijo poleg nje — mest so štiri, torej naslovna in največ tri od tu, po vrstnem redu od zgoraj. Vse ostalo se pokaže šele, ko obiskovalec odpre galerijo.",
       },
       fields: [
         {
@@ -172,6 +172,16 @@ export const Projects: CollectionConfig = {
         {
           name: "caption",
           type: "text",
+        },
+        {
+          name: "onPage",
+          type: "checkbox",
+          label: "Pokaži na strani projekta",
+          defaultValue: true,
+          admin: {
+            description:
+              "Odkljukane slike se vidijo na strani projekta, dokler so mesta prosta (poleg naslovne so tri). Neodkljukane so samo v galeriji.",
+          },
         },
       ],
     },

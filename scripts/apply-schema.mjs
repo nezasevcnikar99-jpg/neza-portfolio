@@ -24,6 +24,9 @@ const STATEMENTS = [
   `ALTER TABLE "home" ADD COLUMN IF NOT EXISTS "landing_poster_id" integer`,
   `ALTER TABLE "projects" ADD COLUMN IF NOT EXISTS "index_focal_x" numeric`,
   `ALTER TABLE "projects" ADD COLUMN IF NOT EXISTS "index_focal_y" numeric`,
+  // Rows that predate the tick default to shown, so no picture leaves a page
+  // the moment this lands.
+  `ALTER TABLE "projects_gallery" ADD COLUMN IF NOT EXISTS "on_page" boolean DEFAULT true`,
   `CREATE INDEX IF NOT EXISTS "home_landing_media_idx" ON "home" ("landing_media_id")`,
   `CREATE INDEX IF NOT EXISTS "home_landing_poster_idx" ON "home" ("landing_poster_id")`,
   // Postgres has no ADD CONSTRAINT IF NOT EXISTS, so the duplicate is swallowed.

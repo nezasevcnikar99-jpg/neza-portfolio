@@ -197,9 +197,6 @@ export interface Project {
    * Kratek citat, prikazan ob prehodu miške čez projekt na Domov.
    */
   quote?: string | null;
-  /**
-   * Kateri del naslovne slike se vidi v mreži na prvi strani. Pusti prazno, da velja izrez, nastavljen pri sami sliki. 0 je levo oziroma zgoraj, 100 desno oziroma spodaj, 50 je sredina.
-   */
   indexFocal?: {
     x?: number | null;
     y?: number | null;
@@ -230,10 +227,17 @@ export interface Project {
     };
     [k: string]: unknown;
   } | null;
+  /**
+   * Naslovna slika je na strani projekta vedno prva. Tu odkljukaj še tiste, ki naj se vidijo poleg nje — mest so štiri, torej naslovna in največ tri od tu, po vrstnem redu od zgoraj. Vse ostalo se pokaže šele, ko obiskovalec odpre galerijo.
+   */
   gallery?:
     | {
         image: number | Media;
         caption?: string | null;
+        /**
+         * Odkljukane slike se vidijo na strani projekta, dokler so mesta prosta (poleg naslovne so tri). Neodkljukane so samo v galeriji.
+         */
+        onPage?: boolean | null;
         id?: string | null;
       }[]
     | null;
@@ -388,6 +392,7 @@ export interface ProjectsSelect<T extends boolean = true> {
     | {
         image?: T;
         caption?: T;
+        onPage?: T;
         id?: T;
       };
   updatedAt?: T;
