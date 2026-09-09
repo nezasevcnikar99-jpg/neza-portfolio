@@ -33,10 +33,11 @@ function ImageCell({ cell }: { cell: Extract<Cell, { kind: "image" }> }) {
         )}
 
         {/* Always the colour, so every project answers the pointer; the line
-            only where one is written, or an empty quote prints as bare marks. */}
+            only where one is written, or an empty quote prints as bare marks.
+            The marks are the Slovene ones. */}
         <span className="cell-quote">
           <span className="cell-quote-name">{p.title}</span>
-          {quote && <span className="cell-quote-text">{`\u201c${quote}\u201d`}</span>}
+          {quote && <span className="cell-quote-text">{`\u00bb${quote}\u00ab`}</span>}
         </span>
       </span>
     </Link>

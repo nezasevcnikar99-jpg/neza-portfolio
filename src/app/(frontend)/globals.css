@@ -228,14 +228,16 @@ a {
   transition: opacity 0.25s ease;
 }
 
-/* Covers the picture on hover and carries the project's line. */
+/* Covers the picture on hover and carries the project's line. The two sit on
+   opposite edges of the cell, ranged left: the line at the top, the name along
+   the bottom. */
 .cell-quote {
   position: absolute;
   inset: 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
+  justify-content: flex-start;
   gap: 10px;
   padding: calc(var(--inset) * 0.9);
   background: var(--hover);
@@ -244,20 +246,25 @@ a {
   transition: opacity 0.28s ease;
 }
 
-/* Quiet against the quote — it names the project without competing with it. */
+/* Quiet against the quote — it names the project without competing with it.
+   Pushed down rather than held apart, so a project with no line written still
+   has its name on the bottom edge instead of floating at the top. */
 .cell-quote-name {
+  order: 2;
+  margin-top: auto;
   font-size: 10px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   opacity: 0.65;
-  text-align: center;
 }
 
 .cell-quote-text {
+  /* The light cut is why this reads as a spoken line and not as a label. */
+  font-weight: 300;
   font-size: clamp(13px, 1.25cqw, 18px);
-  line-height: 1.4;
+  line-height: 1.45;
   letter-spacing: -0.01em;
-  text-align: center;
+  max-width: 26ch;
   text-wrap: balance;
 }
 

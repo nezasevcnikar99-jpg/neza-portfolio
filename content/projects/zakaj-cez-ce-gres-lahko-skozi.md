@@ -5,7 +5,7 @@ slug: zakaj-cez-ce-gres-lahko-skozi
 kategorija: Arhitektura
 leto: 2024
 vloga: Skupinski seminarski projekt — Luka Miklavčič, Marie Kinkela
-citat: Grad postavlja pred izziv nove rabe, ustrezne njegovemu izročilu.
+citat: Ker najboljše povezave se zgodijo tam, kjer jih nihče ne vidi.
 naslovna: hrastovec-podzemlje-07.jpg
 galerija:
   hrastovec-dvorisce-07.jpg | stran | Vizualizacija dvorišča in podzemnih prireditvenih prostorov
