@@ -127,20 +127,62 @@ const slugify = (value) =>
 
 /* ---------- talking to the site ---------- */
 
-function ask(question, hidden = false) {
+function ask(question) {
   return new Promise((resolve) => {
     const rl = createInterface({ input: process.stdin, output: process.stdout, terminal: true });
-    if (hidden) {
-      // Keeps the password off the screen; it is never written anywhere.
-      rl._writeToOutput = (chunk) => {
-        if (chunk.includes(question)) rl.output.write(chunk);
-      };
-    }
     rl.question(question, (answer) => {
-      if (hidden) rl.output.write("\n");
       rl.close();
       resolve(answer.trim());
     });
+  });
+}
+
+/**
+ * Reads a password without echoing it.
+ *
+ * Readline cannot do this: it redraws the whole line on every keystroke, so
+ * silencing it means silencing the prompt too, and any attempt to let the
+ * prompt through lets the password through with it — which is exactly what
+ * happened. Raw mode reads the keys directly instead, and nothing is ever
+ * written back to the screen.
+ */
+function askSecret(question) {
+  return new Promise((resolve) => {
+    const stdin = process.stdin;
+    if (!stdin.isTTY) {
+      throw new Error("geslo je mogoče vpisati samo v terminalu — sicer nastavi PAYLOAD_PASSWORD");
+    }
+
+    process.stdout.write(question);
+    const previously = stdin.isRaw;
+    stdin.setRawMode(true);
+    stdin.resume();
+    stdin.setEncoding("utf8");
+
+    let secret = "";
+    const done = (value) => {
+      stdin.removeListener("data", onKey);
+      stdin.setRawMode(previously);
+      stdin.pause();
+      process.stdout.write("\n");
+      if (value === null) process.exit(130);
+      resolve(value);
+    };
+
+    const onKey = (chunk) => {
+      // Arrow keys and the like arrive as escape sequences; letting their
+      // letters through would put "[A" in the middle of a password.
+      if (chunk.startsWith("\u001b")) return;
+
+      for (const key of chunk) {
+        if (key === "\r" || key === "\n" || key === "\u0004") return done(secret);
+        if (key === "\u0003") return done(null); // Ctrl-C
+        if (key === "\u007f" || key === "\b") secret = secret.slice(0, -1);
+        else if (key >= " ") secret += key;
+      }
+    };
+
+    stdin.on("data", onKey);
   });
 }
 
@@ -160,6 +202,20 @@ async function call(token, endpoint, init = {}) {
   }
   return json;
 }
+
+/**
+ * A Blob with no type reaches the site as application/octet-stream, which the
+ * media collection refuses — so the type has to be named here.
+ */
+const MIME = {
+  ".jpg": "image/jpeg",
+  ".jpeg": "image/jpeg",
+  ".png": "image/png",
+  ".webp": "image/webp",
+  ".gif": "image/gif",
+  ".avif": "image/avif",
+  ".svg": "image/svg+xml",
+};
 
 /** Uploads a picture unless one with that filename is already there. */
 async function mediaId(token, filename, alt, cache) {
@@ -182,8 +238,11 @@ async function mediaId(token, filename, alt, cache) {
     return cache.get(filename);
   }
 
+  const type = MIME[path.extname(filename).toLowerCase()];
+  if (!type) throw new Error(`neznana vrsta slike: ${filename}`);
+
   const body = new FormData();
-  body.append("file", new Blob([await readFile(full)]), filename);
+  body.append("file", new Blob([await readFile(full)], { type }), filename);
   body.append("_payload", JSON.stringify({ alt }));
   const created = await call(token, "/api/media", { method: "POST", body });
   const id = created?.doc?.id;
@@ -206,7 +265,7 @@ if (files.length === 0) {
 let token = null;
 if (!DRY) {
   const email = flag("email", null) ?? (await ask("E-pošta administratorja: "));
-  const password = process.env.PAYLOAD_PASSWORD ?? (await ask("Geslo: ", true));
+  const password = process.env.PAYLOAD_PASSWORD ?? (await askSecret("Geslo: "));
   const login = await call(null, "/api/users/login", {
     method: "POST",
     body: JSON.stringify({ email, password }),
