@@ -301,6 +301,13 @@ async function importOne(name) {
 
   console.log(`${slug} — ${title}`);
 
+  // Pictures that are drawings are shown whole instead of cut to their frame.
+  // Checked before anything is uploaded, so a typo stops the project cleanly.
+  const whole = (meta.cele ?? "").split(",").map((name) => name.trim()).filter(Boolean);
+  const listed = new Set([meta.naslovna, ...gallery.map((row) => row.file)].filter(Boolean));
+  const stray = whole.find((file) => !listed.has(file));
+  if (stray) throw new Error(`"cele" omenja ${stray}, ki ga ni ne pri "naslovna" ne v "galerija"`);
+
   const data = {
     title,
     slug,
@@ -334,6 +341,20 @@ async function importOne(name) {
         onPage: row.onPage,
       });
     }
+  }
+
+  // The flag lives on the picture, so it holds wherever that picture appears.
+  // Only ever switched on from here; switching one off is done in the admin.
+  for (const file of whole) {
+    if (DRY) {
+      console.log(`   ▢ cela slika: ${file}`);
+      continue;
+    }
+    await call(token, `/api/media/${cache.get(file)}`, {
+      method: "PATCH",
+      body: JSON.stringify({ showWhole: true }),
+    });
+    console.log(`   ▢ cela slika: ${file}`);
   }
 
   const existing = await call(token, `/api/projects?where[slug][equals]=${encodeURIComponent(slug)}&limit=1&depth=0`);

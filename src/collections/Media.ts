@@ -11,6 +11,27 @@ export const Media: CollectionConfig = {
       type: "text",
       required: true,
     },
+    {
+      name: "showWhole",
+      type: "checkbox",
+      label: "Pokaži celo sliko",
+      defaultValue: false,
+      admin: {
+        description:
+          "Za tlorise, prereze in sheme. Slika se v vsakem okvirju pokaže vsa, na svetli podlagi, namesto da bi okvir zapolnila in se obrezala.",
+      },
+    },
+    {
+      // Shows the picture with every frame the site cuts it to, and writes the
+      // point that decides the cut.
+      name: "cropPreview",
+      type: "ui",
+      admin: {
+        components: {
+          Field: "/components/admin/MediaFocalField#MediaFocalField",
+        },
+      },
+    },
   ],
   upload: {
     // Shows the crosshair in the admin so the part of a picture that matters can

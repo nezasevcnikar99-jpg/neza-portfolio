@@ -159,6 +159,10 @@ export interface User {
 export interface Media {
   id: number;
   alt: string;
+  /**
+   * Za tlorise, prereze in sheme. Slika se v vsakem okvirju pokaže vsa, na svetli podlagi, namesto da bi okvir zapolnila in se obrezala.
+   */
+  showWhole?: boolean | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -350,6 +354,7 @@ export interface UsersSelect<T extends boolean = true> {
  */
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
+  showWhole?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;

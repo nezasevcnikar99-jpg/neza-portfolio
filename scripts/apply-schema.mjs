@@ -27,6 +27,8 @@ const STATEMENTS = [
   // Rows that predate the tick default to shown, so no picture leaves a page
   // the moment this lands.
   `ALTER TABLE "projects_gallery" ADD COLUMN IF NOT EXISTS "on_page" boolean DEFAULT true`,
+  // Every picture already up keeps filling its frame until someone says otherwise.
+  `ALTER TABLE "media" ADD COLUMN IF NOT EXISTS "show_whole" boolean DEFAULT false`,
   `CREATE INDEX IF NOT EXISTS "home_landing_media_idx" ON "home" ("landing_media_id")`,
   `CREATE INDEX IF NOT EXISTS "home_landing_poster_idx" ON "home" ("landing_poster_id")`,
   // Postgres has no ADD CONSTRAINT IF NOT EXISTS, so the duplicate is swallowed.

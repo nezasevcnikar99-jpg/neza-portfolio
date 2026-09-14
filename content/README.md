@@ -51,6 +51,10 @@ Vse za tem naslovom je besedilo koncepta. Prazna vrstica pomeni nov odstavek.
 | `izrez`      | dve števili 0–100: kateri del naslovne slike se vidi v mreži       |
 | `vrstniRed`  | manjše število pomeni prej v mreži                                 |
 | `galerija`   | ena vrstica na sliko: `ime datoteke | stran ali galerija | opis`   |
+| `cele`       | slike, ki se ne obrežejo (tlorisi, prerezi), ločene z vejico       |
+
+Slike, naštete pri `cele`, se v vsakem okvirju pokažejo vse, na svetli
+podlagi. Uvoz jih samo vklopi; izklopiš jih v adminu pri sliki.
 
 `stran` pomeni, da se slika vidi že na strani projekta. Mest je štiri —
 naslovna in tri od tu; kar je čez, gre kljub oznaki v galerijo. `galerija`

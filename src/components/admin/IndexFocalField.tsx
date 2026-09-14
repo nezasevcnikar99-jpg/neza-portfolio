@@ -2,8 +2,15 @@
 
 import { useEffect, useState } from "react";
 import { useField, useFormFields } from "@payloadcms/ui";
+import { CropPreview } from "./CropPreview";
 
-type Loaded = { id: string; url: string | null };
+type Loaded = {
+  id: string;
+  url: string | null;
+  focalX: number | null;
+  focalY: number | null;
+  whole: boolean;
+};
 
 /**
  * Sets where the hero picture is cropped on the index by clicking the picture,
@@ -11,8 +18,8 @@ type Loaded = { id: string; url: string | null };
  *
  * It writes into the same indexFocal.x / indexFocal.y the field already stores,
  * so nothing about the data or the schema changes — this is only a nicer way to
- * fill them in. Where there is no hero picture yet, it says so instead of
- * showing an empty frame.
+ * fill them in. Until a point is chosen here, the previews show the crop the
+ * index really uses: the point set on the picture itself.
  */
 export const IndexFocalField = () => {
   const { value: x, setValue: setX } = useField<number>({ path: "indexFocal.x" });
@@ -38,10 +45,17 @@ export const IndexFocalField = () => {
     fetch(`/api/media/${heroId}?depth=0`)
       .then((response) => (response.ok ? response.json() : null))
       .then((doc) => {
-        if (!cancelled) setLoaded({ id: heroId, url: doc?.url ?? null });
+        if (cancelled) return;
+        setLoaded({
+          id: heroId,
+          url: doc?.url ?? null,
+          focalX: typeof doc?.focalX === "number" ? doc.focalX : null,
+          focalY: typeof doc?.focalY === "number" ? doc.focalY : null,
+          whole: doc?.showWhole === true,
+        });
       })
       .catch(() => {
-        if (!cancelled) setLoaded({ id: heroId, url: null });
+        if (!cancelled) setLoaded({ id: heroId, url: null, focalX: null, focalY: null, whole: false });
       });
 
     return () => {
@@ -49,15 +63,10 @@ export const IndexFocalField = () => {
     };
   }, [heroId]);
 
-  const url = loaded && loaded.id === heroId ? loaded.url : null;
+  const doc = loaded && loaded.id === heroId ? loaded : null;
   const isSet = typeof x === "number" && typeof y === "number";
-
-  const place = (event: React.MouseEvent<HTMLDivElement>) => {
-    const box = event.currentTarget.getBoundingClientRect();
-    const clamp = (n: number) => Math.min(100, Math.max(0, Math.round(n)));
-    setX(clamp(((event.clientX - box.left) / box.width) * 100));
-    setY(clamp(((event.clientY - box.top) / box.height) * 100));
-  };
+  const px = isSet ? x : (doc?.focalX ?? 50);
+  const py = isSet ? y : (doc?.focalY ?? 50);
 
   const clear = () => {
     setX(undefined as unknown as number);
@@ -69,9 +78,10 @@ export const IndexFocalField = () => {
       <div style={{ marginBottom: 8, fontSize: 13, fontWeight: 600 }}>
         Izrez naslovne slike na prvi strani
       </div>
-      <p style={{ margin: "0 0 10px", fontSize: 12, opacity: 0.7, maxWidth: 520 }}>
-        Klikni na sliko in izberi točko, ki naj ostane vidna v mreži na prvi strani. Če ne izbereš
-        ničesar, velja izrez, nastavljen pri sami sliki.
+      <p style={{ margin: "0 0 10px", fontSize: 12, opacity: 0.7, maxWidth: 560 }}>
+        {doc?.whole
+          ? "Naslovna slika je označena, da se pokaže cela, zato se tudi na prvi strani ne obreže."
+          : "Klikni na sliko in izberi točko, ki naj ostane vidna v mreži na prvi strani. Spodaj vidiš, kako jo bo obrezal vsak okvir. Če ne izbereš ničesar, velja točka, izbrana pri sami sliki."}
       </p>
 
       {!heroId && (
@@ -80,79 +90,47 @@ export const IndexFocalField = () => {
         </p>
       )}
 
-      {heroId && !url && (
+      {heroId && !doc?.url && (
         <p style={{ margin: 0, fontSize: 12, opacity: 0.7 }}>Nalagam sliko …</p>
       )}
 
-      {url && (
+      {doc?.url && (
         <>
-          <div
-            onClick={place}
-            style={{
-              position: "relative",
-              width: "100%",
-              maxWidth: 420,
-              aspectRatio: "1",
-              overflow: "hidden",
-              cursor: "crosshair",
-              border: "1px solid var(--theme-elevation-150, #ccc)",
-              borderRadius: 3,
+          <CropPreview
+            url={doc.url}
+            x={px}
+            y={py}
+            whole={doc.whole}
+            onPick={(nx, ny) => {
+              setX(nx);
+              setY(ny);
             }}
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={url}
-              alt=""
-              draggable={false}
-              style={{
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-                objectPosition: `${isSet ? x : 50}% ${isSet ? y : 50}%`,
-                userSelect: "none",
-              }}
-            />
-            {isSet && (
-              <span
-                style={{
-                  position: "absolute",
-                  left: `${x}%`,
-                  top: `${y}%`,
-                  width: 16,
-                  height: 16,
-                  marginLeft: -8,
-                  marginTop: -8,
-                  borderRadius: "50%",
-                  border: "2px solid #fff",
-                  boxShadow: "0 0 0 1px rgba(0,0,0,0.55)",
-                  pointerEvents: "none",
-                }}
-              />
-            )}
-          </div>
+          />
 
-          <div style={{ marginTop: 8, display: "flex", alignItems: "center", gap: 12 }}>
-            <span style={{ fontSize: 12, opacity: 0.75 }}>
-              {isSet ? `${x}% / ${y}%` : "Uporablja izrez slike"}
-            </span>
-            {isSet && (
-              <button
-                type="button"
-                onClick={clear}
-                style={{
-                  background: "none",
-                  border: "none",
-                  padding: 0,
-                  fontSize: 12,
-                  textDecoration: "underline",
-                  cursor: "pointer",
-                  color: "inherit",
-                }}
-              >
-                Počisti
-              </button>
-            )}
-          </div>
+          {!doc.whole && (
+            <div style={{ marginTop: 8, display: "flex", alignItems: "center", gap: 12 }}>
+              <span style={{ fontSize: 12, opacity: 0.75 }}>
+                {isSet ? `${x}% / ${y}%` : "Uporablja točko, izbrano pri sliki"}
+              </span>
+              {isSet && (
+                <button
+                  type="button"
+                  onClick={clear}
+                  style={{
+                    background: "none",
+                    border: "none",
+                    padding: 0,
+                    fontSize: 12,
+                    textDecoration: "underline",
+                    cursor: "pointer",
+                    color: "inherit",
+                  }}
+                >
+                  Počisti
+                </button>
+              )}
+            </div>
+          )}
         </>
       )}
     </div>

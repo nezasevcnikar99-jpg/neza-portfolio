@@ -75,10 +75,12 @@ export default function ProjectCollage({
                 <img
                   src={slide.image.url}
                   alt={slide.image.alt ?? label}
-                  className="cell-photo"
-                  style={{
-                    objectPosition: `${slide.image.focalX ?? 50}% ${slide.image.focalY ?? 50}%`,
-                  }}
+                  className={slide.image.showWhole ? "cell-photo is-whole" : "cell-photo"}
+                  style={
+                    slide.image.showWhole
+                      ? undefined
+                      : { objectPosition: `${slide.image.focalX ?? 50}% ${slide.image.focalY ?? 50}%` }
+                  }
                 />
               ) : (
                 <span className="cell-blank">{placeholderLabel}</span>

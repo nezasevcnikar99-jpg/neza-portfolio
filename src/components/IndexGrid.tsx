@@ -25,8 +25,8 @@ function ImageCell({ cell }: { cell: Extract<Cell, { kind: "image" }> }) {
           <img
             src={hero.url}
             alt={hero.alt}
-            className="cell-photo"
-            style={{ objectPosition: `${x}% ${y}%` }}
+            className={hero.showWhole ? "cell-photo is-whole" : "cell-photo"}
+            style={hero.showWhole ? undefined : { objectPosition: `${x}% ${y}%` }}
           />
         ) : (
           <span className="cell-blank">{p.imgLabel ?? "fotografija"}</span>

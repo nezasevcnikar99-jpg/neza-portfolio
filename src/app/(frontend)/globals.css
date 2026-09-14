@@ -228,6 +228,15 @@ a {
   transition: opacity 0.25s ease;
 }
 
+/* A drawing cut to fill a frame is a drawing cut in half. These are shown whole
+   on the frame's own fill, with a little room so the lines never touch its edge. */
+.cell-photo.is-whole {
+  box-sizing: border-box;
+  object-fit: contain;
+  object-position: 50% 50%;
+  padding: 3%;
+}
+
 /* Covers the picture on hover and carries the project's line. The two sit on
    opposite edges of the cell, ranged left: the line at the top, the name along
    the bottom. */

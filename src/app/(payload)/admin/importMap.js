@@ -1,3 +1,4 @@
+import { MediaFocalField as MediaFocalField_c40e0b01f80d6ed5a0d87a3398915f0b } from '../../../components/admin/MediaFocalField'
 import { IndexFocalField as IndexFocalField_72e04b016a3bdca69344eb1c3dd4ccc7 } from '../../../components/admin/IndexFocalField'
 import { RscEntryLexicalCell as RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e } from '@payloadcms/richtext-lexical/rsc'
 import { RscEntryLexicalField as RscEntryLexicalField_44fe37237e0ebf4470c9990d8cb7b07e } from '@payloadcms/richtext-lexical/rsc'
@@ -27,6 +28,7 @@ import { CollectionCards as CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1 } f
 
 /** @type import('payload').ImportMap */
 export const importMap = {
+  "/components/admin/MediaFocalField#MediaFocalField": MediaFocalField_c40e0b01f80d6ed5a0d87a3398915f0b,
   "/components/admin/IndexFocalField#IndexFocalField": IndexFocalField_72e04b016a3bdca69344eb1c3dd4ccc7,
   "@payloadcms/richtext-lexical/rsc#RscEntryLexicalCell": RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e,
   "@payloadcms/richtext-lexical/rsc#RscEntryLexicalField": RscEntryLexicalField_44fe37237e0ebf4470c9990d8cb7b07e,
