@@ -41,3 +41,11 @@ galerija:
   pl-fotografija-09.jpg | galerija | Obstoječe stanje — ostrešje
   pl-fotografija-10.jpg | galerija | Obstoječe stanje — obokan prostor
 ---
+
+Idejna zasnova prenove zapuščenega objekta v Planini v stanovanjsko hišo z apartmaji. Hiša je zelo specifična: z različnimi nivoji in višinami ter netipično, delno ukopano zasnovo.
+
+## Koncept
+
+Osrednje vprašanje projekta je bilo, kako v eni hiši ločiti dva programa — stanovanjsko hišo in apartmaje — tako, da se njune poti med uporabo ne križajo.
+
+Drugo izhodišče je bilo ohraniti obokane stropove. Zasnova zato posega v obstoječo strukturo s čim manj rušitvami in nove prostore prilagodi različnim nivojem in višinam hiše, namesto da bi jih izravnala.
