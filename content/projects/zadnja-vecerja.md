@@ -9,16 +9,16 @@ citat: An der Gasse, An der Gras
 naslovna: vecerja-jedilnica-01.jpg
 cele: vecerja-prerez-01.jpg, vecerja-tloris-novo-01.jpg, vecerja-aksonometrija-01.jpg, vecerja-zasnova-01.jpg, vecerja-tloris-rusitve-01.jpg, vecerja-fasada-01.jpg, vecerja-razvoj-01.jpg, vecerja-obstojece-aksonometrija-01.jpg, vecerja-obstojece-tloris-01.jpg
 galerija:
-  vecerja-prerez-01.jpg | stran | Prerez povezovanja obstoječega samostana z novim prizidkom (A–A)
-  vecerja-tloris-novo-01.jpg | stran | Tloris novega stanja 1 : 100
-  vecerja-aksonometrija-01.jpg | stran | Aksonometrija 1 : 75
-  vecerja-jedilnica-pogled-01.jpg | galerija | Jedilni prostor
-  vecerja-zasnova-01.jpg | galerija | Celostna konceptualna zasnova — križni hodnik kot povezava
-  vecerja-tloris-rusitve-01.jpg | galerija | Tloris rušitev 1 : 200
-  vecerja-fasada-01.jpg | galerija | Pogled na fasado 1 : 100
   vecerja-razvoj-01.jpg | galerija | Aksonometrije razvoja kompleksa po fazah 1 : 750
   vecerja-obstojece-aksonometrija-01.jpg | galerija | Aksonometrija obstoječega stanja 1 : 500
   vecerja-obstojece-tloris-01.jpg | galerija | Tloris obstoječega stanja z okolico 1 : 750
+  vecerja-tloris-rusitve-01.jpg | galerija | Tloris rušitev 1 : 200
+  vecerja-zasnova-01.jpg | galerija | Celostna konceptualna zasnova — križni hodnik kot povezava
+  vecerja-prerez-01.jpg | stran | Prerez povezovanja obstoječega samostana z novim prizidkom (A–A)
+  vecerja-fasada-01.jpg | galerija | Pogled na fasado 1 : 100
+  vecerja-tloris-novo-01.jpg | stran | Tloris novega stanja 1 : 100
+  vecerja-aksonometrija-01.jpg | stran | Aksonometrija 1 : 75
+  vecerja-jedilnica-pogled-01.jpg | galerija | Jedilni prostor
   vecerja-foto-procelje-01.jpg | galerija | Glavno pročelje
   vecerja-foto-ravnica-01.jpg | galerija | Ravnica pred cerkvijo
   vecerja-foto-zid-01.jpg | galerija | Samostanski zid

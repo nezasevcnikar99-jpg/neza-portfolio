@@ -57,6 +57,11 @@ Vse za tem naslovom je besedilo koncepta. Prazna vrstica pomeni nov odstavek.
 Slike, naštete pri `cele`, se v vsakem okvirju pokažejo vse, na svetli
 podlagi. Uvoz jih samo vklopi; izklopiš jih v adminu pri sliki.
 
+**Vrstni red v galeriji** je vedno: najprej načrti obstoječega stanja (s
+tlorisi rušenja), nato načrti prenove, na koncu fotografije. Tri slike z
+oznako `stran` naj v tem zaporedju ohranijo svoj medsebojni vrstni red, ker
+vrstni red določa, v kateri okvir pride katera.
+
 `stran` pomeni, da se slika vidi že na strani projekta. Mest je štiri —
 naslovna in tri od tu; kar je čez, gre kljub oznaki v galerijo. `galerija`
 pomeni, da se pokaže šele, ko obiskovalec klikne gumb Galerija. Opis je lahko
