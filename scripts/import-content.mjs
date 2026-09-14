@@ -229,10 +229,22 @@ const MIME = {
 async function mediaId(token, filename, alt, cache) {
   if (cache.has(filename)) return cache.get(filename);
 
-  const found = await call(token, `/api/media?where[filename][equals]=${encodeURIComponent(filename)}&limit=1`);
-  if (found?.docs?.length) {
-    cache.set(filename, found.docs[0].id);
-    return found.docs[0].id;
+  // Vercel Blob stores "hisa-01.jpg" as "hisa-01-<random>.jpg", so an exact
+  // match never finds a picture uploaded before. Ask for everything starting
+  // with the stem and keep only that name with or without Blob's suffix — a
+  // bare prefix would also take "hisa-01-detajl.jpg" for "hisa-01.jpg".
+  const ext = path.extname(filename);
+  const stem = filename.slice(0, -ext.length);
+  const escape = (text) => text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const same = new RegExp(`^${escape(stem)}(-[A-Za-z0-9]{20,})?${escape(ext)}$`, "i");
+  const found = await call(
+    token,
+    `/api/media?where[filename][like]=${encodeURIComponent(stem)}&limit=100&depth=0&sort=createdAt`,
+  );
+  const match = found?.docs?.find((doc) => same.test(doc.filename ?? ""));
+  if (match) {
+    cache.set(filename, match.id);
+    return match.id;
   }
 
   const full = path.join(IMAGES_DIR, filename);
