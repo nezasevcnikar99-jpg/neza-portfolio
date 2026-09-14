@@ -192,9 +192,9 @@ export interface Project {
    */
   order?: number | null;
   /**
-   * Oblika naslovne slike v mreži na prvi strani. Pri »Samodejno« se oblike izmenjujejo same. Postavitev se prilagodi ne glede na to, kaj izbereš.
+   * Oblika naslovne slike v mreži na prvi strani. Mreža ohrani svojo kompozicijo, projekt pa dobi prvo prosto mesto izbrane oblike. Pri »Samodejno« dobi prvo prosto mesto, kakršno koli že je.
    */
-  gridSize?: ('auto' | '1x1' | '2x2' | '2x1') | null;
+  gridSize?: ('auto' | '1x1' | '2x1') | null;
   category: 'Arhitektura' | 'Literarni esej' | 'Grafika';
   year: number;
   /**

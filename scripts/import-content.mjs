@@ -111,6 +111,14 @@ const lexical = (text) => ({
   },
 });
 
+/** The shape of the picture on the index, in the words the admin uses. */
+function size(value, file) {
+  const key = value.trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  const known = { samodejno: "auto", kvadrat: "1x1", lezece: "2x1" };
+  if (!known[key]) throw new Error(`${file}: "velikost" je lahko samodejno, kvadrat ali ležeče — ne ${value}`);
+  return known[key];
+}
+
 /** 1 slika, 2 sliki, 3 slike, 5 slik — the dual matters here. */
 const pictures = (n) => {
   const form = n % 100 === 1 ? "slika" : n % 100 === 2 ? "sliki" : n % 100 === 3 || n % 100 === 4 ? "slike" : "slik";
@@ -320,6 +328,7 @@ async function importOne(name) {
     imgLabel: meta.oznaka || null,
     intro: intro || null,
     ...(meta.vrstniRed ? { order: Number(meta.vrstniRed) } : {}),
+    ...(meta.velikost ? { gridSize: size(meta.velikost, name) } : {}),
     ...(concept ? { concept: lexical(concept) } : {}),
   };
 

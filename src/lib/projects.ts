@@ -152,11 +152,32 @@ function assignLabels(images: Placed[], lastBand: number) {
  * empties included, so the grid can draw every rule.
  */
 export function buildIndexCells(projects: Project[]): Cell[] {
-  const images: Placed[] = projects.map((project, index) => {
-    const slot = CYCLE[index % CYCLE.length];
-    const cycle = Math.floor(index / CYCLE.length);
-    return { index, project, band: cycle * CYCLE_BANDS + slot.band, col: slot.col, span: slot.span };
-  });
+  // The figure stays fixed; a project that asked for a shape waits for the next
+  // slot of that shape, and each slot takes the earliest project that fits it.
+  // A slot nothing fits stays empty rather than breaking the figure. Anything
+  // unrecognised, including values left from older grids, counts as "auto".
+  const fits = (project: Project, span: number) =>
+    project.gridSize === "1x1" ? span === 1 : project.gridSize === "2x1" ? span === 2 : true;
+
+  const images: Placed[] = [];
+  const pending = [...projects];
+  for (let i = 0; pending.length > 0; i++) {
+    const slot = CYCLE[i % CYCLE.length];
+    const at = pending.findIndex((project) => fits(project, slot.span));
+    if (at === -1) continue;
+
+    const [project] = pending.splice(at, 1);
+    const cycle = Math.floor(i / CYCLE.length);
+    // Numbered in the order pictures appear, which is also the order the phone
+    // stacks them in, so each caption still follows its own picture there.
+    images.push({
+      index: images.length,
+      project,
+      band: cycle * CYCLE_BANDS + slot.band,
+      col: slot.col,
+      span: slot.span,
+    });
+  }
 
   const lastBand = images.reduce((m, im) => Math.max(m, im.band), 0) + 1;
   const labels = assignLabels(images, lastBand);

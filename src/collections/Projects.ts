@@ -64,19 +64,19 @@ export const Projects: CollectionConfig = {
       type: "select",
       label: "Dimenzija na prvi strani",
       defaultValue: "auto",
-      // The stored values are leftovers from an earlier grid. They are kept as
-      // they are because this column is a Postgres enum: renaming them would
-      // need a production migration, and only the labels are ever seen.
+      // The grid has two shapes, a square cell and a wide one two cells across.
+      // The stored values are kept from an earlier grid because this column is a
+      // Postgres enum; the two shapes that no longer exist are reset to "auto"
+      // before each build, in scripts/apply-schema.mjs.
       options: [
         { label: "Samodejno", value: "auto" },
         { label: "Kvadrat", value: "1x1" },
-        { label: "Velik kvadrat", value: "2x2" },
-        { label: "Ležeča (dva kvadrata)", value: "2x1" },
+        { label: "Ležeče", value: "2x1" },
       ],
       admin: {
         position: "sidebar",
         description:
-          "Oblika naslovne slike v mreži na prvi strani. Pri »Samodejno« se oblike izmenjujejo same. Postavitev se prilagodi ne glede na to, kaj izbereš.",
+          "Oblika naslovne slike v mreži na prvi strani. Mreža ohrani svojo kompozicijo, projekt pa dobi prvo prosto mesto izbrane oblike. Pri »Samodejno« dobi prvo prosto mesto, kakršno koli že je.",
       },
     },
     {

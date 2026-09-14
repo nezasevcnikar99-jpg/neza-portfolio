@@ -50,6 +50,7 @@ Vse za tem naslovom je besedilo koncepta. Prazna vrstica pomeni nov odstavek.
 | `naslovna`   | ime datoteke iz `images/`; vedno prva slika na strani projekta     |
 | `izrez`      | dve števili 0–100: kateri del naslovne slike se vidi v mreži       |
 | `vrstniRed`  | manjše število pomeni prej v mreži                                 |
+| `velikost`   | oblika v mreži na prvi strani: samodejno, kvadrat ali ležeče       |
 | `galerija`   | ena vrstica na sliko: `ime datoteke | stran ali galerija | opis`   |
 | `cele`       | slike, ki se ne obrežejo (tlorisi, prerezi), ločene z vejico       |
 
