@@ -5,7 +5,7 @@ slug: pod-zeleznim-povrsjem
 kategorija: Arhitektura
 leto: 2024
 vloga: Mentor prof. mag. Tomaž Krušec, asistent Miha Munda, demonstratorja Kevin Jelenc in Dan Napast
-naslovna: zel-maketa-01.jpg
+naslovna: zel-render-stopnisce-01.jpg
 cele: zel-sheme-poteze-01.jpg, zel-sheme-program-01.jpg, zel-situacija-01.jpg, zel-tloris-klet-01.jpg, zel-tloris-medetaza-01.jpg, zel-prerez-a-01.jpg, zel-prerez-b-01.jpg
 galerija:
   zel-sheme-poteze-01.jpg | galerija | Rušitev propadlih objektov, povezava s poglobitvijo, stopnišča in atriji kot svetlobniki
@@ -15,10 +15,10 @@ galerija:
   zel-tloris-medetaza-01.jpg | galerija | Tloris medetaže 1 : 250
   zel-prerez-a-01.jpg | stran | Prerez A–A 1 : 250
   zel-prerez-b-01.jpg | galerija | Prerez B–B 1 : 250
-  zel-render-stopnisce-01.jpg | stran | Teatralno stopnišče in ozelenjen atrij
-  zel-render-atrij-01.jpg | galerija | Pogled iz javnega programa proti atriju
+  zel-render-atrij-01.jpg | stran | Pogled iz javnega programa proti atriju
   zel-render-zunanjost-01.jpg | galerija | Obstoječe hale na površju
-  zel-maketa-02.jpg | galerija | Maketa
+  zel-maketa-01.jpg | galerija | Maketa
+  zel-maketa-02.jpg | galerija | Maketa — pogled na rotondo
 ---
 
 Projekt prenove območja železniškega muzeja obravnava specifičen kontekst industrijske dediščine, ki danes kljub bogatemu vsebinskemu gradivu deluje v omejenem prostorskem okviru. Obstoječe industrijske hale in rotonda predstavljajo dragocen arhitekturni spomin, a zaradi razpršene zasnove in prostorske stiske ne omogočajo zadovoljive muzejske izkušnje.
