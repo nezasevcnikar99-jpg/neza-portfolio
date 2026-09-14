@@ -76,7 +76,7 @@ export const Projects: CollectionConfig = {
       admin: {
         position: "sidebar",
         description:
-          "Oblika naslovne slike v mreži na prvi strani. Mreža ohrani svojo kompozicijo, projekt pa dobi prvo prosto mesto izbrane oblike. Pri »Samodejno« dobi prvo prosto mesto, kakršno koli že je.",
+          "Oblika naslovne slike v mreži na prvi strani. Projekti se v mrežo razporedijo po kompoziciji, ne po vrstnem redu. Pri »Samodejno« obliko določi naslovna slika: ležeča dobi široko mesto, pokončna ali kvadratna kvadrat.",
       },
     },
     {

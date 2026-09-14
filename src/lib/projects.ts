@@ -152,18 +152,27 @@ function assignLabels(images: Placed[], lastBand: number) {
  * empties included, so the grid can draw every rule.
  */
 export function buildIndexCells(projects: Project[]): Cell[] {
-  // The figure stays fixed; a project that asked for a shape waits for the next
-  // slot of that shape, and each slot takes the earliest project that fits it.
-  // A slot nothing fits stays empty rather than breaking the figure. Anything
-  // unrecognised, including values left from older grids, counts as "auto".
-  const fits = (project: Project, span: number) =>
-    project.gridSize === "1x1" ? span === 1 : project.gridSize === "2x1" ? span === 2 : true;
+  // The figure stays fixed and the projects are dealt into it for the sake of
+  // the composition, not their order: each slot takes the first project whose
+  // shape suits it. A chosen size decides that shape; on "auto" the hero picture
+  // does — a landscape picture wants the wide slot, anything squarer the square
+  // one. Order only breaks ties. If no project suits a slot, an "auto" project
+  // takes it anyway; a project with a chosen size never goes in the wrong shape.
+  const shapeOf = (project: Project): number | null => {
+    if (project.gridSize === "1x1") return 1;
+    if (project.gridSize === "2x1") return 2;
+    const hero = typeof project.heroImage === "object" ? project.heroImage : null;
+    const ratio = hero?.width && hero?.height ? hero.width / hero.height : null;
+    return ratio === null ? null : ratio >= 1.25 ? 2 : 1;
+  };
+  const chosen = (project: Project) => project.gridSize === "1x1" || project.gridSize === "2x1";
 
   const images: Placed[] = [];
   const pending = [...projects];
   for (let i = 0; pending.length > 0; i++) {
     const slot = CYCLE[i % CYCLE.length];
-    const at = pending.findIndex((project) => fits(project, slot.span));
+    let at = pending.findIndex((project) => shapeOf(project) === slot.span);
+    if (at === -1) at = pending.findIndex((project) => !chosen(project));
     if (at === -1) continue;
 
     const [project] = pending.splice(at, 1);

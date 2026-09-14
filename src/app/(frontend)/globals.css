@@ -8,8 +8,8 @@
   --sheet: #ffffff;
   --rule: #dcdbd8;
   --fill: #f4f3f1;
-  /* The one colour on the site, kept for the hover over a project. */
-  --hover: #1f3fd8;
+  /* The hover over a picture: the picture gives way to the page itself. */
+  --hover: var(--sheet);
   --page-pad: clamp(16px, 2.2vw, 40px);
 }
 
@@ -250,7 +250,7 @@ a {
   gap: 10px;
   padding: calc(var(--inset) * 0.9);
   background: var(--hover);
-  color: var(--sheet);
+  color: var(--ink);
   opacity: 0;
   transition: opacity 0.28s ease;
 }
@@ -871,8 +871,8 @@ a {
   inset: var(--inset);
 }
 
-/* Same colour wash as the index, but the name sits in the corner rather than
-   across the middle — it should say what the picture is, not announce it. */
+/* Same wash as the index, but the name sits in the corner rather than across
+   the middle — it should say what the picture is, not announce it. */
 .cell-shot-caption {
   position: absolute;
   inset: 0;
@@ -880,7 +880,7 @@ a {
   align-items: flex-end;
   padding: calc(var(--inset) * 0.8);
   background: var(--hover);
-  color: var(--sheet);
+  color: var(--ink);
   font-size: 12px;
   line-height: 1.4;
   letter-spacing: 0.02em;
