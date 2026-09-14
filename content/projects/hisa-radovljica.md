@@ -6,7 +6,7 @@ kategorija: Arhitektura
 leto: 2025
 stranka: Zasebni investitor
 vloga: Mentorica izr. prof. dr. Nataša Koselj
-naslovna: rad-fotografija-detajl-stopnice-okvir.jpg
+naslovna: rad-fotografija-detajl-stopnice-okno.jpg
 cele: rad-nacrt-prerez-b-08.jpg, rad-nacrt-fasada-vzhodna-09.jpg, rad-nacrt-tloris-nadstropje-04.jpg, rad-nacrt-situacija-01.jpg, rad-nacrt-tloris-klet-03.jpg, rad-nacrt-tloris-pritlicje-02.jpg, rad-nacrt-tloris-mansarda-05.jpg, rad-nacrt-tloris-podstreha-06.jpg, rad-nacrt-prerez-a-07.jpg, rad-nacrt-fasada-zahodna-10.jpg, rad-nacrt-fasada-vzdolzna-11.jpg, rad-nacrt-rusenje-klet-12.jpg, rad-nacrt-rusenje-pritlicje-12.jpg, rad-nacrt-rusenje-nadstropje-13.jpg, rad-nacrt-rusenje-mansarda-14.jpg
 galerija:
   rad-nacrt-prerez-b-08.jpg | stran | Prerez B–B 1 : 100
