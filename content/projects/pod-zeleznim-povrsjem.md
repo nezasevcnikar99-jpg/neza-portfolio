@@ -11,10 +11,10 @@ galerija:
   zel-sheme-poteze-01.jpg | galerija | Rušitev propadlih objektov, povezava s poglobitvijo, stopnišča in atriji kot svetlobniki
   zel-sheme-program-01.jpg | galerija | Poglobitev, razdeljena na muzejsko pot in javni program
   zel-situacija-01.jpg | galerija | Tloris pritličja z okolico 1 : 500
-  zel-tloris-klet-01.jpg | stran | Tloris kleti 1 : 250
+  zel-tloris-klet-01.jpg | galerija | Tloris kleti 1 : 250
   zel-tloris-medetaza-01.jpg | galerija | Tloris medetaže 1 : 250
   zel-prerez-a-01.jpg | stran | Prerez A–A 1 : 250
-  zel-prerez-b-01.jpg | galerija | Prerez B–B 1 : 250
+  zel-prerez-b-01.jpg | stran | Prerez B–B 1 : 250
   zel-render-atrij-01.jpg | stran | Pogled iz javnega programa proti atriju
   zel-render-zunanjost-01.jpg | galerija | Obstoječe hale na površju
   zel-maketa-01.jpg | galerija | Maketa
