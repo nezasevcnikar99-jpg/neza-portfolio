@@ -5,6 +5,7 @@ slug: it-is-just-a-few-steps
 kategorija: Literarni esej
 leto: 2026
 vloga: Mentor Keith McAllister — Civitas Doloris
+citat: Majhen korak za človeka, nepremostljiva ovira za človeštvo
 naslovna: koraki-plakat-01.jpg
 cele: koraki-plakat-01.jpg, koraki-stran-03.jpg, koraki-stran-11.jpg, koraki-stran-18.jpg, koraki-stran-21.jpg
 galerija:
