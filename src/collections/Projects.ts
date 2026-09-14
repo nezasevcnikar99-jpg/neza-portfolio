@@ -155,6 +155,26 @@ export const Projects: CollectionConfig = {
       label: "Koncept",
     },
     {
+      name: "document",
+      type: "upload",
+      relationTo: "media",
+      label: "Dokument za prenos (PDF)",
+      filterOptions: { mimeType: { equals: "application/pdf" } },
+      admin: {
+        description:
+          "Celotna knjižica, plakat ali poročilo. Na strani projekta se pokaže povezava za prenos. PDF naloži tu, v adminu — uvoz iz datotek večjih PDF-jev ne prenese.",
+      },
+    },
+    {
+      name: "documentLabel",
+      type: "text",
+      label: "Ime dokumenta",
+      admin: {
+        description: "Kako se povezava imenuje, npr. »Celotna knjižica«. Če ostane prazno, piše »Celoten dokument«.",
+        condition: (data) => Boolean(data?.document),
+      },
+    },
+    {
       name: "gallery",
       type: "array",
       labels: { singular: "Slika", plural: "Galerija" },

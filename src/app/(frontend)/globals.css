@@ -909,3 +909,29 @@ a {
     inset: 0;
   }
 }
+
+/* The downloadable document on a project page: a ruled line of its own, name
+   on the left, format and size on the right, so it reads as a thing to take
+   away rather than one more fact. */
+.project-download {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  margin-top: 20px;
+  padding: 12px 0;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  color: var(--ink);
+  text-decoration: none;
+}
+.project-download:hover span:first-child,
+.project-download:focus-visible span:first-child {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.project-download-meta {
+  color: var(--muted);
+  font-size: 12px;
+  white-space: nowrap;
+}

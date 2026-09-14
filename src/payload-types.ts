@@ -232,6 +232,14 @@ export interface Project {
     [k: string]: unknown;
   } | null;
   /**
+   * Celotna knjižica, plakat ali poročilo. Na strani projekta se pokaže povezava za prenos. PDF naloži tu, v adminu — uvoz iz datotek večjih PDF-jev ne prenese.
+   */
+  document?: (number | null) | Media;
+  /**
+   * Kako se povezava imenuje, npr. »Celotna knjižica«. Če ostane prazno, piše »Celoten dokument«.
+   */
+  documentLabel?: string | null;
+  /**
    * Naslovna slika je na strani projekta vedno prva. Tu odkljukaj še tiste, ki naj se vidijo poleg nje — mest so štiri, torej naslovna in največ tri od tu, po vrstnem redu od zgoraj. Vse ostalo se pokaže šele, ko obiskovalec odpre galerijo.
    */
   gallery?:
@@ -392,6 +400,8 @@ export interface ProjectsSelect<T extends boolean = true> {
   stranka?: T;
   vloga?: T;
   concept?: T;
+  document?: T;
+  documentLabel?: T;
   gallery?:
     | T
     | {

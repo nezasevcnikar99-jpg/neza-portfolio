@@ -9,6 +9,12 @@ import type { Media } from "@/payload-types";
 
 export const dynamic = "force-dynamic";
 
+/** 9,1 MB, 640 kB — Slovene decimal comma. */
+const fileSize = (bytes: number) =>
+  bytes >= 1024 * 1024
+    ? `${(bytes / 1024 / 1024).toFixed(1).replace(".", ",")} MB`
+    : `${Math.max(1, Math.round(bytes / 1024))} kB`;
+
 export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const project = await getProjectBySlug(slug);
@@ -19,6 +25,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
   const next = await getNextProject(slug);
   const heroImage = typeof project.heroImage === "object" ? (project.heroImage as Media | null) : null;
+  const document = typeof project.document === "object" ? (project.document as Media | null) : null;
 
   // The hero always holds the first slot on the page; every other picture is
   // there because it was ticked. Rows saved before the tick existed count as
@@ -65,6 +72,17 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                 </div>
               ))}
             </dl>
+          )}
+
+          {document?.url && (
+            // Blob is another origin, where the download attribute is ignored;
+            // a new tab at least keeps the project page open behind the PDF.
+            <a href={document.url} className="project-download" target="_blank" rel="noopener noreferrer">
+              <span>{project.documentLabel?.trim() || "Celoten dokument"}</span>
+              <span className="project-download-meta">
+                PDF{document.filesize ? `, ${fileSize(document.filesize)}` : ""} ↓
+              </span>
+            </a>
           )}
 
           {project.concept && (

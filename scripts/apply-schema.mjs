@@ -33,12 +33,19 @@ const STATEMENTS = [
   // on either would fail validation the next time it is saved. Compared as text
   // so a database whose enum never had these labels does not error.
   `UPDATE "projects" SET "grid_size" = 'auto' WHERE "grid_size"::text IN ('2x2', '1x2')`,
+  `ALTER TABLE "projects" ADD COLUMN IF NOT EXISTS "document_id" integer`,
+  `ALTER TABLE "projects" ADD COLUMN IF NOT EXISTS "document_label" varchar`,
+  `CREATE INDEX IF NOT EXISTS "projects_document_idx" ON "projects" ("document_id")`,
   `CREATE INDEX IF NOT EXISTS "home_landing_media_idx" ON "home" ("landing_media_id")`,
   `CREATE INDEX IF NOT EXISTS "home_landing_poster_idx" ON "home" ("landing_poster_id")`,
   // Postgres has no ADD CONSTRAINT IF NOT EXISTS, so the duplicate is swallowed.
   `DO $$ BEGIN
      ALTER TABLE "home" ADD CONSTRAINT "home_landing_media_id_media_id_fk"
        FOREIGN KEY ("landing_media_id") REFERENCES "media"("id") ON DELETE SET NULL;
+   EXCEPTION WHEN duplicate_object THEN NULL; END $$`,
+  `DO $$ BEGIN
+     ALTER TABLE "projects" ADD CONSTRAINT "projects_document_id_media_id_fk"
+       FOREIGN KEY ("document_id") REFERENCES "media"("id") ON DELETE SET NULL;
    EXCEPTION WHEN duplicate_object THEN NULL; END $$`,
   `DO $$ BEGIN
      ALTER TABLE "home" ADD CONSTRAINT "home_landing_poster_id_media_id_fk"
