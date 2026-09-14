@@ -5,7 +5,7 @@ slug: kdo-bo-odnesel-smeti
 kategorija: Arhitektura
 leto: 2025
 vloga: Fakultetna raziskava, Queen's University Belfast
-naslovna: smeti-pragovi-04.jpg
+naslovna: smeti-kolaz-03.jpg
 cele: smeti-preoblikovanje-08.jpg, smeti-materiali-09.jpg, smeti-principi-06.jpg, smeti-ustavljanje-01.jpg, smeti-hoja-01.jpg, smeti-prerez-ulic-02.jpg, smeti-primerjava-ulic-02.jpg, smeti-plasti-gibanja-03.jpg, smeti-raba-pritlicij-03.jpg, smeti-stevilke-04.jpg, smeti-popis-05.jpg, smeti-prerez-obstojece-07.jpg, smeti-tloris-obstojece-09.jpg, smeti-prerez-predlog-08.jpg, smeti-tloris-predlog-09.jpg, smeti-vstopni-prag-09.jpg
 galerija:
   smeti-ustavljanje-01.jpg | galerija | Kje se ljudje ustavijo — ulica brez prostorov za postanek
@@ -24,4 +24,5 @@ galerija:
   smeti-prerez-predlog-08.jpg | galerija | Predlagani prerez praga 1 : 100
   smeti-tloris-predlog-09.jpg | galerija | Predlagani tloris 1 : 100
   smeti-vstopni-prag-09.jpg | galerija | Vstopni prag
+  smeti-pragovi-04.jpg | galerija | Obstoječi pragovi
 ---
