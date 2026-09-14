@@ -16,7 +16,13 @@ export default async function Home() {
 
   return (
     <>
-      <Landing media={media} poster={poster} lead={home.heroLead} accent={home.heroAccent} />
+      <Landing
+        media={media}
+        poster={poster}
+        lead={home.heroLead}
+        accent={home.heroAccent}
+        light={home.landingLight === true}
+      />
 
       <div className="sheet after-landing">
         <Header title="Projekti" />

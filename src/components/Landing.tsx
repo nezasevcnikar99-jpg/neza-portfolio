@@ -15,17 +15,20 @@ export default function Landing({
   poster,
   lead,
   accent,
+  light = false,
 }: {
   media: Media | null;
   poster: Media | null;
   lead: string;
   accent: string;
+  /** A light picture — a drawing on paper — takes dark text kept off the drawing. */
+  light?: boolean;
 }) {
   const isVideo = Boolean(media?.mimeType?.startsWith("video/"));
   const still = isVideo ? poster : media;
 
   return (
-    <section className="landing">
+    <section className={light ? "landing is-light" : "landing"}>
       <div className="landing-media">
         {isVideo && media?.url && (
           <video
@@ -46,7 +49,9 @@ export default function Landing({
             src={still.url}
             alt={still.alt ?? ""}
             className={`landing-still${isVideo ? " is-fallback" : ""}`}
-            style={{ objectPosition: `${still.focalX ?? 50}% ${still.focalY ?? 50}%` }}
+            // A drawing on paper is placed by the stylesheet, whole and against the
+            // bottom right; an inline focal point would win over that and centre it.
+            style={light ? undefined : { objectPosition: `${still.focalX ?? 50}% ${still.focalY ?? 50}%` }}
           />
         ) : (
           !isVideo && <span className="landing-blank">uvodna slika ali video</span>

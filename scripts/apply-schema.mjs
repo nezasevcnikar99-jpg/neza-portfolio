@@ -22,6 +22,7 @@ if (!uri) {
 const STATEMENTS = [
   `ALTER TABLE "home" ADD COLUMN IF NOT EXISTS "landing_media_id" integer`,
   `ALTER TABLE "home" ADD COLUMN IF NOT EXISTS "landing_poster_id" integer`,
+  `ALTER TABLE "home" ADD COLUMN IF NOT EXISTS "landing_light" boolean DEFAULT false`,
   `ALTER TABLE "projects" ADD COLUMN IF NOT EXISTS "index_focal_x" numeric`,
   `ALTER TABLE "projects" ADD COLUMN IF NOT EXISTS "index_focal_y" numeric`,
   // Rows that predate the tick default to shown, so no picture leaves a page

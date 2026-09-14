@@ -27,6 +27,16 @@ export const Home: GlobalConfig = {
       },
     },
     {
+      name: "landingLight",
+      type: "checkbox",
+      label: "Svetla slika — temno besedilo",
+      defaultValue: false,
+      admin: {
+        description:
+          "Za skico na belem papirju. Besedilo postane temno in stoji spodaj levo, pod sliko, zato se je nikoli ne dotakne. Slika se ne obreže, poravnana je spodaj desno. Na pokončnih zaslonih leva tretjina lista izteče čez rob, zato naj bo risba na desni.",
+      },
+    },
+    {
       name: "heroLead",
       type: "text",
       label: "Uvodni stavek (prvi del)",

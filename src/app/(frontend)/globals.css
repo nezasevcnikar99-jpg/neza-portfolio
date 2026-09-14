@@ -704,6 +704,57 @@ a {
   }
 }
 
+/* A drawing on paper. The page is the paper and the text is ink, set bottom left
+   in a row of its own beneath the picture, so the two can never overlap
+   whatever the screen. The picture is never cropped: it sits whole against the
+   bottom right of the space above the text. With white paper on a white page
+   there is no edge to see. */
+.landing.is-light {
+  display: flex;
+  flex-direction: column;
+  background: var(--sheet);
+}
+.landing.is-light .landing-media {
+  position: relative;
+  inset: auto;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+.landing.is-light .landing-still {
+  object-fit: contain;
+  object-position: 100% 100%;
+}
+.landing.is-light .landing-text {
+  position: static;
+  margin: clamp(14px, 3vh, 32px) var(--page-pad) 0;
+}
+.landing.is-light .landing-line,
+.landing.is-light .landing-cue {
+  color: var(--ink);
+}
+.landing.is-light .landing-cue {
+  position: static;
+  align-self: flex-start;
+  margin: clamp(14px, 3.5vh, 36px) var(--page-pad) 42px;
+}
+/* Upright screens fit the sheet by its width, which would leave the drawing
+   small. The sheet is widened so its empty left side runs off the edge — for a
+   drawing set to the right of the sheet, as this option expects, that is paper. */
+@media (max-aspect-ratio: 1 / 1) {
+  .landing.is-light .landing-still {
+    left: auto;
+    /* 145 %, not 150: the sheet's drawing starts a third of the way in, and the
+       extra margin keeps its first line as far from the edge as the text. The
+       base stylesheet caps every image at max-width: 100 %, which would
+       otherwise quietly undo the widening. */
+    width: 145%;
+    max-width: none;
+  }
+  .landing.is-light .landing-text {
+    max-width: none;
+  }
+}
+
 /* Rides over the landing rather than pushing it. */
 .after-landing {
   position: relative;

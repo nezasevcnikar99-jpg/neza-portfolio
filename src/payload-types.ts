@@ -467,6 +467,10 @@ export interface Home {
    * Prikaže se na telefonih in dokler se video ne naloži. Pri sliki zgoraj je ne rabiš.
    */
   landingPoster?: (number | null) | Media;
+  /**
+   * Za skico na belem papirju. Besedilo postane temno in stoji spodaj levo, pod sliko, zato se je nikoli ne dotakne. Slika se ne obreže, poravnana je spodaj desno. Na pokončnih zaslonih leva tretjina lista izteče čez rob, zato naj bo risba na desni.
+   */
+  landingLight?: boolean | null;
   heroLead: string;
   heroAccent: string;
   heroDescription: string;
@@ -529,6 +533,7 @@ export interface Setting {
 export interface HomeSelect<T extends boolean = true> {
   landingMedia?: T;
   landingPoster?: T;
+  landingLight?: T;
   heroLead?: T;
   heroAccent?: T;
   heroDescription?: T;
