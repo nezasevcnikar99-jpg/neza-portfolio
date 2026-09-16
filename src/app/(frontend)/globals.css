@@ -282,6 +282,24 @@ a {
   opacity: 1;
 }
 
+.cell-type {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  padding: clamp(16px, 2.4cqw, 32px);
+  background: var(--fill);
+}
+
+.cell-type-text {
+  font-weight: 300;
+  font-size: clamp(17px, 2.1cqw, 30px);
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  max-width: 22ch;
+  text-wrap: balance;
+}
+
 .cell-blank {
   position: absolute;
   inset: 0;

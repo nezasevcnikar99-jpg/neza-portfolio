@@ -1,10 +1,19 @@
 import type { GlobalConfig } from "payload";
+import { refreshMediaUsage } from "../lib/media-usage";
 
 export const Home: GlobalConfig = {
   slug: "home",
   label: "Domov",
   access: {
     read: () => true,
+  },
+  hooks: {
+    afterChange: [
+      async ({ doc, req }) => {
+        await refreshMediaUsage(req);
+        return doc;
+      },
+    ],
   },
   fields: [
     {

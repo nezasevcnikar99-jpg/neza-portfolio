@@ -1,10 +1,19 @@
 import type { GlobalConfig } from "payload";
+import { refreshMediaUsage } from "../lib/media-usage";
 
 export const About: GlobalConfig = {
   slug: "about",
   label: "O meni",
   access: {
     read: () => true,
+  },
+  hooks: {
+    afterChange: [
+      async ({ doc, req }) => {
+        await refreshMediaUsage(req);
+        return doc;
+      },
+    ],
   },
   fields: [
     {

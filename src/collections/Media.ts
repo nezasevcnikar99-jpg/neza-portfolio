@@ -2,10 +2,37 @@ import type { CollectionConfig } from "payload";
 
 export const Media: CollectionConfig = {
   slug: "media",
+  admin: {
+    defaultColumns: ["filename", "inUse", "usedIn", "alt"],
+  },
   access: {
     read: () => true,
   },
   fields: [
+    {
+      // Set by the site, never by hand: every save of a project, the home page or
+      // the about page recomputes it (src/lib/media-usage.ts). Stored rather than
+      // computed on read so the list can be filtered to the unused ones.
+      name: "inUse",
+      type: "checkbox",
+      label: "Uporabljena na strani",
+      defaultValue: false,
+      admin: {
+        readOnly: true,
+        position: "sidebar",
+        description:
+          "Neobkljukane slike ne uporablja noben projekt, naslovnica ali stran O meni. V seznamu medijev jih najdeš s filtrom »Uporabljena na strani« je enako »false«.",
+      },
+    },
+    {
+      name: "usedIn",
+      type: "text",
+      label: "Kje",
+      admin: {
+        readOnly: true,
+        position: "sidebar",
+      },
+    },
     {
       name: "alt",
       type: "text",

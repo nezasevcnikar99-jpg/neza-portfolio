@@ -43,7 +43,7 @@ const STATEMENTS = [
      SELECT udt_name INTO t FROM information_schema.columns
        WHERE table_name = 'projects' AND column_name = 'category';
      IF t IS NOT NULL AND t NOT IN ('varchar', 'text') THEN
-       FOREACH v IN ARRAY ARRAY['Idejna zasnova', 'Seminarski projekt', 'Raziskava', 'Natečaj'] LOOP
+       FOREACH v IN ARRAY ARRAY['Idejna zasnova', 'Seminarski projekt', 'Raziskava', 'Natečaj', 'Grafično oblikovanje'] LOOP
          EXECUTE format('ALTER TYPE %I ADD VALUE IF NOT EXISTS %L', t, v);
        END LOOP;
      END IF;
@@ -77,13 +77,49 @@ const STATEMENTS = [
      ALTER TABLE "home" ADD CONSTRAINT "home_landing_poster_id_media_id_fk"
        FOREIGN KEY ("landing_poster_id") REFERENCES "media"("id") ON DELETE SET NULL;
    EXCEPTION WHEN duplicate_object THEN NULL; END $$`,
+  `ALTER TABLE "media" ADD COLUMN IF NOT EXISTS "in_use" boolean DEFAULT false`,
+  `ALTER TABLE "media" ADD COLUMN IF NOT EXISTS "used_in" varchar`,
 ];
+
+// Marks which pictures the site uses. The same statement as MEDIA_USAGE_SQL in
+// src/lib/media-usage.ts, which reruns it whenever a project or page is saved;
+// here it fills the marks in for the first time and catches anything changed
+// straight in the database. A failure only warns, so it can never stop a deploy.
+const MEDIA_USAGE_SQL = `
+  WITH refs(media_id, label) AS (
+    SELECT hero_image_id, title || ' · naslovna' FROM projects WHERE hero_image_id IS NOT NULL
+    UNION ALL
+    SELECT g.image_id, p.title || CASE WHEN g.on_page THEN ' · na strani' ELSE ' · galerija' END
+      FROM projects_gallery g JOIN projects p ON p.id = g._parent_id WHERE g.image_id IS NOT NULL
+    UNION ALL
+    SELECT document_id, title || ' · za prenos' FROM projects WHERE document_id IS NOT NULL
+    UNION ALL
+    SELECT landing_media_id, 'Naslovnica' FROM home WHERE landing_media_id IS NOT NULL
+    UNION ALL
+    SELECT landing_poster_id, 'Naslovnica · ozadje videa' FROM home WHERE landing_poster_id IS NOT NULL
+    UNION ALL
+    SELECT portrait_id, 'O meni · portret' FROM about WHERE portrait_id IS NOT NULL
+  ), agg AS (
+    SELECT media_id, string_agg(DISTINCT label, ', ') AS used_in FROM refs GROUP BY media_id
+  )
+  UPDATE media m
+     SET in_use = (a.media_id IS NOT NULL), used_in = a.used_in
+    FROM media m2 LEFT JOIN agg a ON a.media_id = m2.id
+   WHERE m.id = m2.id
+     AND (m.in_use IS DISTINCT FROM (a.media_id IS NOT NULL) OR m.used_in IS DISTINCT FROM a.used_in)
+`;
 
 const client = new Client({ connectionString: uri });
 try {
   await client.connect();
   for (const statement of STATEMENTS) await client.query(statement);
   console.log(`apply-schema: ${STATEMENTS.length} statements applied.`);
+  try {
+    const { rowCount } = await client.query(MEDIA_USAGE_SQL);
+    console.log(`apply-schema: media usage marked on ${rowCount} changed pictures.`);
+  } catch (error) {
+    console.warn("apply-schema: media usage not marked:", error.message);
+  }
 } catch (error) {
   console.error("apply-schema failed:", error.message);
   process.exit(1);

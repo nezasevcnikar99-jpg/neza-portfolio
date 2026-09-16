@@ -1,5 +1,6 @@
 import type { CollectionConfig } from "payload";
 import { CATEGORIES } from "../lib/categories";
+import { refreshMediaUsage } from "../lib/media-usage";
 
 const slugify = (value: string) =>
   value
@@ -17,6 +18,21 @@ export const Projects: CollectionConfig = {
   },
   access: {
     read: () => true,
+  },
+  hooks: {
+    // Keeps the "used on the site" mark on every picture current.
+    afterChange: [
+      async ({ doc, req }) => {
+        await refreshMediaUsage(req);
+        return doc;
+      },
+    ],
+    afterDelete: [
+      async ({ doc, req }) => {
+        await refreshMediaUsage(req);
+        return doc;
+      },
+    ],
   },
   fields: [
     {

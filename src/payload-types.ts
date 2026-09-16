@@ -158,6 +158,11 @@ export interface User {
  */
 export interface Media {
   id: number;
+  /**
+   * Neobkljukane slike ne uporablja noben projekt, naslovnica ali stran O meni. V seznamu medijev jih najdeš s filtrom »Uporabljena na strani« je enako »false«.
+   */
+  inUse?: boolean | null;
+  usedIn?: string | null;
   alt: string;
   /**
    * Za tlorise, prereze in sheme. Slika se v vsakem okvirju pokaže vsa, na svetli podlagi, namesto da bi okvir zapolnila in se obrezala.
@@ -202,7 +207,7 @@ export interface Project {
   /**
    * Izpiše se nad naslovom projekta in v arhivu, kjer je tudi filter.
    */
-  category: 'Idejna zasnova' | 'Seminarski projekt' | 'Raziskava' | 'Natečaj';
+  category: 'Idejna zasnova' | 'Seminarski projekt' | 'Raziskava' | 'Natečaj' | 'Grafično oblikovanje';
   year: number;
   /**
    * Kratek citat, prikazan ob prehodu miške čez projekt na Domov.
@@ -368,6 +373,8 @@ export interface UsersSelect<T extends boolean = true> {
  * via the `definition` "media_select".
  */
 export interface MediaSelect<T extends boolean = true> {
+  inUse?: T;
+  usedIn?: T;
   alt?: T;
   showWhole?: T;
   updatedAt?: T;

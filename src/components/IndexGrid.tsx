@@ -34,6 +34,12 @@ function ImageCell({ cell, phone }: { cell: Extract<Cell, { kind: "image" }>; ph
             className={hero.showWhole ? "cell-photo is-whole" : "cell-photo"}
             style={hero.showWhole ? undefined : { objectPosition: `${x}% ${y}%` }}
           />
+        ) : p.asText ? (
+          // A written piece with no picture stands on a line from it, set like
+          // the quotes elsewhere; the title is already in its caption.
+          <span className="cell-type">
+            <span className="cell-type-text">{quote ? `\u00bb${quote}\u00ab` : p.title}</span>
+          </span>
         ) : (
           <span className="cell-blank">{p.imgLabel ?? "fotografija"}</span>
         )}
