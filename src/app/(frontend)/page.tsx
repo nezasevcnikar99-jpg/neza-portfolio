@@ -2,6 +2,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import IndexGrid from "@/components/IndexGrid";
 import Landing from "@/components/Landing";
+import LandingPass from "@/components/LandingPass";
 import { getAllProjects } from "@/lib/projects-data";
 import { getHome } from "@/lib/settings";
 import type { Media } from "@/payload-types";
@@ -16,6 +17,15 @@ export default async function Home() {
 
   return (
     <>
+      {/* Runs while the page is still being read, before anything is painted, so a
+          visitor who already passed the landing never sees it flash. */}
+      <script
+        dangerouslySetInnerHTML={{
+          __html:
+            "try{if(sessionStorage.getItem('landing-passed'))document.documentElement.classList.add('landing-passed')}catch(e){}",
+        }}
+      />
+      <LandingPass />
       <Landing
         media={media}
         poster={poster}

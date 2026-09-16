@@ -51,6 +51,10 @@ export default function ProjectCollage({
 
   const shown = SLOTS.slice(0, Math.max(onPage.length, 1));
   const hidden = Math.max(0, slides.length - onPage.length);
+  // The tile shows the first picture that is not on the page, faded, so it reads
+  // as more of the same set rather than as a control.
+  const firstHidden = slides.findIndex((slide) => slide.onPage === false && slide.image?.url);
+  const teaser = firstHidden === -1 ? null : slides[firstHidden];
 
   return (
     <>
@@ -108,16 +112,28 @@ export default function ProjectCollage({
         />
       ))}
 
-      <div className="cell cell-action" style={{ gridColumn: BUTTON.col, gridRow: BUTTON.row }}>
-        {slides.length > 0 && (
-          <button type="button" className="gallery-open" onClick={() => setOpenAt(0)}>
-            <span className="gallery-open-label">Galerija</span>
-            <span className="gallery-open-count">
-              {hidden > 0 ? `${slides.length} fotografij` : `${slides.length} v galeriji`}
+      {slides.length > 0 ? (
+        <button
+          type="button"
+          className="cell cell-more"
+          style={{ gridColumn: BUTTON.col, gridRow: BUTTON.row }}
+          onClick={() => setOpenAt(firstHidden === -1 ? 0 : firstHidden)}
+          aria-label={`Odpri galerijo — ${slides.length} slik`}
+        >
+          <span className="cell-inner">
+            {teaser?.image?.url && (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={teaser.image.url} alt="" className="cell-photo cell-more-photo" />
+            )}
+            <span className="cell-more-label">
+              <span className="cell-more-count">{hidden > 0 ? `+${hidden}` : slides.length}</span>
+              <span className="cell-more-text">Odpri galerijo</span>
             </span>
-          </button>
-        )}
-      </div>
+          </span>
+        </button>
+      ) : (
+        <span className="cell" style={{ gridColumn: BUTTON.col, gridRow: BUTTON.row }} />
+      )}
 
       {openAt !== null && (
         <ProjectGallery

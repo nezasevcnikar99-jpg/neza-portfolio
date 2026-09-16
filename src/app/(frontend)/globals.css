@@ -637,6 +637,12 @@ a {
   object-fit: cover;
 }
 
+/* Once the grid has covered the landing it is taken out, and stays out for the
+   rest of the visit — the page does not slide back to it. */
+.landing-passed .landing {
+  display: none;
+}
+
 /* Behind the film, so it covers the gap until the first frame arrives. */
 .landing-still.is-fallback {
   z-index: -1;
@@ -853,18 +859,18 @@ a {
   color: var(--muted);
 }
 
-/* Keeps its shape even where a long concept stretches the row it sits in. */
-.cell-shot {
+/* Where a long concept makes the rows taller than the module, the pictures grow
+   with them — a picture that kept its own height left its bottom rule short of
+   the rules beside it, which is what made the grid look shifted. */
+.cell-shot,
+.cell-more {
   padding: 0;
   border-top: none;
   background: none;
   cursor: pointer;
-  align-self: start;
-  aspect-ratio: var(--shot-ratio, 1);
-}
-
-.cell-shot[style*="span 2"] {
-  --shot-ratio: 2;
+  font: inherit;
+  color: inherit;
+  text-align: left;
 }
 
 .cell-shot .cell-inner {
@@ -894,36 +900,47 @@ a {
   opacity: 1;
 }
 
-.cell-action {
-  display: flex;
-  align-items: flex-end;
-  padding: var(--inset);
+/* The rest of the gallery as a tile of the collage: the next picture, faded,
+   with how many more there are — so four pictures never read as all of them. */
+.cell-more .cell-inner {
+  inset: var(--inset);
 }
 
-.gallery-open {
+.cell-more-photo {
+  opacity: 0.28;
+  transition: opacity 0.25s ease;
+}
+
+.cell-more-label {
+  position: absolute;
+  inset: 0;
   display: flex;
   flex-direction: column;
-  gap: 3px;
-  padding: 0;
-  border: none;
-  background: none;
-  font: inherit;
-  text-align: left;
-  cursor: pointer;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: calc(var(--inset) * 0.8);
   color: var(--ink);
 }
 
-.gallery-open-label {
-  font-size: 15px;
+.cell-more-count {
+  font-size: clamp(28px, 3.4cqw, 52px);
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.cell-more-text {
+  align-self: flex-start;
+  font-size: 11px;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
   border-bottom: 1px solid var(--ink);
   padding-bottom: 2px;
 }
 
-.gallery-open-count {
-  font-size: 11px;
-  letter-spacing: 0.09em;
-  text-transform: uppercase;
-  color: var(--muted);
+.cell-more:hover .cell-more-photo,
+.cell-more:focus-visible .cell-more-photo {
+  opacity: 0.12;
 }
 
 .project-nav .cell {
@@ -931,33 +948,61 @@ a {
   padding: 22px var(--inset);
 }
 
+/* On a phone the page is one column: the first picture, the writing, the other
+   pictures full width, then the gallery tile. Buttons are inline by default,
+   which is what shrank the pictures to a row of thumbnails. */
 @media (max-width: 900px) {
+  .project-grid {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+  }
+  .project-grid > .cell {
+    min-height: 0;
+    border: none;
+  }
+  .project-grid > .cell:empty {
+    display: none;
+  }
   .project-side {
+    order: 1;
     grid-column: auto;
     grid-row: auto;
+    padding: 24px var(--page-pad) 28px;
   }
-  .project-grid,
+  .project-grid > .cell-shot,
+  .project-grid > .cell-more {
+    order: 2;
+    display: block;
+    position: relative;
+    width: auto;
+    aspect-ratio: 4 / 3;
+    margin: 0 var(--page-pad) 12px;
+  }
+  .project-grid > .cell-shot:first-of-type {
+    order: 0;
+    margin-top: 16px;
+  }
+  .project-grid > .cell-more {
+    order: 3;
+    aspect-ratio: 16 / 9;
+    margin-bottom: 28px;
+  }
+  .cell-shot .cell-inner,
+  .cell-more .cell-inner {
+    inset: 0;
+  }
   .project-nav {
     display: block;
   }
-  .project-grid > .cell,
   .project-nav > .cell {
     min-height: 0;
     border: none;
-    border-bottom: 1px solid var(--rule);
+    border-top: 1px solid var(--rule);
     padding: 20px var(--page-pad);
   }
-  .project-grid > .cell:empty,
   .project-nav > .cell:empty {
     display: none;
-  }
-  .cell-shot {
-    aspect-ratio: 4 / 3;
-    padding: 0;
-    border-bottom: none;
-  }
-  .cell-shot .cell-inner {
-    inset: 0;
   }
 }
 
