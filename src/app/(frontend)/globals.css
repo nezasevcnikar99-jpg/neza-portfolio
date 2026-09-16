@@ -258,13 +258,24 @@ a {
 /* Quiet against the quote — it names the project without competing with it.
    Pushed down rather than held apart, so a project with no line written still
    has its name on the bottom edge instead of floating at the top. */
-.cell-quote-name {
-  order: 2;
-  margin-top: auto;
+.cell-quote-name,
+.cell-quote-kind {
   font-size: 10px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   opacity: 0.65;
+}
+
+.cell-quote-name {
+  order: 2;
+  margin-top: auto;
+}
+
+/* What kind of work it is, set above the line like the heading over a
+   chapter: first what it is, then what it says. */
+.cell-quote-kind {
+  order: -1;
+  margin-bottom: 2px;
 }
 
 .cell-quote-text {

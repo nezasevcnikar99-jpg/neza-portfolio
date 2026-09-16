@@ -48,6 +48,7 @@ function ImageCell({ cell, phone }: { cell: Extract<Cell, { kind: "image" }>; ph
             only where one is written, or an empty quote prints as bare marks.
             The marks are the Slovene ones. */}
         <span className="cell-quote">
+          {p.category && <span className="cell-quote-kind">{p.category}</span>}
           <span className="cell-quote-name">{p.title}</span>
           {quote && <span className="cell-quote-text">{`\u00bb${quote}\u00ab`}</span>}
         </span>
