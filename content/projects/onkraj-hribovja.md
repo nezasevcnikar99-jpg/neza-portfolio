@@ -2,7 +2,7 @@
 naslov: Onkraj hribovja
 podnaslov: Prenova družinske hiše z apartmaji, Železniki
 slug: onkraj-hribovja
-kategorija: Arhitektura
+kategorija: Idejna zasnova
 leto: 2025
 vloga: Mentorica izr. prof. dr. Nataša Koselj
 naslovna: oh-fotografija-naslovna.jpg

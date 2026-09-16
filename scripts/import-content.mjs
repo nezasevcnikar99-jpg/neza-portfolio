@@ -332,7 +332,8 @@ async function importOne(name) {
     title,
     slug,
     subtitle: meta.podnaslov || null,
-    category: meta.kategorija || "Arhitektura",
+    // Left out when the file does not say, so an update keeps the kind already set.
+    ...(meta.kategorija ? { category: meta.kategorija } : {}),
     year: meta.leto ? Number(meta.leto) : new Date().getFullYear(),
     quote: meta.citat || null,
     stranka: meta.stranka || null,

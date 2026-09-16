@@ -2,7 +2,7 @@
 naslov: SoThA Park
 podnaslov: Scenarij za umetniško delo v zaporu, Bochum
 slug: sotha-projekt
-kategorija: Arhitektura
+kategorija: Natečaj
 leto: 2026
 naslovna: sotha-naslovna-cista-02.jpg
 cele: sotha-situacija-obstojece-04.jpg, sotha-situacija-novo-03.jpg, sotha-prerez-05.jpg, sotha-faze-06.jpg, sotha-sedisca-01.jpg, sotha-ribnik-02.jpg, sotha-panj-detajl-02.jpg, sotha-kolaz-pot-07.jpg, sotha-kolaz-sprehod-07.jpg, sotha-kolaz-panj-02.jpg, sotha-kolaz-travnik-07.jpg

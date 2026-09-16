@@ -36,6 +36,30 @@ const STATEMENTS = [
   `UPDATE "projects" SET "grid_size" = 'auto' WHERE "grid_size"::text IN ('2x2', '1x2')`,
   `ALTER TABLE "projects" ADD COLUMN IF NOT EXISTS "document_id" integer`,
   `ALTER TABLE "projects" ADD COLUMN IF NOT EXISTS "as_text" boolean DEFAULT false`,
+  // Kinds of work replace the old categories. The column is a Postgres enum, so
+  // the new values are added to whatever the type is actually called, each in
+  // its own statement before anything uses them.
+  `DO $$ DECLARE t text; v text; BEGIN
+     SELECT udt_name INTO t FROM information_schema.columns
+       WHERE table_name = 'projects' AND column_name = 'category';
+     IF t IS NOT NULL AND t NOT IN ('varchar', 'text') THEN
+       FOREACH v IN ARRAY ARRAY['Idejna zasnova', 'Seminarski projekt', 'Raziskava', 'Natečaj'] LOOP
+         EXECUTE format('ALTER TYPE %I ADD VALUE IF NOT EXISTS %L', t, v);
+       END LOOP;
+     END IF;
+   END $$`,
+  // Only rows still on an old value are moved, so a kind chosen later in the
+  // admin is never overwritten by a deploy.
+  `UPDATE "projects" SET "category" = 'Seminarski projekt'
+     WHERE "slug" IN ('zadnja-vecerja', 'zakaj-cez-ce-gres-lahko-skozi', 'pod-zeleznim-povrsjem')
+       AND "category"::text IN ('Arhitektura', 'Literarni esej', 'Grafika')`,
+  `UPDATE "projects" SET "category" = 'Raziskava'
+     WHERE "slug" IN ('kdo-bo-odnesel-smeti', 'it-is-just-a-few-steps')
+       AND "category"::text IN ('Arhitektura', 'Literarni esej', 'Grafika')`,
+  `UPDATE "projects" SET "category" = 'Natečaj'
+     WHERE "slug" = 'sotha-projekt' AND "category"::text IN ('Arhitektura', 'Literarni esej', 'Grafika')`,
+  `UPDATE "projects" SET "category" = 'Idejna zasnova'
+     WHERE "category"::text IN ('Arhitektura', 'Literarni esej', 'Grafika')`,
   `ALTER TABLE "projects" ADD COLUMN IF NOT EXISTS "document_label" varchar`,
   `CREATE INDEX IF NOT EXISTS "projects_document_idx" ON "projects" ("document_id")`,
   `CREATE INDEX IF NOT EXISTS "home_landing_media_idx" ON "home" ("landing_media_id")`,

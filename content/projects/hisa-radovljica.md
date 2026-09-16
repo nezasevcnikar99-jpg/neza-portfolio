@@ -2,7 +2,7 @@
 naslov: Hiša Radovljica
 podnaslov: Idejna prenova v enodružinsko hišo
 slug: hisa-radovljica
-kategorija: Arhitektura
+kategorija: Idejna zasnova
 leto: 2025
 stranka: Zasebni investitor
 vloga: Mentorica izr. prof. dr. Nataša Koselj

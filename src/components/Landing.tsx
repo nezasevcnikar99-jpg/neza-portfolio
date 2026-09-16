@@ -36,6 +36,18 @@ export default function Landing({
 
   return (
     <section className={light ? "landing is-light" : "landing"}>
+      {light && (
+        <svg width="0" height="0" aria-hidden="true" style={{ position: "absolute" }}>
+          <filter id="landing-ink" colorInterpolationFilters="sRGB">
+            <feColorMatrix type="saturate" values="0" />
+            <feComponentTransfer>
+              <feFuncR type="gamma" amplitude="1" exponent="2.4" offset="0" />
+              <feFuncG type="gamma" amplitude="1" exponent="2.4" offset="0" />
+              <feFuncB type="gamma" amplitude="1" exponent="2.4" offset="0" />
+            </feComponentTransfer>
+          </filter>
+        </svg>
+      )}
       <div className="landing-top">
         <span className="landing-name">{name}</span>
         <span className="landing-label">{label}</span>

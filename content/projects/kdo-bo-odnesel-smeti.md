@@ -2,7 +2,7 @@
 naslov: Kdo bo odnesel smeti?
 podnaslov: Principi pripadnosti in revitalizacije zanemarjenih ulic, Belfast
 slug: kdo-bo-odnesel-smeti
-kategorija: Arhitektura
+kategorija: Raziskava
 leto: 2025
 vloga: Fakultetna raziskava, Queen's University Belfast
 naslovna: smeti-kolaz-03.jpg

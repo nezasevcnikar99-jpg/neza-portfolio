@@ -2,7 +2,7 @@
 naslov: Hiša Planina
 podnaslov: Prenova hiše v Planini
 slug: hisa-planina
-kategorija: Arhitektura
+kategorija: Idejna zasnova
 leto: 2025
 vloga: Mentorica izr. prof. dr. Nataša Koselj
 velikost: kvadrat

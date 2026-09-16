@@ -2,7 +2,7 @@
 naslov: It is just a few steps
 podnaslov: Humanistična disertacija, Queen's University Belfast
 slug: it-is-just-a-few-steps
-kategorija: Literarni esej
+kategorija: Raziskava
 oblika: besedilo
 leto: 2026
 vloga: Mentor Keith McAllister — Civitas Doloris

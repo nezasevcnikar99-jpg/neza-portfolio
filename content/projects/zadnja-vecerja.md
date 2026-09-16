@@ -2,7 +2,7 @@
 naslov: Zadnja večerja
 podnaslov: Samostan Velesovo
 slug: zadnja-vecerja
-kategorija: Arhitektura
+kategorija: Seminarski projekt
 leto: 2025
 vloga: Skupinski projekt — Gal Ibrišimovič, Jernej Klenovšek, Veronika Rihtaršič
 citat: An der Gasse, An der Gras

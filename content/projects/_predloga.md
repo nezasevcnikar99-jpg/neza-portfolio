@@ -2,7 +2,7 @@
 naslov:
 podnaslov:
 slug:
-kategorija: Arhitektura
+kategorija: Idejna zasnova
 leto:
 stranka:
 vloga:

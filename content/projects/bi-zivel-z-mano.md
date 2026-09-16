@@ -2,7 +2,7 @@
 naslov: Bi živel z mano?
 podnaslov: Starostnikom in gibalno oviranim prilagojeno naselje, Škofja Loka
 slug: bi-zivel-z-mano
-kategorija: Arhitektura
+kategorija: Idejna zasnova
 leto: 2022
 vloga: Idejni fakultetni projekt
 naslovna: bzm-pogled-01.jpg

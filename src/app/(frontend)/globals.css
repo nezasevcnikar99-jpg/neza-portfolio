@@ -568,8 +568,9 @@ a {
 }
 
 .archive-row {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr minmax(9em, auto) 2.2em;
+  align-items: baseline;
   gap: 20px;
   padding: 9px 0;
   border-bottom: 1px solid var(--rule);
@@ -585,6 +586,57 @@ a {
 .archive-num {
   color: var(--faint);
   font-size: 12px;
+  text-align: right;
+}
+
+.archive-kind {
+  color: var(--muted);
+  font-size: 12px;
+  letter-spacing: 0.02em;
+}
+
+.archive-filter {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 28px;
+}
+
+.archive-kind-link {
+  font-size: 13px;
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.archive-kind-link span {
+  color: var(--faint);
+  font-size: 11px;
+  margin-left: 4px;
+}
+
+.archive-kind-link:hover,
+.archive-kind-link.is-active {
+  color: var(--ink);
+}
+
+.archive-kind-link.is-active {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@media (max-width: 900px) {
+  .archive-filter {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 6px 16px;
+    margin-top: 16px;
+  }
+  .archive-row {
+    grid-template-columns: 1fr auto;
+  }
+  .archive-row .archive-num {
+    display: none;
+  }
 }
 
 @media (max-width: 900px) {
@@ -760,6 +812,10 @@ html.landing-passed section.landing {
 .landing.is-light .landing-still {
   object-fit: contain;
   object-position: 100% 100%;
+  /* The drawing in black: grey first, then a gamma curve (see Landing.tsx).
+     White stays white and pale pencil darkens instead of burning out, which a
+     contrast filter would do to every stroke lighter than about 185. */
+  filter: url(#landing-ink);
 }
 .landing.is-light .landing-text {
   position: static;

@@ -2,7 +2,7 @@
 naslov: Pod železnim površjem
 podnaslov: Prenova železniškega muzeja Ljubljana
 slug: pod-zeleznim-povrsjem
-kategorija: Arhitektura
+kategorija: Seminarski projekt
 leto: 2024
 vloga: Mentor prof. mag. Tomaž Krušec, asistent Miha Munda, demonstratorja Kevin Jelenc in Dan Napast
 naslovna: zel-render-stopnisce-01.jpg

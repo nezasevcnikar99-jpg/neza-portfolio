@@ -34,7 +34,7 @@ const PROJECTS = [
   {
     slug: "stanovanjska-hisa-na-robu-gozda",
     title: "Stanovanjska hiša na robu gozda",
-    category: "Arhitektura",
+    category: "Idejna zasnova",
     year: 2024,
     quote: "Hiša se ne postavi proti gozdu, temveč vanj.",
     imgLabel: "fotografija objekta",
@@ -50,7 +50,7 @@ const PROJECTS = [
   {
     slug: "preureditev-opuscene-mlekarne",
     title: "Preureditev opuščene mlekarne",
-    category: "Arhitektura",
+    category: "Idejna zasnova",
     year: 2023,
     quote: "Stari zidovi so znali čakati.",
     imgLabel: "fotografija objekta",
@@ -62,7 +62,7 @@ const PROJECTS = [
   {
     slug: "paviljon-ob-jezeru",
     title: "Paviljon ob jezeru",
-    category: "Arhitektura",
+    category: "Idejna zasnova",
     year: 2023,
     quote: "Streha kot obzorje, ki se ne konča.",
     imgLabel: "vizualizacija",
@@ -74,7 +74,7 @@ const PROJECTS = [
   {
     slug: "mestna-knjiznica-natecaj",
     title: "Mestna knjižnica — natečaj",
-    category: "Arhitektura",
+    category: "Idejna zasnova",
     year: 2022,
     quote: "Prostor, kjer tišina bere z nami.",
     imgLabel: "konceptna skica",
@@ -86,7 +86,7 @@ const PROJECTS = [
   {
     slug: "vrtec-soncek-prizidek",
     title: "Vrtec Sonček, prizidek",
-    category: "Arhitektura",
+    category: "Idejna zasnova",
     year: 2022,
     quote: "Merilo otroka, ne merilo stavbe.",
     imgLabel: "fotografija objekta",
@@ -98,7 +98,7 @@ const PROJECTS = [
   {
     slug: "obnova-kmecke-domacije",
     title: "Obnova kmečke domačije",
-    category: "Arhitektura",
+    category: "Idejna zasnova",
     year: 2021,
     quote: "Vsaka razpoka nosi svoj datum.",
     imgLabel: "fotografija objekta",
@@ -110,7 +110,7 @@ const PROJECTS = [
   {
     slug: "poslovna-stavba-ob-savi",
     title: "Poslovna stavba ob Savi",
-    category: "Arhitektura",
+    category: "Idejna zasnova",
     year: 2021,
     quote: "Fasada, ki diha z reko.",
     imgLabel: "vizualizacija",
@@ -122,7 +122,7 @@ const PROJECTS = [
   {
     slug: "paviljon-za-razstavo-lesa",
     title: "Paviljon za razstavo lesa",
-    category: "Arhitektura",
+    category: "Idejna zasnova",
     year: 2020,
     quote: "Les govori, če mu pustimo.",
     imgLabel: "fotografija objekta",
@@ -134,7 +134,7 @@ const PROJECTS = [
   {
     slug: "terasasta-stanovanjska-soseska",
     title: "Terasasta stanovanjska soseska",
-    category: "Arhitektura",
+    category: "Idejna zasnova",
     year: 2020,
     quote: "Sosedstvo, sestavljeno iz teras.",
     imgLabel: "maketa",
@@ -146,7 +146,7 @@ const PROJECTS = [
   {
     slug: "o-prostoru-ki-nas-oblikuje",
     title: "O prostoru, ki nas oblikuje",
-    category: "Literarni esej",
+    category: "Raziskava",
     year: 2024,
     quote: "Prostor nas oblikuje, še preden spregovorimo.",
     imgLabel: "naslovni detajl",
@@ -158,7 +158,7 @@ const PROJECTS = [
   {
     slug: "tisina-med-zidovi",
     title: "Tišina med zidovi",
-    category: "Literarni esej",
+    category: "Raziskava",
     year: 2023,
     quote: "Tišina ni odsotnost, je gradivo.",
     imgLabel: "naslovni detajl",
@@ -170,7 +170,7 @@ const PROJECTS = [
   {
     slug: "beton-in-spomin",
     title: "Beton in spomin",
-    category: "Literarni esej",
+    category: "Raziskava",
     year: 2022,
     quote: "Beton pomni tisto, kar mi pozabimo.",
     imgLabel: "naslovni detajl",
@@ -182,7 +182,7 @@ const PROJECTS = [
   {
     slug: "hisa-kot-telo",
     title: "Hiša kot telo",
-    category: "Literarni esej",
+    category: "Raziskava",
     year: 2021,
     quote: "Hiša diha, kot diha telo.",
     imgLabel: "naslovni detajl",
@@ -194,7 +194,7 @@ const PROJECTS = [
   {
     slug: "vizualna-identiteta-biro-ravna",
     title: "Vizualna identiteta — biro Ravna",
-    category: "Grafika",
+    category: "Natečaj",
     year: 2023,
     quote: "Linija, ki nosi ime biroja.",
     imgLabel: "vizual identitete",
@@ -206,7 +206,7 @@ const PROJECTS = [
   {
     slug: "katalog-razstave-prostor-vmes",
     title: 'Katalog razstave "Prostor vmes"',
-    category: "Grafika",
+    category: "Natečaj",
     year: 2022,
     quote: "Med eno in drugo stvarjo.",
     imgLabel: "postavitev kataloga",

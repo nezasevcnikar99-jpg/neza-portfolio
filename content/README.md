@@ -45,7 +45,7 @@ Vse za tem naslovom je besedilo koncepta. Prazna vrstica pomeni nov odstavek.
 |--------------|-------------------------------------------------------------------|
 | `naslov`     | obvezno                                                            |
 | `slug`       | naslov v spletnem naslovu; če ga izpustiš, nastane iz naslova      |
-| `kategorija` | Arhitektura, Literarni esej ali Grafika                            |
+| `kategorija` | Idejna zasnova, Seminarski projekt, Raziskava ali Natečaj           |
 | `citat`      | pokaže se ob prehodu miške čez projekt na prvi strani              |
 | `naslovna`   | ime datoteke iz `images/`; vedno prva slika na strani projekta     |
 | `izrez`      | dve števili 0–100: kateri del naslovne slike se vidi v mreži       |

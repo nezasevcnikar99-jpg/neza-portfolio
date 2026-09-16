@@ -199,7 +199,10 @@ export interface Project {
    * Za eseje in druga pisna dela: besedilo teče čez srednja dva stolpca za branje, slike in galerija stojijo ob strani. Ni vezano na kategorijo.
    */
   asText?: boolean | null;
-  category: 'Arhitektura' | 'Literarni esej' | 'Grafika';
+  /**
+   * Izpiše se nad naslovom projekta in v arhivu, kjer je tudi filter.
+   */
+  category: 'Idejna zasnova' | 'Seminarski projekt' | 'Raziskava' | 'Natečaj';
   year: number;
   /**
    * Kratek citat, prikazan ob prehodu miške čez projekt na Domov.

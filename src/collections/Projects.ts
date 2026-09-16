@@ -1,4 +1,5 @@
 import type { CollectionConfig } from "payload";
+import { CATEGORIES } from "../lib/categories";
 
 const slugify = (value: string) =>
   value
@@ -93,12 +94,12 @@ export const Projects: CollectionConfig = {
     {
       name: "category",
       type: "select",
+      label: "Vrsta dela",
       required: true,
-      options: [
-        { label: "Arhitektura", value: "Arhitektura" },
-        { label: "Literarni esej", value: "Literarni esej" },
-        { label: "Grafika", value: "Grafika" },
-      ],
+      options: CATEGORIES.map((value) => ({ label: value, value })),
+      admin: {
+        description: "Izpiše se nad naslovom projekta in v arhivu, kjer je tudi filter.",
+      },
     },
     {
       name: "year",
