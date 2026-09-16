@@ -68,6 +68,24 @@ naslovna in tri od tu; kar je čez, gre kljub oznaki v galerijo. `galerija`
 pomeni, da se pokaže šele, ko obiskovalec klikne gumb Galerija. Opis je lahko
 prazen.
 
+**Eseji z opombami.** V besedilu pod `## Koncept` opombo označiš z `[^1]`,
+`[^2]` … (na strani postane nadpisana številka s povezavo do opombe). Opombe
+zapišeš kjerkoli pod besedilom, vsako v svoji vrstici, viri pa gredo pod
+naslov `## Viri`, en vir v vrstici:
+
+```
+… kot pravi Vitruvij.[^1]
+
+[^1]: Vitruvij, O arhitekturi (Ljubljana, 2009), 23
+
+## Viri
+
+Vitruvij. 2009. O arhitekturi. Ljubljana.
+```
+
+Opombe in vire lahko urejaš tudi v adminu (polji Opombe in Viri se pokažeta,
+ko je vklopljeno »Postavi kot besedilo«).
+
 Slike naj imajo govoreča imena (`hisa-01.jpg`), ker so ta imena tudi to, po
 čemer stran ve, da je slika že naložena.
 

@@ -79,6 +79,8 @@ const STATEMENTS = [
    EXCEPTION WHEN duplicate_object THEN NULL; END $$`,
   `ALTER TABLE "media" ADD COLUMN IF NOT EXISTS "in_use" boolean DEFAULT false`,
   `ALTER TABLE "media" ADD COLUMN IF NOT EXISTS "used_in" varchar`,
+  `ALTER TABLE "projects" ADD COLUMN IF NOT EXISTS "notes" varchar`,
+  `ALTER TABLE "projects" ADD COLUMN IF NOT EXISTS "sources" varchar`,
 ];
 
 // Marks which pictures the site uses. The same statement as MEDIA_USAGE_SQL in

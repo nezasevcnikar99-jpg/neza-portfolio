@@ -74,14 +74,36 @@ function parse(source, file) {
     meta[key] = value;
   }
 
+  // An essay's apparatus: "[^1]: …" lines are its notes, in number order, and
+  // everything under "## Viri" its sources, one per line. Both are lifted out
+  // before the prose is read.
+  const notes = [];
+  let prose = body.replace(/^\[\^(\d+)\]:\s*(.+)$/gm, (_, n, text) => {
+    notes.push({ n: Number(n), text: text.trim() });
+    return "";
+  });
+  notes.sort((a, b) => a.n - b.n);
+  notes.forEach((note, i) => {
+    if (note.n !== i + 1) throw new Error(`${file}: opombe morajo biti oštevilčene 1, 2, 3 … — manjka ${i + 1}`);
+  });
+  let sources = [];
+  prose = prose.replace(/^##\s*Viri\s*$([\s\S]*?)(?=^##\s|(?![\s\S]))/im, (_, list) => {
+    sources = list.split(/\r?\n/).map((line) => line.trim()).filter(Boolean);
+    return "";
+  });
+
   // The prose: everything before "## Koncept" is the introduction, the rest is
   // the concept.
-  const split = body.split(/^##\s*Koncept\s*$/im);
+  const split = prose.split(/^##\s*Koncept\s*$/im);
   const intro = split[0].trim();
+  // The introduction is plain text on the site, so a mark there would print raw.
+  if (/\[\^\d+\]/.test(intro)) throw new Error(`${file}: oznaka opombe [^…] je lahko samo v delu pod "## Koncept"`);
   const concept = (split[1] ?? "").trim();
 
-  return { meta, gallery, intro, concept };
+  return { meta, gallery, intro, concept, notes: notes.map((note) => note.text), sources };
 }
+
+const SUPERSCRIPT = 1 << 6;
 
 const paragraphs = (text) =>
   text
@@ -104,9 +126,12 @@ const lexical = (text) => ({
       version: 1,
       direction: "ltr",
       textFormat: 0,
-      children: [
-        { type: "text", text: line, format: 0, style: "", mode: "normal", detail: 0, version: 1 },
-      ],
+      // A note mark "[^3]" becomes a superscript 3, which the site links to its note.
+      children: line
+        .split(/\[\^(\d+)\]/)
+        .map((part, i) => ({ text: part, format: i % 2 ? SUPERSCRIPT : 0 }))
+        .filter((part) => part.text)
+        .map(({ text, format }) => ({ type: "text", text, format, style: "", mode: "normal", detail: 0, version: 1 })),
     })),
   },
 });
@@ -312,7 +337,7 @@ console.log("Končano.");
 
 async function importOne(name) {
   const source = await readFile(path.join(PROJECTS_DIR, name), "utf8");
-  const { meta, gallery, intro, concept } = parse(source, name);
+  const { meta, gallery, intro, concept, notes, sources } = parse(source, name);
 
   const title = meta.naslov;
   if (!title) throw new Error(`${name}: manjka "naslov"`);
@@ -344,6 +369,8 @@ async function importOne(name) {
     ...(meta.velikost ? { gridSize: size(meta.velikost, name) } : {}),
     ...(meta.oblika ? { asText: /^besedil/i.test(meta.oblika.trim()) } : {}),
     ...(concept ? { concept: lexical(concept) } : {}),
+    notes: notes.length ? notes.join("\n") : null,
+    sources: sources.length ? sources.join("\n") : null,
   };
 
   if (meta.izrez) {

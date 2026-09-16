@@ -1260,6 +1260,92 @@ html.landing-passed section.landing {
   color: var(--muted);
 }
 
+/* Notes and sources: the apparatus under the text, quieter and smaller, set to
+   the same measure. A mark in the text jumps to its note and the note back. */
+.note-mark {
+  margin-left: 0.06em;
+  font-size: 0.62em;
+  line-height: 0;
+  vertical-align: super;
+  scroll-margin-top: 30svh;
+}
+
+.note-mark a {
+  padding: 0 0.12em;
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.note-mark a:hover,
+.note-mark a:focus-visible {
+  color: var(--ink);
+  text-decoration: underline;
+}
+
+.essay-apparatus {
+  display: grid;
+  gap: 2.4em;
+  max-width: 62ch;
+  margin-top: 3.2em;
+  padding-top: 1.6em;
+  border-top: 1px solid var(--rule);
+}
+
+.essay-apparatus-title {
+  margin: 0 0 1.1em;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.essay-notes ol,
+.essay-sources ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.essay-notes li {
+  display: grid;
+  grid-template-columns: 2.4em 1fr;
+  margin-bottom: 0.4em;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--muted);
+  scroll-margin-top: 30svh;
+}
+
+.essay-note-num {
+  font-variant-numeric: tabular-nums;
+  color: var(--faint);
+}
+
+.essay-notes li:target .essay-note-text {
+  color: var(--ink);
+}
+
+.essay-note-back {
+  color: var(--faint);
+  text-decoration: none;
+}
+
+.essay-note-back:hover,
+.essay-note-back:focus-visible {
+  color: var(--ink);
+}
+
+/* Hanging indent, as a bibliography is set. */
+.essay-sources li {
+  margin-bottom: 0.55em;
+  padding-left: 2.4em;
+  text-indent: -2.4em;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
 .essay-aside {
   grid-column: 4;
   grid-row: 1;

@@ -244,6 +244,14 @@ export interface Project {
     [k: string]: unknown;
   } | null;
   /**
+   * Ena opomba v vrstici, po vrsti — prva vrstica je opomba 1. V besedilu (Koncept) napiši številko in jo označi kot nadpisano (x²); na strani postane povezava do opombe.
+   */
+  notes?: string | null;
+  /**
+   * En vir v vrstici, v vrstnem redu, v katerem naj bodo izpisani.
+   */
+  sources?: string | null;
+  /**
    * Celotna knjižica, plakat ali poročilo. Na strani projekta se pokaže povezava za prenos. PDF naloži tu, v adminu — uvoz iz datotek večjih PDF-jev ne prenese.
    */
   document?: (number | null) | Media;
@@ -415,6 +423,8 @@ export interface ProjectsSelect<T extends boolean = true> {
   stranka?: T;
   vloga?: T;
   concept?: T;
+  notes?: T;
+  sources?: T;
   document?: T;
   documentLabel?: T;
   gallery?:

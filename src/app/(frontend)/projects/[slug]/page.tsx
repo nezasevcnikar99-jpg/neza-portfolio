@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { RichText } from "@payloadcms/richtext-lexical/react";
+import { RichText, type JSXConvertersFunction } from "@payloadcms/richtext-lexical/react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ProjectCollage, { type Slide } from "@/components/ProjectCollage";
@@ -16,6 +16,35 @@ const fileSize = (bytes: number) =>
     ? `${(bytes / 1024 / 1024).toFixed(1).replace(".", ",")} MB`
     : `${Math.max(1, Math.round(bytes / 1024))} kB`;
 
+/** One entry per line; a typed "1." or "1)" in front is dropped, the list numbers itself. */
+const lines = (value?: string | null) =>
+  (value ?? "")
+    .split(/\r?\n/)
+    .map((line) => line.replace(/^\s*\d+[.)]\s+/, "").trim())
+    .filter(Boolean);
+
+const SUPERSCRIPT = 1 << 6;
+
+/** A superscript number in an essay is a note mark: it links down to its note. */
+const withNoteMarks: JSXConvertersFunction = ({ defaultConverters }) => ({
+  ...defaultConverters,
+  text: (args) => {
+    const { node } = args;
+    const n = node.text.trim();
+    if (node.format & SUPERSCRIPT && /^\d+$/.test(n)) {
+      return (
+        <sup className="note-mark" id={`ref-${n}`}>
+          <a href={`#opomba-${n}`} aria-label={`Opomba ${n}`}>
+            {n}
+          </a>
+        </sup>
+      );
+    }
+    const text = defaultConverters.text;
+    return typeof text === "function" ? text(args) : node.text;
+  },
+});
+
 export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const project = await getProjectBySlug(slug);
@@ -29,6 +58,8 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   // grid and the pictures move to the side. Chosen per project, not implied by
   // the category, so a text can sit in whatever category suits it.
   const isEssay = project.asText === true;
+  const notes = isEssay ? lines(project.notes) : [];
+  const sources = isEssay ? lines(project.sources) : [];
   const heroImage = typeof project.heroImage === "object" ? (project.heroImage as Media | null) : null;
   const document = typeof project.document === "object" ? (project.document as Media | null) : null;
 
@@ -106,8 +137,40 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
               {project.intro && <p className="essay-lead">{project.intro}</p>}
               {project.concept && (
                 <div className="essay-body">
-                  <RichText data={project.concept} />
+                  <RichText data={project.concept} converters={withNoteMarks} />
                 </div>
+              )}
+              {(notes.length > 0 || sources.length > 0) && (
+                <footer className="essay-apparatus">
+                  {notes.length > 0 && (
+                    <section className="essay-notes">
+                      <h2 className="essay-apparatus-title">Opombe</h2>
+                      <ol>
+                        {notes.map((note, i) => (
+                          <li key={i} id={`opomba-${i + 1}`}>
+                            <span className="essay-note-num">{i + 1}</span>
+                            <span className="essay-note-text">
+                              {note}{" "}
+                              <a href={`#ref-${i + 1}`} className="essay-note-back" aria-label="Nazaj v besedilo">
+                                ↩
+                              </a>
+                            </span>
+                          </li>
+                        ))}
+                      </ol>
+                    </section>
+                  )}
+                  {sources.length > 0 && (
+                    <section className="essay-sources">
+                      <h2 className="essay-apparatus-title">Viri</h2>
+                      <ul>
+                        {sources.map((source, i) => (
+                          <li key={i}>{source}</li>
+                        ))}
+                      </ul>
+                    </section>
+                  )}
+                </footer>
               )}
             </article>
             <EssayFigures slides={slides} title={project.title} />

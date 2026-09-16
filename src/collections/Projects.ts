@@ -183,6 +183,26 @@ export const Projects: CollectionConfig = {
       label: "Koncept",
     },
     {
+      // Only essays print a notes apparatus; hidden elsewhere to keep the form short.
+      name: "notes",
+      type: "textarea",
+      label: "Opombe",
+      admin: {
+        condition: (data) => data?.asText === true,
+        description:
+          "Ena opomba v vrstici, po vrsti — prva vrstica je opomba 1. V besedilu (Koncept) napiši številko in jo označi kot nadpisano (x²); na strani postane povezava do opombe.",
+      },
+    },
+    {
+      name: "sources",
+      type: "textarea",
+      label: "Viri",
+      admin: {
+        condition: (data) => data?.asText === true,
+        description: "En vir v vrstici, v vrstnem redu, v katerem naj bodo izpisani.",
+      },
+    },
+    {
       name: "document",
       type: "upload",
       relationTo: "media",
