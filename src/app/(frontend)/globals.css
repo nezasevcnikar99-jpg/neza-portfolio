@@ -1276,6 +1276,7 @@ html.landing-passed section.landing {
   text-decoration: none;
 }
 
+.note-mark.is-active a,
 .note-mark a:hover,
 .note-mark a:focus-visible {
   color: var(--ink);
@@ -1334,6 +1335,44 @@ html.landing-passed section.landing {
 .essay-note-back:hover,
 .essay-note-back:focus-visible {
   color: var(--ink);
+}
+
+/* Beside the text: the aside's remaining height, each note placed level with
+   its mark by EssaySidenotes. The list under the text is then only for phones. */
+.essay-sidenotes {
+  position: relative;
+  flex: 1 0 auto;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.essay-sidenote {
+  left: 0;
+  right: 0;
+  display: grid;
+  grid-template-columns: 2em 1fr;
+  margin-bottom: 14px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--muted);
+  transition: color 0.2s ease;
+}
+
+.essay-sidenote.is-active {
+  color: var(--ink);
+}
+
+@media (min-width: 901px) {
+  .essay-notes {
+    display: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .essay-sidenotes {
+    display: none;
+  }
 }
 
 /* Hanging indent, as a bibliography is set. */

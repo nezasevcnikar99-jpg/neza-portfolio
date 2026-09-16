@@ -2,15 +2,16 @@
 
 import { useState } from "react";
 import ProjectGallery, { type Slide } from "./ProjectGallery";
+import EssaySidenotes from "./EssaySidenotes";
 
 /**
  * The right-hand column of a written piece: a few of its pictures, whole and
- * captioned, then the way into the full gallery. The writing holds the middle
+ * captioned, then the way into the full gallery, and below them the notes. The writing holds the middle
  * of the page, so the pictures stay beside it rather than breaking it up.
  */
 const SHOWN = 3;
 
-export default function EssayFigures({ slides, title }: { slides: Slide[]; title: string }) {
+export default function EssayFigures({ slides, title, notes = [] }: { slides: Slide[]; title: string; notes?: string[] }) {
   const [openAt, setOpenAt] = useState<number | null>(null);
 
   const shown = slides
@@ -42,6 +43,8 @@ export default function EssayFigures({ slides, title }: { slides: Slide[]; title
           <span className="cell-more-text">Odpri galerijo</span>
         </button>
       )}
+
+      {notes.length > 0 && <EssaySidenotes notes={notes} />}
 
       {openAt !== null && (
         <ProjectGallery slides={slides} startIndex={openAt} fallbackTitle={title} onClose={() => setOpenAt(null)} />

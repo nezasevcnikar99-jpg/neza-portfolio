@@ -173,7 +173,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                 </footer>
               )}
             </article>
-            <EssayFigures slides={slides} title={project.title} />
+            <EssayFigures slides={slides} title={project.title} notes={notes} />
           </>
         ) : (
           <ProjectCollage
