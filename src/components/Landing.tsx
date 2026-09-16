@@ -24,7 +24,7 @@ export default function Landing({
   /** The epigraph, set like one on a book's title page. */
   quote: string;
   source: string;
-  /** Small, top right — what the book is, e.g. "Portfolio". */
+  /** Small, bottom left under the arrow — what the book is, e.g. "Portfolio". */
   label: string;
   /** Small, top left — whose it is. */
   name: string;
@@ -33,9 +33,15 @@ export default function Landing({
 }) {
   const isVideo = Boolean(media?.mimeType?.startsWith("video/"));
   const still = isVideo ? poster : media;
+  // The sheet's proportions, so the stylesheet can work out how wide the drawing
+  // stands and keep the quote clear of it.
+  const ratio = still?.width && still?.height ? still.width / still.height : 1.5;
 
   return (
-    <section className={light ? "landing is-light" : "landing"}>
+    <section
+      className={light ? "landing is-light" : "landing"}
+      style={{ "--sheet-ratio": ratio } as React.CSSProperties}
+    >
       {light && (
         <svg width="0" height="0" aria-hidden="true" style={{ position: "absolute" }}>
           <filter id="landing-ink" colorInterpolationFilters="sRGB">
@@ -50,7 +56,6 @@ export default function Landing({
       )}
       <div className="landing-top">
         <span className="landing-name">{name}</span>
-        <span className="landing-label">{label}</span>
       </div>
 
       <div className="landing-media">
@@ -89,17 +94,20 @@ export default function Landing({
         {source.trim() && <p className="landing-source">{source.trim()}</p>}
       </div>
 
-      <span className="landing-cue" aria-hidden="true">
-        <svg width="14" height="26" viewBox="0 0 14 26" fill="none">
-          <path
-            d="M7 0 L7 23 M1.5 17.5 L7 24 L12.5 17.5"
-            stroke="currentColor"
-            strokeWidth="1.2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      </span>
+      <div className="landing-bottom">
+        <span className="landing-cue" aria-hidden="true">
+          <svg width="14" height="26" viewBox="0 0 14 26" fill="none">
+            <path
+              d="M7 0 L7 23 M1.5 17.5 L7 24 L12.5 17.5"
+              stroke="currentColor"
+              strokeWidth="1.2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </span>
+        {label.trim() && <span className="landing-label">{label.trim()}</span>}
+      </div>
     </section>
   );
 }
