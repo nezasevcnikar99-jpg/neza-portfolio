@@ -921,7 +921,9 @@ html.landing-passed section.landing {
     position: absolute;
     top: 100%;
     left: 0;
-    white-space: nowrap;
+    /* Wraps within the quote's width, so a longer label can never reach the
+       drawing the way an unbroken line did. */
+    right: 0;
   }
 }
 
