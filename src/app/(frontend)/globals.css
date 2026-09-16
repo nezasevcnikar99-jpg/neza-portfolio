@@ -638,8 +638,11 @@ a {
 }
 
 /* Once the grid has covered the landing it is taken out, and stays out for the
-   rest of the visit — the page does not slide back to it. */
-.landing-passed .landing {
+   rest of the visit — the page does not slide back to it. Qualified by element
+   so it outranks ".landing.is-light", which sets display: flex and, coming
+   later in this file, would otherwise keep the landing on screen while the
+   scroll position has already been moved up by its height. */
+html.landing-passed section.landing {
   display: none;
 }
 
