@@ -4,6 +4,7 @@ import { RichText } from "@payloadcms/richtext-lexical/react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ProjectCollage, { type Slide } from "@/components/ProjectCollage";
+import EssayFigures from "@/components/EssayFigures";
 import { getProjectBySlug, getNextProject } from "@/lib/projects-data";
 import type { Media } from "@/payload-types";
 
@@ -24,6 +25,9 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   }
 
   const next = await getNextProject(slug);
+  // A written piece is read, not looked at: its text takes the middle of the
+  // grid and the pictures move to the side.
+  const isEssay = project.category === "Literarni esej";
   const heroImage = typeof project.heroImage === "object" ? (project.heroImage as Media | null) : null;
   const document = typeof project.document === "object" ? (project.document as Media | null) : null;
 
@@ -50,7 +54,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
     <div className="sheet">
       <Header title={project.title} />
 
-      <div className="ruled project-grid">
+      <div className={isEssay ? "ruled project-grid essay-grid" : "ruled project-grid"}>
         <aside className="cell project-side">
           <Link href="/" className="project-back">
             ← Projekti
@@ -61,7 +65,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           </span>
 
           {project.subtitle && <p className="project-subtitle">{project.subtitle}</p>}
-          {project.intro && <p className="project-intro">{project.intro}</p>}
+          {!isEssay && project.intro && <p className="project-intro">{project.intro}</p>}
 
           {facts.length > 0 && (
             <dl className="project-facts">
@@ -85,7 +89,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             </a>
           )}
 
-          {project.concept && (
+          {!isEssay && project.concept && (
             <section className="project-concept">
               <h2 className="page-label">Koncept</h2>
               <div className="concept">
@@ -95,11 +99,25 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           )}
         </aside>
 
-        <ProjectCollage
-          slides={slides}
-          fallbackTitle={project.title}
-          placeholderLabel={project.imgLabel ?? "fotografija"}
-        />
+        {isEssay ? (
+          <>
+            <article className="cell essay-text">
+              {project.intro && <p className="essay-lead">{project.intro}</p>}
+              {project.concept && (
+                <div className="essay-body">
+                  <RichText data={project.concept} />
+                </div>
+              )}
+            </article>
+            <EssayFigures slides={slides} title={project.title} />
+          </>
+        ) : (
+          <ProjectCollage
+            slides={slides}
+            fallbackTitle={project.title}
+            placeholderLabel={project.imgLabel ?? "fotografija"}
+          />
+        )}
       </div>
 
       <nav className="ruled project-nav">

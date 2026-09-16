@@ -673,18 +673,46 @@ html.landing-passed section.landing {
   max-width: min(760px, 56vw);
 }
 
-.landing-line {
+/* Set like a book's title page: whose and what, small along the top edge; the
+   epigraph below the picture, light, with its source in small capitals. The
+   opening guillemet hangs in the margin so the words keep the left edge. */
+.landing-top {
+  position: absolute;
+  top: clamp(20px, 4vh, 40px);
+  left: var(--page-pad);
+  right: var(--page-pad);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--sheet);
+}
+
+.landing-quote {
   margin: 0;
   color: var(--sheet);
-  font-size: clamp(22px, 3.2vw, 46px);
-  font-weight: 500;
-  line-height: 1.12;
-  letter-spacing: -0.025em;
+}
+
+.landing-quote p {
+  margin: 0;
+  max-width: 32ch;
+  font-size: clamp(19px, 2vw, 32px);
+  font-weight: 300;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+  text-indent: -0.45em;
   text-wrap: balance;
 }
 
-.landing-accent {
-  font-weight: 400;
+.landing-source {
+  margin: 14px 0 0;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--sheet);
   opacity: 0.72;
 }
 
@@ -737,9 +765,18 @@ html.landing-passed section.landing {
   position: static;
   margin: clamp(14px, 3vh, 32px) var(--page-pad) 0;
 }
-.landing.is-light .landing-line,
+.landing.is-light .landing-top {
+  position: static;
+  padding: clamp(18px, 3.5vh, 36px) var(--page-pad) clamp(10px, 2vh, 20px);
+}
+.landing.is-light .landing-top,
+.landing.is-light .landing-quote,
 .landing.is-light .landing-cue {
   color: var(--ink);
+}
+.landing.is-light .landing-source {
+  color: var(--muted);
+  opacity: 1;
 }
 .landing.is-light .landing-cue {
   position: static;
@@ -1033,4 +1070,152 @@ html.landing-passed section.landing {
   color: var(--muted);
   font-size: 12px;
   white-space: nowrap;
+}
+
+/* --- A written piece ------------------------------------------------------ */
+
+/* Form A: the facts keep the first column, the text reads down the middle two
+   at a book's measure, and a few pictures with the gallery stand in the last.
+   One tall band, so the column rules run the full length of the text. */
+.essay-grid > .project-side {
+  grid-row: 1;
+}
+
+.essay-text {
+  grid-column: 2 / span 2;
+  grid-row: 1;
+  padding: var(--inset) calc(var(--inset) * 1.3) calc(var(--inset) * 1.6);
+}
+
+.essay-lead {
+  margin: 0 0 1.4em;
+  max-width: 34ch;
+  font-size: clamp(19px, 1.7vw, 25px);
+  font-weight: 300;
+  line-height: 1.42;
+  letter-spacing: -0.01em;
+}
+
+.essay-body p {
+  margin: 0 0 1.1em;
+  max-width: 62ch;
+  font-size: 17px;
+  line-height: 1.75;
+  color: var(--ink);
+}
+
+.essay-body h2,
+.essay-body h3 {
+  margin: 2em 0 0.8em;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.essay-aside {
+  grid-column: 4;
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding: var(--inset);
+}
+
+.essay-figure {
+  margin: 0;
+}
+
+.essay-figure-button {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: var(--fill);
+  cursor: zoom-in;
+}
+
+.essay-figure-img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.essay-figure figcaption {
+  margin-top: 8px;
+  font-size: 11px;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+.essay-more {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-start;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+@media (max-width: 900px) {
+  .essay-text {
+    order: 2;
+    padding: 8px var(--page-pad) 28px;
+  }
+  .essay-aside {
+    order: 3;
+    padding: 0 var(--page-pad) 28px;
+  }
+  .essay-body p {
+    font-size: 16px;
+  }
+}
+
+/* --- Index on a phone ------------------------------------------------------ */
+
+/* Not one column of equal pictures: wide pictures run the full width with the
+   caption under them; square ones take a little over half the width, their
+   caption beside them on the open side, alternating down the page. */
+@media (max-width: 900px) {
+  .index-grid {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    padding-bottom: 12px;
+  }
+  .index-grid > .cell {
+    order: var(--m-order, 0);
+  }
+  .index-grid > .cell-image {
+    margin-top: 44px;
+  }
+  .index-grid > .cell-image[data-m="wide"] {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+  }
+  .index-grid > .cell-label[data-m="wide"] {
+    width: 100%;
+  }
+  .index-grid > .cell-image[data-m^="sq"] {
+    width: 60%;
+    aspect-ratio: 4 / 5;
+  }
+  .index-grid > .cell-label[data-m^="sq"] {
+    width: 40%;
+  }
+  .index-grid > .cell-label[data-m^="sq"] .cell-caption {
+    margin-top: 0;
+  }
+  .index-grid > .cell-label[data-m="sq-left"] .cell-caption {
+    padding-left: 14px;
+  }
+  .index-grid > .cell-label[data-m="sq-right"] .cell-caption {
+    padding-right: 14px;
+    text-align: right;
+  }
 }

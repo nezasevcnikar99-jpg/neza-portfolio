@@ -39,19 +39,19 @@ export const Home: GlobalConfig = {
     {
       name: "heroLead",
       type: "text",
-      label: "Uvodni stavek (prvi del)",
+      label: "Citat na naslovnici",
       required: true,
     },
     {
       name: "heroAccent",
       type: "text",
-      label: "Uvodni stavek (drugi del)",
+      label: "Vir citata",
       required: true,
     },
     {
       name: "heroDescription",
       type: "textarea",
-      label: "Opis pod stavkom",
+      label: "Oznaka na naslovnici (npr. Portfolio)",
       required: true,
     },
   ],

@@ -3,7 +3,10 @@ import Link from "next/link";
 import type { Media } from "@/payload-types";
 import { buildIndexCells, type Cell, type Project } from "@/lib/projects";
 
-function ImageCell({ cell }: { cell: Extract<Cell, { kind: "image" }> }) {
+/** How a picture sits in the phone's stack: wide across, or narrower beside its caption. */
+type Phone = { side: "wide" | "sq-left" | "sq-right"; order: number };
+
+function ImageCell({ cell, phone }: { cell: Extract<Cell, { kind: "image" }>; phone: Phone }) {
   const p = cell.project;
   const doc = typeof p.heroImage === "object" ? (p.heroImage as Media | null) : null;
   const hero = doc?.mimeType?.startsWith("image/") ? doc : null;
@@ -17,7 +20,10 @@ function ImageCell({ cell }: { cell: Extract<Cell, { kind: "image" }> }) {
     <Link
       href={`/projects/${p.slug}`}
       className="cell cell-image"
-      style={{ gridColumn: `span ${cell.span}`, "--seq": cell.index * 2 } as React.CSSProperties}
+      data-m={phone.side}
+      style={
+        { gridColumn: `span ${cell.span}`, "--seq": cell.index * 2, "--m-order": phone.order } as React.CSSProperties
+      }
     >
       <span className="cell-inner">
         {hero?.url ? (
@@ -44,13 +50,20 @@ function ImageCell({ cell }: { cell: Extract<Cell, { kind: "image" }> }) {
   );
 }
 
-function LabelCell({ cell }: { cell: Extract<Cell, { kind: "label" }> }) {
+function LabelCell({ cell, phone }: { cell: Extract<Cell, { kind: "label" }>; phone: Phone }) {
   const p = cell.project;
   return (
     <Link
       href={`/projects/${p.slug}`}
       className={`cell cell-label corner-${cell.align}`}
-      style={{ "--seq": cell.index * 2 + 1 } as React.CSSProperties}
+      data-m={phone.side}
+      style={
+        {
+          "--seq": cell.index * 2 + 1,
+          // Beside a picture on the right, the caption comes first in the row.
+          "--m-order": phone.side === "sq-right" ? phone.order - 1 : phone.order + 1,
+        } as React.CSSProperties
+      }
     >
       <span className="cell-caption">
         <h2 className="caption-title">{p.title}</h2>
@@ -63,11 +76,22 @@ function LabelCell({ cell }: { cell: Extract<Cell, { kind: "label" }> }) {
 export default function IndexGrid({ projects }: { projects: Project[] }) {
   const cells = buildIndexCells(projects);
 
+  // The phone keeps the desktop's rhythm instead of one column of equal
+  // pictures: wide pictures run the full width, square ones stand narrower with
+  // their caption beside them, alternating left and right down the page.
+  const phone = new Map<number, Phone>();
+  let squares = 0;
+  for (const cell of cells) {
+    if (cell.kind !== "image") continue;
+    const side = cell.span === 2 ? "wide" : squares++ % 2 === 0 ? "sq-left" : "sq-right";
+    phone.set(cell.index, { side, order: cell.index * 4 + 1 });
+  }
+
   return (
-    <div className="ruled">
+    <div className="ruled index-grid">
       {cells.map((cell, i) => {
-        if (cell.kind === "image") return <ImageCell key={i} cell={cell} />;
-        if (cell.kind === "label") return <LabelCell key={i} cell={cell} />;
+        if (cell.kind === "image") return <ImageCell key={i} cell={cell} phone={phone.get(cell.index)!} />;
+        if (cell.kind === "label") return <LabelCell key={i} cell={cell} phone={phone.get(cell.index)!} />;
         return <span key={i} className="cell" />;
       })}
     </div>

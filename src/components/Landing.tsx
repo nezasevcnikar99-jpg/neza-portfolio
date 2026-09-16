@@ -13,14 +13,21 @@ import type { Media } from "@/payload-types";
 export default function Landing({
   media,
   poster,
-  lead,
-  accent,
+  quote,
+  source,
+  label,
+  name,
   light = false,
 }: {
   media: Media | null;
   poster: Media | null;
-  lead: string;
-  accent: string;
+  /** The epigraph, set like one on a book's title page. */
+  quote: string;
+  source: string;
+  /** Small, top right — what the book is, e.g. "Portfolio". */
+  label: string;
+  /** Small, top left — whose it is. */
+  name: string;
   /** A light picture — a drawing on paper — takes dark text kept off the drawing. */
   light?: boolean;
 }) {
@@ -29,6 +36,11 @@ export default function Landing({
 
   return (
     <section className={light ? "landing is-light" : "landing"}>
+      <div className="landing-top">
+        <span className="landing-name">{name}</span>
+        <span className="landing-label">{label}</span>
+      </div>
+
       <div className="landing-media">
         {isVideo && media?.url && (
           <video
@@ -59,9 +71,10 @@ export default function Landing({
       </div>
 
       <div className="landing-text">
-        <p className="landing-line">
-          {lead} <span className="landing-accent">{accent}</span>
-        </p>
+        <blockquote className="landing-quote">
+          <p>{`\u00bb${quote.trim()}\u00ab`}</p>
+        </blockquote>
+        {source.trim() && <p className="landing-source">{source.trim()}</p>}
       </div>
 
       <span className="landing-cue" aria-hidden="true">

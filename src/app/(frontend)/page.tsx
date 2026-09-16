@@ -4,13 +4,13 @@ import IndexGrid from "@/components/IndexGrid";
 import Landing from "@/components/Landing";
 import LandingPass from "@/components/LandingPass";
 import { getAllProjects } from "@/lib/projects-data";
-import { getHome } from "@/lib/settings";
+import { getHome, getSettings } from "@/lib/settings";
 import type { Media } from "@/payload-types";
 
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
-  const [home, projects] = await Promise.all([getHome(), getAllProjects()]);
+  const [home, projects, settings] = await Promise.all([getHome(), getAllProjects(), getSettings()]);
 
   const media = typeof home.landingMedia === "object" ? (home.landingMedia as Media | null) : null;
   const poster = typeof home.landingPoster === "object" ? (home.landingPoster as Media | null) : null;
@@ -29,8 +29,10 @@ export default async function Home() {
       <Landing
         media={media}
         poster={poster}
-        lead={home.heroLead}
-        accent={home.heroAccent}
+        quote={home.heroLead}
+        source={home.heroAccent ?? ""}
+        label={home.heroDescription ?? ""}
+        name={settings.name}
         light={home.landingLight === true}
       />
 
