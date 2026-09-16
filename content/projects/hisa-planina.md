@@ -6,7 +6,8 @@ kategorija: Idejna zasnova
 leto: 2025
 vloga: Mentorica izr. prof. dr. Nataša Koselj
 velikost: kvadrat
-naslovna: pl-fotografija-06.jpg
+naslovna: pl-fotografija-klop.jpg
+izrez: 50 60
 cele: pl-nacrt-prerez-b-06.jpg, pl-nacrt-fasada-juzna-09.jpg, pl-nacrt-tloris-pritlicje-02.jpg, pl-nacrt-situacija-01.jpg, pl-nacrt-tloris-nadstropje-03.jpg, pl-nacrt-tloris-podstresje-04.jpg, pl-nacrt-prerez-a-05.jpg, pl-nacrt-prerez-c-07.jpg, pl-nacrt-fasada-severna-08.jpg, pl-nacrt-fasada-vzhodna-10.jpg, pl-nacrt-fasada-zahodna-11.jpg, pl-nacrt-rusenje-pritlicje-12.jpg, pl-nacrt-rusenje-nadstropje-13.jpg, pl-obstojece-tloris-pritlicje-02.jpg, pl-obstojece-tloris-nadstropje-03.jpg, pl-obstojece-prerez-a-04.jpg, pl-obstojece-prerez-b-05.jpg, pl-obstojece-prerez-c-06.jpg, pl-obstojece-fasada-juzna-09.jpg, pl-obstojece-fasada-severna-10.jpg, pl-obstojece-fasada-vzhodna-07.jpg, pl-obstojece-fasada-zahodna-08.jpg
 galerija:
   pl-nacrt-situacija-01.jpg | galerija | Situacija 1 : 500
@@ -36,8 +37,8 @@ galerija:
   pl-fotografija-03.jpg | galerija | Obstoječe stanje — dvorišče
   pl-fotografija-04.jpg | galerija | Obstoječe stanje — vhod
   pl-fotografija-05.jpg | galerija | Obstoječe stanje — stranska fasada
+  pl-fotografija-06.jpg | galerija | Obstoječe stanje — obokan vhod z grmom
   pl-fotografija-07.jpg | galerija | Obstoječe stanje — notranjost
-  pl-fotografija-08.jpg | galerija | Obstoječe stanje — soba s klopjo
   pl-fotografija-09.jpg | galerija | Obstoječe stanje — ostrešje
   pl-fotografija-10.jpg | galerija | Obstoječe stanje — obokan prostor
 ---
