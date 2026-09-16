@@ -908,6 +908,10 @@ html.landing-passed section.landing {
     margin: 0;
     left: var(--page-pad);
     top: var(--sheet-mid);
+    /* The base rule pins the text 18vh from the bottom; left in place, top and
+       bottom together stretched this block far past the quote, so it was
+       centred on empty space and the label hung under the stretch. */
+    bottom: auto;
     translate: 0 -50%;
     max-width: calc(100vw - var(--sheet-w) * 0.66 - var(--page-pad) - 56px);
   }
