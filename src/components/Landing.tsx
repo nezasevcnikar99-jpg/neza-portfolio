@@ -36,6 +36,9 @@ export default function Landing({
   // The sheet's proportions, so the stylesheet can work out how wide the drawing
   // stands and keep the quote clear of it.
   const ratio = still?.width && still?.height ? still.width / still.height : 1.5;
+  // A quote breaks after its semicolon, one clause to a line, the way it reads
+  // aloud — not wherever the width happens to end.
+  const lines = quote.trim().split(/(?<=;)\s+/);
 
   return (
     <section
@@ -89,7 +92,15 @@ export default function Landing({
 
       <div className="landing-text">
         <blockquote className="landing-quote">
-          <p>{`\u00bb${quote.trim()}\u00ab`}</p>
+          <p>
+            {lines.map((line, i) => (
+              <span key={i} className="landing-quote-line">
+                {i === 0 && "\u00bb"}
+                {line}
+                {i === lines.length - 1 && "\u00ab"}
+              </span>
+            ))}
+          </p>
         </blockquote>
         {source.trim() && <p className="landing-source">{source.trim()}</p>}
         {label.trim() && <p className="landing-label">{label.trim()}</p>}
