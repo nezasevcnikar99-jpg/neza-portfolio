@@ -26,8 +26,9 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
   const next = await getNextProject(slug);
   // A written piece is read, not looked at: its text takes the middle of the
-  // grid and the pictures move to the side.
-  const isEssay = project.category === "Literarni esej";
+  // grid and the pictures move to the side. Chosen per project, not implied by
+  // the category, so a text can sit in whatever category suits it.
+  const isEssay = project.asText === true;
   const heroImage = typeof project.heroImage === "object" ? (project.heroImage as Media | null) : null;
   const document = typeof project.document === "object" ? (project.document as Media | null) : null;
 

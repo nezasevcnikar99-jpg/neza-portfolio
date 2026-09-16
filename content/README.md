@@ -51,6 +51,7 @@ Vse za tem naslovom je besedilo koncepta. Prazna vrstica pomeni nov odstavek.
 | `izrez`      | dve števili 0–100: kateri del naslovne slike se vidi v mreži       |
 | `vrstniRed`  | manjše število pomeni prej v mreži                                 |
 | `velikost`   | oblika v mreži na prvi strani: samodejno, kvadrat ali ležeče       |
+| `oblika`     | `besedilo` za eseje (besedilo čez sredino strani), sicer `projekt` |
 | `galerija`   | ena vrstica na sliko: `ime datoteke | stran ali galerija | opis`   |
 | `cele`       | slike, ki se ne obrežejo (tlorisi, prerezi), ločene z vejico       |
 

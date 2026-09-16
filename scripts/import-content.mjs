@@ -341,6 +341,7 @@ async function importOne(name) {
     intro: intro || null,
     ...(meta.vrstniRed ? { order: Number(meta.vrstniRed) } : {}),
     ...(meta.velikost ? { gridSize: size(meta.velikost, name) } : {}),
+    ...(meta.oblika ? { asText: /^besedil/i.test(meta.oblika.trim()) } : {}),
     ...(concept ? { concept: lexical(concept) } : {}),
   };
 

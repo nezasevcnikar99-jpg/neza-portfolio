@@ -192,9 +192,13 @@ export interface Project {
    */
   order?: number | null;
   /**
-   * Oblika naslovne slike v mreži na prvi strani. Mreža ohrani svojo kompozicijo, projekt pa dobi prvo prosto mesto izbrane oblike. Pri »Samodejno« dobi prvo prosto mesto, kakršno koli že je.
+   * Oblika naslovne slike v mreži na prvi strani. Projekti se v mrežo razporedijo po kompoziciji, ne po vrstnem redu. Pri »Samodejno« obliko določi naslovna slika: ležeča dobi široko mesto, pokončna ali kvadratna kvadrat.
    */
   gridSize?: ('auto' | '1x1' | '2x1') | null;
+  /**
+   * Za eseje in druga pisna dela: besedilo teče čez srednja dva stolpca za branje, slike in galerija stojijo ob strani. Ni vezano na kategorijo.
+   */
+  asText?: boolean | null;
   category: 'Arhitektura' | 'Literarni esej' | 'Grafika';
   year: number;
   /**
@@ -385,6 +389,7 @@ export interface ProjectsSelect<T extends boolean = true> {
   slug?: T;
   order?: T;
   gridSize?: T;
+  asText?: T;
   category?: T;
   year?: T;
   quote?: T;

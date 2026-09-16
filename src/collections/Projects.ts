@@ -80,6 +80,17 @@ export const Projects: CollectionConfig = {
       },
     },
     {
+      name: "asText",
+      type: "checkbox",
+      label: "Postavi kot besedilo",
+      defaultValue: false,
+      admin: {
+        position: "sidebar",
+        description:
+          "Za eseje in druga pisna dela: besedilo teče čez srednja dva stolpca za branje, slike in galerija stojijo ob strani. Ni vezano na kategorijo.",
+      },
+    },
+    {
       name: "category",
       type: "select",
       required: true,

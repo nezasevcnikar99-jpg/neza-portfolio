@@ -35,6 +35,7 @@ const STATEMENTS = [
   // so a database whose enum never had these labels does not error.
   `UPDATE "projects" SET "grid_size" = 'auto' WHERE "grid_size"::text IN ('2x2', '1x2')`,
   `ALTER TABLE "projects" ADD COLUMN IF NOT EXISTS "document_id" integer`,
+  `ALTER TABLE "projects" ADD COLUMN IF NOT EXISTS "as_text" boolean DEFAULT false`,
   `ALTER TABLE "projects" ADD COLUMN IF NOT EXISTS "document_label" varchar`,
   `CREATE INDEX IF NOT EXISTS "projects_document_idx" ON "projects" ("document_id")`,
   `CREATE INDEX IF NOT EXISTS "home_landing_media_idx" ON "home" ("landing_media_id")`,

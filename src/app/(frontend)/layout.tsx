@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
-const DESCRIPTION =
-  "Zbirka arhitekturnih projektov, esejev o prostoru in vizualnih del — od zasnove do izvedbe, od misli do stavka.";
+const DESCRIPTION = "Portfolio Neže Sevčnikar — izbrani arhitekturni projekti, raziskave in besedila.";
+const TITLE = "Neža Sevčnikar — Portfolio";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://neza-portfolio.vercel.app";
 
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   // resolve them, so the link preview comes out bare.
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Neža Sevčnikar — Arhitektura, eseji, grafika",
+    default: TITLE,
     template: "%s — Neža Sevčnikar",
   },
   description: DESCRIPTION,
@@ -19,12 +19,12 @@ export const metadata: Metadata = {
     type: "website",
     locale: "sl_SI",
     siteName: "Neža Sevčnikar",
-    title: "Neža Sevčnikar — Arhitektura, eseji, grafika",
+    title: TITLE,
     description: DESCRIPTION,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Neža Sevčnikar — Arhitektura, eseji, grafika",
+    title: TITLE,
     description: DESCRIPTION,
   },
 };
