@@ -2,8 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 
-/** Lifts a note so its first line sits on the line of its mark. */
-const LIFT = 6;
+/** Moves a note from its mark's top so both first lines share one baseline
+ *  (measured: 17 px text at 1.75 against 12 px notes at 1.5). */
+const LIFT = -8;
 /** The least room between two notes when one has to give way to the other. */
 const GAP = 14;
 
