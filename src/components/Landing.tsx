@@ -24,7 +24,7 @@ export default function Landing({
   /** The epigraph, set like one on a book's title page. */
   quote: string;
   source: string;
-  /** Small, bottom left under the arrow — what the book is, e.g. "Portfolio". */
+  /** Small, just under the quote — what the book is, e.g. "Portfolio". */
   label: string;
   /** Small, top left — whose it is. */
   name: string;
@@ -92,6 +92,7 @@ export default function Landing({
           <p>{`\u00bb${quote.trim()}\u00ab`}</p>
         </blockquote>
         {source.trim() && <p className="landing-source">{source.trim()}</p>}
+        {label.trim() && <p className="landing-label">{label.trim()}</p>}
       </div>
 
       <div className="landing-bottom">
@@ -106,7 +107,6 @@ export default function Landing({
             />
           </svg>
         </span>
-        {label.trim() && <span className="landing-label">{label.trim()}</span>}
       </div>
     </section>
   );

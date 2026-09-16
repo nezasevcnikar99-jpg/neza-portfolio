@@ -776,6 +776,15 @@ html.landing-passed section.landing {
   opacity: 0.72;
 }
 
+/* What the book is, small, a short step under the quote and its source. */
+.landing-label {
+  margin: clamp(24px, 4.5vh, 44px) 0 0;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--sheet);
+}
+
 .landing-cue {
   display: block;
   opacity: 0.7;
@@ -834,7 +843,8 @@ html.landing-passed section.landing {
 }
 .landing.is-light .landing-top,
 .landing.is-light .landing-bottom,
-.landing.is-light .landing-quote {
+.landing.is-light .landing-quote,
+.landing.is-light .landing-label {
   color: var(--ink);
 }
 .landing.is-light .landing-source {
@@ -893,6 +903,14 @@ html.landing-passed section.landing {
     top: var(--sheet-mid);
     translate: 0 -50%;
     max-width: min(34ch, calc(100vw - var(--sheet-w) * 0.66 - var(--page-pad) - 56px));
+  }
+  /* Hangs under the quote rather than joining its block, so the quote's own
+     middle stays on the drawing's middle. */
+  .landing.is-light .landing-label {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    white-space: nowrap;
   }
 }
 
