@@ -1302,46 +1302,180 @@ html.landing-passed section.landing {
   }
 }
 
-/* --- Index on a phone ------------------------------------------------------ */
 
-/* Not one column of equal pictures: wide pictures run the full width with the
-   caption under them; square ones take a little over half the width, their
-   caption beside them on the open side, alternating down the page. */
+/* --- Phone ---------------------------------------------------------------- */
+
+.cell-mcaption {
+  display: none;
+}
+
+/* One system for every page on a phone, written last so it settles what the
+   earlier breakpoint rules left: one 20 px margin everywhere, no grid rules
+   except the hairlines that separate sections, pictures without grey boxes and
+   with their captions underneath. */
 @media (max-width: 900px) {
-  .index-grid {
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: flex-end;
-    padding-bottom: 12px;
+  :root {
+    --page-pad: 20px;
   }
-  .index-grid > .cell {
-    order: var(--m-order, 0);
+
+  /* The desktop rules draw the grid's right edge on every fourth cell and the
+     last one; on a phone those survived as stray vertical lines. */
+  .ruled > .cell,
+  .ruled > .cell:nth-child(4n),
+  .ruled > .cell:last-child {
+    border-left: none;
+    border-right: none;
+  }
+
+  /* Masthead: name left, the three links beside it, page title below. */
+  .head {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: baseline;
+    column-gap: 18px;
+    padding: 18px var(--page-pad) 24px;
+  }
+  .head-name {
+    flex: 1 1 auto;
+    margin-bottom: 0;
+    font-size: 16px;
+  }
+  .head-link,
+  .head-end .head-link {
+    font-size: 13px;
+  }
+  .head-title {
+    order: 1;
+    flex: 1 0 100%;
+    margin: 36px 0 0;
+    font-size: clamp(28px, 8vw, 34px);
+    line-height: 1.1;
+  }
+
+  /* Index: two even columns, wide pictures across both, every picture with its
+     title under it. Dense packing pairs the square ones up. */
+  .index-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 12px;
+    row-gap: 32px;
+    grid-auto-flow: row dense;
+    align-items: start;
+    padding: 28px var(--page-pad) 48px;
+  }
+  .index-grid > .cell-label,
+  .index-grid > .cell:empty {
+    display: none;
   }
   .index-grid > .cell-image {
-    margin-top: 44px;
+    display: block;
+    margin: 0;
+    aspect-ratio: auto;
   }
   .index-grid > .cell-image[data-m="wide"] {
-    width: 100%;
-    aspect-ratio: 4 / 3;
+    grid-column: span 2;
   }
-  .index-grid > .cell-label[data-m="wide"] {
-    width: 100%;
-  }
-  .index-grid > .cell-image[data-m^="sq"] {
-    width: 60%;
+  .index-grid > .cell-image .cell-inner {
+    position: relative;
+    inset: auto;
+    display: block;
     aspect-ratio: 4 / 5;
   }
-  .index-grid > .cell-label[data-m^="sq"] {
-    width: 40%;
+  .index-grid > .cell-image[data-m="wide"] .cell-inner {
+    aspect-ratio: 3 / 2;
   }
-  .index-grid > .cell-label[data-m^="sq"] .cell-caption {
+  .index-grid .cell-mcaption {
+    display: block;
+    margin-top: 9px;
+    font-size: 13px;
+    line-height: 1.35;
+  }
+  .index-grid .cell-mcaption-year {
+    display: block;
+    margin-top: 2px;
+    font-size: 11px;
+    color: var(--faint);
+  }
+
+  /* Project page: pictures at their own proportions, no grey box, captions
+     visible under them; the gallery and the next project as ruled rows. */
+  .project-side {
+    gap: 16px;
+    padding: 8px var(--page-pad) 40px;
+  }
+  .project-grid > .cell-shot,
+  .project-grid > .cell-more {
+    aspect-ratio: auto;
+    margin: 0 var(--page-pad) 32px;
+  }
+  .project-grid > .cell-shot:first-of-type {
     margin-top: 0;
+    margin-bottom: 28px;
   }
-  .index-grid > .cell-label[data-m="sq-left"] .cell-caption {
-    padding-left: 14px;
+  .cell-shot .cell-inner,
+  .cell-more .cell-inner {
+    position: relative;
+    inset: auto;
+    display: block;
+    background: none;
+    overflow: visible;
   }
-  .index-grid > .cell-label[data-m="sq-right"] .cell-caption {
-    padding-right: 14px;
-    text-align: right;
+  .cell-shot .cell-photo {
+    display: block;
+    height: auto;
+    max-height: 72svh;
+    object-fit: cover;
+  }
+  .cell-shot .cell-photo.is-whole {
+    max-height: none;
+    object-fit: contain;
+    padding: 0;
+  }
+  .cell-shot-caption {
+    position: static;
+    display: block;
+    opacity: 1;
+    background: none;
+    padding: 9px 0 0;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .project-grid > .cell-more {
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 40px;
+  }
+  .cell-more-photo {
+    display: none;
+  }
+  .cell-more-label {
+    position: static;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 16px 0;
+  }
+  .cell-more-count {
+    font-size: 15px;
+    font-weight: 400;
+    letter-spacing: 0;
+  }
+  .project-nav {
+    padding: 0 var(--page-pad);
+  }
+  .project-nav > .cell {
+    padding: 16px 0;
+    border: none;
+    border-top: 1px solid var(--rule);
+  }
+  .essay-text,
+  .essay-aside {
+    padding-left: var(--page-pad);
+    padding-right: var(--page-pad);
+  }
+
+  /* Inner pages: the stack already carries the margin, so cells add none. */
+  .page-grid .cell {
+    padding: 24px 0;
   }
 }

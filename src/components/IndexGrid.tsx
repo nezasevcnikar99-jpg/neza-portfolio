@@ -46,6 +46,12 @@ function ImageCell({ cell, phone }: { cell: Extract<Cell, { kind: "image" }>; ph
           {quote && <span className="cell-quote-text">{`\u00bb${quote}\u00ab`}</span>}
         </span>
       </span>
+      {/* On a phone the caption cells are hidden and each picture carries its own
+          title underneath, so a picture and its name can never drift apart. */}
+      <span className="cell-mcaption" aria-hidden="true">
+        <span>{p.title}</span>
+        <span className="cell-mcaption-year">{p.year}</span>
+      </span>
     </Link>
   );
 }
