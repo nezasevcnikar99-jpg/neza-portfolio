@@ -1384,6 +1384,15 @@ html.landing-passed section.landing {
   .index-grid > .cell-image[data-m="wide"] .cell-inner {
     aspect-ratio: 3 / 2;
   }
+  /* A picture shown whole stands on the caption line like its neighbours,
+     without the grey mat it has on a desktop. */
+  .index-grid > .cell-image .cell-inner:has(.is-whole) {
+    background: none;
+  }
+  .index-grid .cell-photo.is-whole {
+    padding: 0;
+    object-position: 50% 100%;
+  }
   .index-grid .cell-mcaption {
     display: block;
     margin-top: 9px;
@@ -1409,7 +1418,7 @@ html.landing-passed section.landing {
     margin: 0 var(--page-pad) 32px;
   }
   .project-grid > .cell-shot:first-of-type {
-    margin-top: 0;
+    margin-top: 28px;
     margin-bottom: 28px;
   }
   .cell-shot .cell-inner,
@@ -1440,10 +1449,12 @@ html.landing-passed section.landing {
     font-size: 12px;
     color: var(--muted);
   }
+  /* The gallery row is closed by the navigation's own top rule, so no empty
+     ruled band sits between them. */
   .project-grid > .cell-more {
     border-top: 1px solid var(--rule);
-    border-bottom: 1px solid var(--rule);
-    margin-bottom: 40px;
+    border-bottom: none;
+    margin-bottom: 0;
   }
   .cell-more-photo {
     display: none;
