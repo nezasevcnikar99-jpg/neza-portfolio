@@ -18,9 +18,14 @@ export default function LandingPass() {
 
     const onScroll = () => {
       const height = landing.offsetHeight;
-      if (window.scrollY < height) return;
+      const y = window.scrollY;
+      if (y < height) return;
+      // Target taken before the landing goes: reading scrollY after the class is
+      // added forces a layout, the browser's own scroll anchoring already moves
+      // the page up by the landing's height, and subtracting it again threw the
+      // visitor back to the top.
       root.classList.add(LANDING_KEY);
-      window.scrollTo(0, window.scrollY - height);
+      window.scrollTo(0, y - height);
       try {
         sessionStorage.setItem(LANDING_KEY, "1");
       } catch {
