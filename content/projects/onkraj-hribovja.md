@@ -41,4 +41,10 @@ galerija:
   oh-fotografija-08.jpg | galerija | Obstoječe stanje — kuhinja
 ---
 
-Idejna zasnova prenove zapuščene hiše v Železnikih v družinsko hišo z apartmaji.
+Idejna zasnova prenove hiše v Železnikih, ki je bila že v zelo slabem stanju, v družinsko hišo s turističnimi apartmaji.
+
+## Koncept
+
+Naloga je bila v eno hišo umestiti dva programa — dom družine in apartmaje za goste — in ju preplesti tako, da se med seboj ne motita.
+
+Ključ je bil v legi hiše. Ker je delno vkopana v hrib, ima vhoda na dveh nivojih že vzpostavljena: v hišo se vstopa tako v pritličju kot v 1. nadstropju. Zasnova to izkoristi — v 1. nadstropju je zdaj turistični program s svojim vhodom, družina pa v hišo vstopa skozi pritličje. Vsak program ima tako svoj dostop, svoje poti in svojo zasebnost, hiša pa ostaja ena celota.

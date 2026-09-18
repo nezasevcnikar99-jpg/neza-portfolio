@@ -33,3 +33,9 @@ galerija:
 ---
 
 Idejna zasnova prenove stare hiše v mestnem jedru Radovljice v enodružinsko hišo.
+
+## Koncept
+
+Hiša stoji v strnjenem mestnem jedru, kjer se stavbe stikajo druga z drugo in ob njih ni prostora za vrt ali teraso. Zunanji prostor, ki ga ima družinska hiša navadno ob sebi, je zato v zasnovi prestavljen navzgor — v zgornjo etažo.
+
+Terasa je oblikovana tako, da čim bolj sledi osnovnemu gabaritu hiše. Hiša tako navzven ohrani obliko, ki jo povezuje z okoliškimi hišami mestnega jedra, in ne spremeni podobe ulice, družini pa ponudi zunanji prostor, ki ga pritličje ne more.

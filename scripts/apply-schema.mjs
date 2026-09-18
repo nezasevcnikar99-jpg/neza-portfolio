@@ -89,10 +89,11 @@ const STATEMENTS = [
      UPDATE "about" SET "bio" = replace("bio"::text, 'pravili, katere je treba', 'pravili, ki jih je treba')::jsonb
        WHERE "bio"::text LIKE '%pravili, katere je treba%';
    EXCEPTION WHEN others THEN RAISE NOTICE 'about text not corrected: %', SQLERRM; END $$`,
-  // The landing label was a long description before it was a single word;
-  // only that exact old text is replaced, so a later choice in the admin stays.
-  `UPDATE "home" SET "hero_description" = 'Portfolio'
-     WHERE "hero_description" LIKE 'Zbirka arhitekturnih projektov%'`,
+  // Puts back the landing label "Portfolio" briefly replaced. Only while the
+  // home page has not been saved since (updated_at), so the admin's own choice
+  // made later is never undone by a deploy.
+  `UPDATE "home" SET "hero_description" = 'Zbirka arhitekturnih projektov, esejev in grafičnih del'
+     WHERE "hero_description" = 'Portfolio' AND "updated_at" <= '2026-09-16T20:51:34.125Z'`,
 ];
 
 // Marks which pictures the site uses. The same statement as MEDIA_USAGE_SQL in
