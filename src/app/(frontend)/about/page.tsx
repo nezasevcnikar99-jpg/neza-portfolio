@@ -52,7 +52,10 @@ export default async function AboutPage() {
           </div>
         )}
 
-        <div className="cell page-cell" style={{ gridColumn: portrait?.url ? "span 2" : "span 3" }}>
+        {/* An empty first column keeps the text to the same measure and edge as
+            the lists below it. */}
+        {!portrait?.url && <div className="cell" />}
+        <div className="cell page-cell" style={{ gridColumn: "span 2" }}>
           <div className="bio">{about.bio && <RichText data={about.bio} />}</div>
         </div>
 
@@ -73,7 +76,8 @@ export default async function AboutPage() {
                 {row.items.map((item, i) => (
                   <li key={item.id ?? i}>
                     <span>{item.label}</span>
-                    <span className="page-note">{item.dateRange}</span>
+                    {/* "2017 - 2021" and "2025-2026" typed either way, set as a range. */}
+                    <span className="page-note fact-date">{item.dateRange.replace(/\s*[-–]\s*/g, " – ")}</span>
                   </li>
                 ))}
               </ul>

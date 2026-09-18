@@ -81,6 +81,14 @@ const STATEMENTS = [
   `ALTER TABLE "media" ADD COLUMN IF NOT EXISTS "used_in" varchar`,
   `ALTER TABLE "projects" ADD COLUMN IF NOT EXISTS "notes" varchar`,
   `ALTER TABLE "projects" ADD COLUMN IF NOT EXISTS "sources" varchar`,
+  // Two slips in the About text, corrected in place; each only where the old
+  // wording is still there. Never allowed to stop a deploy.
+  `DO $$ BEGIN
+     UPDATE "about" SET "bio" = replace("bio"::text, 'predno se sestavi', 'preden se sestavi')::jsonb
+       WHERE "bio"::text LIKE '%predno se sestavi%';
+     UPDATE "about" SET "bio" = replace("bio"::text, 'pravili, katere je treba', 'pravili, ki jih je treba')::jsonb
+       WHERE "bio"::text LIKE '%pravili, katere je treba%';
+   EXCEPTION WHEN others THEN RAISE NOTICE 'about text not corrected: %', SQLERRM; END $$`,
   // The landing label was a long description before it was a single word;
   // only that exact old text is replaced, so a later choice in the admin stays.
   `UPDATE "home" SET "hero_description" = 'Portfolio'

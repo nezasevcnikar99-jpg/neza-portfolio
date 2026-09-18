@@ -577,6 +577,11 @@ a {
   font-size: 14px;
 }
 
+.fact-date {
+  flex: none;
+  white-space: nowrap;
+}
+
 .fact-list li:last-child {
   border-bottom: none;
 }
