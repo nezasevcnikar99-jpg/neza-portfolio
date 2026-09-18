@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const DESCRIPTION = "Portfolio Neže Sevčnikar – izbrani arhitekturni projekti, raziskave in besedila.";
@@ -22,6 +23,11 @@ export const metadata: Metadata = {
     title: TITLE,
     description: DESCRIPTION,
   },
+  // Search Console's HTML-tag check, when the code is set in Vercel's
+  // environment; verification through DNS needs nothing here.
+  ...(process.env.GOOGLE_SITE_VERIFICATION
+    ? { verification: { google: process.env.GOOGLE_SITE_VERIFICATION } }
+    : {}),
   twitter: {
     card: "summary_large_image",
     title: TITLE,
@@ -36,7 +42,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="sl">
-      <body>{children}</body>
+      <body>
+        {children}
+        {/* Vercel Web Analytics: page views without cookies, so no consent banner
+            is needed. Only the site's pages carry it, not the admin. */}
+        <Analytics />
+      </body>
     </html>
   );
 }
