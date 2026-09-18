@@ -160,13 +160,12 @@ function assignLabels(images: Placed[], lastBand: number) {
  * empties included, so the grid can draw every rule.
  */
 export function buildIndexCells(projects: Project[]): Cell[] {
-  // Newest work first: the projects are dealt into the figure year by year, so
-  // no project ever stands above a newer one. Within a year the order is free,
-  // and each slot takes the first project of that year whose shape suits it. A
-  // chosen size decides that shape; on "auto" the hero picture does — a
-  // landscape picture wants the wide slot, anything squarer the square one. If
-  // no project of the year suits the slot, the slot takes the project's shape
-  // instead (OTHER_COL), so the year order always holds.
+  // Newest work first, and within a year in the order set by dragging in the
+  // admin: the projects are dealt into the figure strictly in that sequence.
+  // A chosen size decides a picture's shape; on "auto" the hero picture does —
+  // a landscape picture is wide, anything squarer square. When a project's shape
+  // is not the slot's, the slot takes the project's shape (OTHER_COL), so the
+  // order always holds.
   const shapeOf = (project: Project): number | null => {
     if (project.gridSize === "1x1") return 1;
     if (project.gridSize === "2x1") return 2;
@@ -174,16 +173,12 @@ export function buildIndexCells(projects: Project[]): Cell[] {
     const ratio = hero?.width && hero?.height ? hero.width / hero.height : null;
     return ratio === null ? null : ratio >= 1.25 ? 2 : 1;
   };
-  // Stable, so projects of one year keep their "order" among themselves.
+  // Stable, so projects of one year keep the admin's order among themselves.
   const pending = [...projects].sort((a, b) => b.year - a.year);
   const images: Placed[] = [];
   for (let i = 0; pending.length > 0; i++) {
     const slot = CYCLE[i % CYCLE.length];
-    const year = pending[0].year;
-    let at = pending.findIndex((project) => project.year === year && shapeOf(project) === slot.span);
-    if (at === -1) at = 0;
-
-    const [project] = pending.splice(at, 1);
+    const project = pending.shift()!;
     const span = shapeOf(project) ?? slot.span;
     const col = span === slot.span ? slot.col : OTHER_COL[`${slot.band}:${slot.col}`];
     const cycle = Math.floor(i / CYCLE.length);

@@ -6,7 +6,7 @@ export async function getAllProjects(): Promise<Project[]> {
   const payload = await getPayloadClient();
   const result = await payload.find({
     collection: "projects",
-    sort: "order",
+    sort: "_order",
     limit: 0,
     depth: 1,
   });

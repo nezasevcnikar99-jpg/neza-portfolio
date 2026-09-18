@@ -238,7 +238,7 @@ async function seed() {
   const payload = await getPayload({ config });
 
   console.log("Seeding projects...");
-  for (const [index, project] of PROJECTS.entries()) {
+  for (const project of PROJECTS) {
     const existing = await payload.find({
       collection: "projects",
       where: { slug: { equals: project.slug } },
@@ -262,7 +262,6 @@ async function seed() {
         vloga: project.vloga,
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         concept: richText(project.concept) as any,
-        order: index,
       },
     });
     console.log(`  created: ${project.title}`);

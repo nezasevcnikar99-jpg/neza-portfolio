@@ -24,7 +24,6 @@ vloga: Projektiranje in vodenje
 citat: Hiša se je naučila poslušati reko.
 naslovna: hisa-01.jpg
 izrez: 50 35
-vrstniRed: 1
 galerija:
   hisa-02.jpg | stran | Pogled z južne strani
   hisa-03.jpg | stran | Dnevni prostor
@@ -49,7 +48,6 @@ Vse za tem naslovom je besedilo koncepta. Prazna vrstica pomeni nov odstavek.
 | `citat`      | pokaže se ob prehodu miške čez projekt na prvi strani              |
 | `naslovna`   | ime datoteke iz `images/`; vedno prva slika na strani projekta     |
 | `izrez`      | dve števili 0–100: kateri del naslovne slike se vidi v mreži       |
-| `vrstniRed`  | manjše število pomeni prej v mreži                                 |
 | `velikost`   | oblika v mreži na prvi strani: samodejno, kvadrat ali ležeče       |
 | `oblika`     | `besedilo` za eseje (besedilo čez sredino strani), sicer `projekt` |
 | `galerija`   | ena vrstica na sliko: `ime datoteke | stran ali galerija | opis`   |
@@ -85,6 +83,10 @@ Vitruvij. 2009. O arhitekturi. Ljubljana.
 
 Opombe in vire lahko urejaš tudi v adminu (polji Opombe in Viri se pokažeta,
 ko je vklopljeno »Postavi kot besedilo«).
+
+**Vrstni red na prvi strani** je najprej po letih (najnovejši zgoraj), znotraj
+istega leta pa tak, kot projekte razvrstiš v adminu (seznam Projects, ročica
+na levi). Uvoz vrstnega reda ne spreminja.
 
 Slike naj imajo govoreča imena (`hisa-01.jpg`), ker so ta imena tudi to, po
 čemer stran ve, da je slika že naložena.

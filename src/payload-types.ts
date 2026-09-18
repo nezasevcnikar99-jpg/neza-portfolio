@@ -181,21 +181,20 @@ export interface Media {
   focalY?: number | null;
 }
 /**
+ * Vrstni red spreminjaš tako, da projekt z ročico na levi povlečeš gor ali dol. Na prvi strani so projekti razvrščeni po letih (najnovejši zgoraj), znotraj istega leta pa v tem vrstnem redu.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "projects".
  */
 export interface Project {
   id: number;
+  _order?: string | null;
   title: string;
   /**
    * Prikazan pod naslovom na strani projekta.
    */
   subtitle?: string | null;
   slug: string;
-  /**
-   * Vrstni red v mreži na Domov (manjše število = prej).
-   */
-  order?: number | null;
   /**
    * Oblika naslovne slike v mreži na prvi strani. Projekti se v mrežo razporedijo po kompoziciji, ne po vrstnem redu. Pri »Samodejno« obliko določi naslovna slika: ležeča dobi široko mesto, pokončna ali kvadratna kvadrat.
    */
@@ -402,10 +401,10 @@ export interface MediaSelect<T extends boolean = true> {
  * via the `definition` "projects_select".
  */
 export interface ProjectsSelect<T extends boolean = true> {
+  _order?: T;
   title?: T;
   subtitle?: T;
   slug?: T;
-  order?: T;
   gridSize?: T;
   asText?: T;
   category?: T;

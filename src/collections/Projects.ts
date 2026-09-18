@@ -14,8 +14,12 @@ export const Projects: CollectionConfig = {
   slug: "projects",
   admin: {
     useAsTitle: "title",
-    defaultColumns: ["title", "category", "year"],
+    defaultColumns: ["title", "year", "category"],
+    description:
+      "Vrstni red spreminjaš tako, da projekt z ročico na levi povlečeš gor ali dol. Na prvi strani so projekti razvrščeni po letih (najnovejši zgoraj), znotraj istega leta pa v tem vrstnem redu.",
   },
+  // Drag-and-drop order in the list (Payload stores it in "_order").
+  orderable: true,
   access: {
     read: () => true,
   },
@@ -65,15 +69,6 @@ export const Projects: CollectionConfig = {
             return value;
           },
         ],
-      },
-    },
-    {
-      name: "order",
-      type: "number",
-      defaultValue: 0,
-      admin: {
-        position: "sidebar",
-        description: "Vrstni red v mreži na Domov (manjše število = prej).",
       },
     },
     {

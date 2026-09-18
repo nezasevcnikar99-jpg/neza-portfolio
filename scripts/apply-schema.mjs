@@ -89,6 +89,19 @@ const STATEMENTS = [
      UPDATE "about" SET "bio" = replace("bio"::text, 'pravili, katere je treba', 'pravili, ki jih je treba')::jsonb
        WHERE "bio"::text LIKE '%pravili, katere je treba%';
    EXCEPTION WHEN others THEN RAISE NOTICE 'about text not corrected: %', SQLERRM; END $$`,
+  // Drag-and-drop order in the admin (Payload's "orderable"). Existing projects
+  // get keys once, in the order the site showed them: newest year first, then
+  // the old number, then title. Only while no project has a key yet.
+  `ALTER TABLE "projects" ADD COLUMN IF NOT EXISTS "_order" varchar`,
+  `CREATE INDEX IF NOT EXISTS "projects__order_idx" ON "projects" ("_order")`,
+  `WITH ranked AS (
+     SELECT id, row_number() OVER (ORDER BY "year" DESC, "order" ASC NULLS LAST, "title" ASC) AS n FROM "projects"
+   )
+   UPDATE "projects" p
+      SET "_order" = 'a' || substr('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz', ranked.n::int, 1)
+     FROM ranked
+    WHERE p.id = ranked.id AND ranked.n <= 62
+      AND NOT EXISTS (SELECT 1 FROM "projects" WHERE "_order" IS NOT NULL)`,
   `ALTER TABLE "settings" ADD COLUMN IF NOT EXISTS "phone" varchar`,
   `ALTER TABLE "settings" ADD COLUMN IF NOT EXISTS "linkedin" varchar`,
   // The phone from the CV, filled in once: only while the settings have not been
