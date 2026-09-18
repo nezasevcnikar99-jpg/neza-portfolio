@@ -89,6 +89,17 @@ const STATEMENTS = [
      UPDATE "about" SET "bio" = replace("bio"::text, 'pravili, katere je treba', 'pravili, ki jih je treba')::jsonb
        WHERE "bio"::text LIKE '%pravili, katere je treba%';
    EXCEPTION WHEN others THEN RAISE NOTICE 'about text not corrected: %', SQLERRM; END $$`,
+  `ALTER TABLE "settings" ADD COLUMN IF NOT EXISTS "phone" varchar`,
+  `ALTER TABLE "settings" ADD COLUMN IF NOT EXISTS "linkedin" varchar`,
+  // The phone from the CV, filled in once: only while the settings have not been
+  // saved since, so clearing it in the admin sticks.
+  `UPDATE "settings" SET "phone" = '+386 64 148 632'
+     WHERE "phone" IS NULL AND "updated_at" <= '2026-09-14T12:57:09.070Z'`,
+  // "Html in Wordpress" written as the names are spelled; only that exact text.
+  `DO $$ BEGIN
+     UPDATE "about_skills" SET "skill" = 'Izdelava spletnih strani HTML in WordPress'
+       WHERE "skill" = 'Izdelava spletnih strani Html in Wordpress';
+   EXCEPTION WHEN others THEN RAISE NOTICE 'skill not corrected: %', SQLERRM; END $$`,
   // Puts back the landing label "Portfolio" briefly replaced. Only while the
   // home page has not been saved since (updated_at), so the admin's own choice
   // made later is never undone by a deploy.

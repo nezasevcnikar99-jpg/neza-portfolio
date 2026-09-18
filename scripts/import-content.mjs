@@ -353,25 +353,27 @@ async function importOne(name) {
   const stray = whole.find((file) => !listed.has(file));
   if (stray) throw new Error(`"cele" omenja ${stray}, ki ga ni ne pri "naslovna" ne v "galerija"`);
 
+  // Only what the file actually says is sent. A field the file leaves out is
+  // left alone on the site, so text written in the admin (a quote, a credit, a
+  // concept) is never wiped by an import.
+  const only = (key, value) => (value ? { [key]: value } : {});
   const data = {
     title,
     slug,
-    subtitle: meta.podnaslov || null,
-    // Left out when the file does not say, so an update keeps the kind already set.
-    ...(meta.kategorija ? { category: meta.kategorija } : {}),
-    year: meta.leto ? Number(meta.leto) : new Date().getFullYear(),
-    quote: meta.citat || null,
-    stranka: meta.stranka || null,
-    vloga: meta.vloga || null,
-    imgLabel: meta.oznaka || null,
-    intro: intro || null,
+    ...only("subtitle", meta.podnaslov),
+    ...only("category", meta.kategorija),
+    ...(meta.leto ? { year: Number(meta.leto) } : {}),
+    ...only("quote", meta.citat),
+    ...only("stranka", meta.stranka),
+    ...only("vloga", meta.vloga),
+    ...only("imgLabel", meta.oznaka),
+    ...only("intro", intro),
     ...(meta.vrstniRed ? { order: Number(meta.vrstniRed) } : {}),
     ...(meta.velikost ? { gridSize: size(meta.velikost, name) } : {}),
     ...(meta.oblika ? { asText: /^besedil/i.test(meta.oblika.trim()) } : {}),
-    // Sent even when empty, so text taken out of a file also leaves the site.
-    concept: concept ? lexical(concept) : null,
-    notes: notes.length ? notes.join("\n") : null,
-    sources: sources.length ? sources.join("\n") : null,
+    ...(concept ? { concept: lexical(concept) } : {}),
+    ...(notes.length ? { notes: notes.join("\n") } : {}),
+    ...(sources.length ? { sources: sources.join("\n") } : {}),
   };
 
   if (meta.izrez) {
@@ -421,7 +423,9 @@ async function importOne(name) {
     await call(token, `/api/projects/${doc.id}`, { method: "PATCH", body: JSON.stringify(data) });
     console.log("   posodobljeno\n");
   } else {
-    await call(token, "/api/projects", { method: "POST", body: JSON.stringify(data) });
+    // A new project needs a year; this year stands in when the file has none.
+    const fresh = { year: new Date().getFullYear(), ...data };
+    await call(token, "/api/projects", { method: "POST", body: JSON.stringify(fresh) });
     console.log("   ustvarjeno\n");
   }
 }

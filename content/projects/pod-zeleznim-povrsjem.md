@@ -1,6 +1,6 @@
 ---
 naslov: Pod železnim površjem
-podnaslov: Prenova železniškega muzeja Ljubljana
+podnaslov: Prenova železniškega muzeja v Ljubljani
 slug: pod-zeleznim-povrsjem
 kategorija: Seminarski projekt
 leto: 2024

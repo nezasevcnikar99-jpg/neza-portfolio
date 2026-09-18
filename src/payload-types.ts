@@ -244,7 +244,7 @@ export interface Project {
     [k: string]: unknown;
   } | null;
   /**
-   * Ena opomba v vrstici, po vrsti — prva vrstica je opomba 1. V besedilu (Koncept) napiši številko in jo označi kot nadpisano (x²); na strani postane povezava do opombe.
+   * Ena opomba v vrstici, po vrsti – prva vrstica je opomba 1. V besedilu (Koncept) napiši številko in jo označi kot nadpisano (x²); na strani postane povezava do opombe.
    */
   notes?: string | null;
   /**
@@ -252,7 +252,7 @@ export interface Project {
    */
   sources?: string | null;
   /**
-   * Celotna knjižica, plakat ali poročilo. Na strani projekta se pokaže povezava za prenos. PDF naloži tu, v adminu — uvoz iz datotek večjih PDF-jev ne prenese.
+   * Celotna knjižica, plakat ali poročilo. Na strani projekta se pokaže povezava za prenos. PDF naloži tu, v adminu – uvoz iz datotek večjih PDF-jev ne prenese.
    */
   document?: (number | null) | Media;
   /**
@@ -260,7 +260,7 @@ export interface Project {
    */
   documentLabel?: string | null;
   /**
-   * Naslovna slika je na strani projekta vedno prva. Tu odkljukaj še tiste, ki naj se vidijo poleg nje — mest so štiri, torej naslovna in največ tri od tu, po vrstnem redu od zgoraj. Vse ostalo se pokaže šele, ko obiskovalec odpre galerijo.
+   * Naslovna slika je na strani projekta vedno prva. Tu odkljukaj še tiste, ki naj se vidijo poleg nje – mest so štiri, torej naslovna in največ tri od tu, po vrstnem redu od zgoraj. Vse ostalo se pokaže šele, ko obiskovalec odpre galerijo.
    */
   gallery?:
     | {
@@ -485,7 +485,7 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
 export interface Home {
   id: number;
   /**
-   * Zapolni prvi zaslon. Video naj bo kratek in brez zvoka — brskalniki drugače ne predvajajo samodejno.
+   * Zapolni prvi zaslon. Video naj bo kratek in brez zvoka – brskalniki drugače ne predvajajo samodejno.
    */
   landingMedia?: (number | null) | Media;
   /**
@@ -524,6 +524,9 @@ export interface About {
     };
     [k: string]: unknown;
   } | null;
+  /**
+   * Vrstica, ki se začne z »Delovne izkušnje - «, se na strani pokaže pod naslovom Delovne izkušnje (brez te predpone).
+   */
   education?:
     | {
         label: string;
@@ -548,6 +551,14 @@ export interface Setting {
   id: number;
   name: string;
   email: string;
+  /**
+   * Prikazan na straneh Kontakt in O meni. Pusti prazno, če ga ne želiš objaviti.
+   */
+  phone?: string | null;
+  /**
+   * Npr. https://www.linkedin.com/in/… – pusti prazno, če ga ni.
+   */
+  linkedin?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -597,6 +608,8 @@ export interface AboutSelect<T extends boolean = true> {
 export interface SettingsSelect<T extends boolean = true> {
   name?: T;
   email?: T;
+  phone?: T;
+  linkedin?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

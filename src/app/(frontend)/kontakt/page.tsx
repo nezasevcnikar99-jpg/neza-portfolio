@@ -28,10 +28,37 @@ export default async function ContactPage() {
         </div>
         <div className="cell" />
 
+        {settings.phone?.trim() && (
+          <>
+            <div className="cell page-cell">
+              <span className="page-label">Telefon</span>
+            </div>
+            <div className="cell page-cell" style={{ gridColumn: "span 2" }}>
+              <a href={`tel:${settings.phone.replace(/[^\d+]/g, "")}`} className="page-lead">
+                {settings.phone.trim()}
+              </a>
+            </div>
+            <div className="cell" />
+          </>
+        )}
+        {settings.linkedin?.trim() && (
+          <>
+            <div className="cell page-cell">
+              <span className="page-label">LinkedIn</span>
+            </div>
+            <div className="cell page-cell" style={{ gridColumn: "span 2" }}>
+              <a href={settings.linkedin.trim()} className="page-note" target="_blank" rel="noopener noreferrer">
+                {settings.linkedin.trim().replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "")}
+              </a>
+            </div>
+            <div className="cell" />
+          </>
+        )}
+
         <div className="cell" />
         <div className="cell page-cell" style={{ gridColumn: "span 2" }}>
           <p className="page-text">
-            Za povpraševanja o projektih, sodelovanjih in besedilih pišite na zgornji naslov.
+            Za povpraševanja o projektih, sodelovanjih in besedilih mi pišite ali me pokličite.
           </p>
         </div>
         <div className="cell" />

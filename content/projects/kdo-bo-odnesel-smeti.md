@@ -27,10 +27,12 @@ galerija:
   smeti-pragovi-04.jpg | galerija | Obstoječi pragovi
 ---
 
+Raziskava zanemarjenih ulic v Belfastu, ki išče, kako prebivalce iz pasivnih uporabnikov ulice spremeniti v njene skrbnike.
+
 ## Koncept
 
 Opazovanje je pokazalo, da se ljudje na ulici ustavijo le, kadar morajo: na avtobusni postaji, pri rdeči luči ali ob vstopu v avto. Gosto naseljeno območje, kjer večina prebivalcev živi v najemniških stanovanjih, zaznamujejo zaprti in navznoter obrnjeni pragovi. Vrata se odpirajo neposredno na pločnik, prehodi med vrstnimi hišami so temni in odmaknjeni od pogledov, zadnja dvorišča obdajajo visoki zidovi, večino ulice pa zasedajo avtomobili.
 
 Iz analize izhaja sedem principov pripadnosti ulici: udobje in predvidljivost, vzdrževanje in skrb, mehki robovi, oči na ulici, socialni mikroprostori, znaki teritorija in soustvarjanje prostora. Skupaj opisujejo pot od pasivnih uporabnikov do skrbnikov prostora.
 
-Predlog ulico zapre za promet – dostopna ostane le intervencijskim in dostavnim vozilom – in jo spremeni v glavni javni prostor soseske. Pred vhodi nastane prehodno območje s klopjo, drevesom in zeleno pregrado med oknom in ulico, ki mehča mejo med zasebnim in javnim. Nekdanja zadnja dvorišča postanejo poljaven, prožen prostor za prebivalce, ki je lahko zaprt, delno odprt proti sosednjim hišam ali popolnoma povezan v skupno dvorišče.
+Predlog ulico zapre za promet – dostopna ostane le intervencijskim in dostavnim vozilom – in jo spremeni v glavni javni prostor soseske. Pred vhodi nastane prehodno območje s klopjo, drevesom in zeleno pregrado med oknom in ulico, ki mehča mejo med zasebnim in javnim. Nekdanja zadnja dvorišča postanejo prožen prostor za prebivalce, ki je lahko zaprt, delno odprt proti sosednjim hišam ali popolnoma povezan v skupno dvorišče.

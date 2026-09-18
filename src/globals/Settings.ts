@@ -19,5 +19,17 @@ export const Settings: GlobalConfig = {
       label: "Kontaktni e-poštni naslov",
       required: true,
     },
+    {
+      name: "phone",
+      type: "text",
+      label: "Telefon",
+      admin: { description: "Prikazan na straneh Kontakt in O meni. Pusti prazno, če ga ne želiš objaviti." },
+    },
+    {
+      name: "linkedin",
+      type: "text",
+      label: "LinkedIn (celoten naslov profila)",
+      admin: { description: "Npr. https://www.linkedin.com/in/… – pusti prazno, če ga ni." },
+    },
   ],
 };

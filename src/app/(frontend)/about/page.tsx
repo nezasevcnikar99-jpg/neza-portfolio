@@ -60,10 +60,15 @@ export default async function AboutPage() {
         </div>
 
         <div className="cell page-cell">
-          <span className="page-label">Pošta</span>
+          <span className="page-label">Kontakt</span>
           <a href={`mailto:${settings.email}`} className="page-note">
             {settings.email}
           </a>
+          {settings.phone?.trim() && (
+            <a href={`tel:${settings.phone.replace(/[^\d+]/g, "")}`} className="page-note">
+              {settings.phone.trim()}
+            </a>
+          )}
         </div>
 
         {factRows.map((row) => (
