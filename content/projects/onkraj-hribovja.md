@@ -4,6 +4,7 @@ podnaslov: Prenova družinske hiše z apartmaji, Železniki
 slug: onkraj-hribovja
 kategorija: Idejna zasnova
 leto: 2025
+citat: Hrib, ki je vrata odprl že kar sam.
 vloga: Mentorica izr. prof. dr. Nataša Koselj
 naslovna: oh-fotografija-naslovna.jpg
 cele: oh-obstojece-situacija-01.jpg, oh-obstojece-tloris-pritlicje-02.jpg, oh-obstojece-tloris-nadstropje-03.jpg, oh-obstojece-tloris-podstresje-04.jpg, oh-obstojece-prerez-a-05.jpg, oh-obstojece-prerez-b-06.jpg, oh-obstojece-fasada-vzhodna-07.jpg, oh-obstojece-fasada-zahodna-08.jpg, oh-obstojece-fasada-juzna-09.jpg, oh-obstojece-fasada-severna-10.jpg, oh-nacrt-rusenje-pritlicje-12.jpg, oh-nacrt-rusenje-nadstropje-13.jpg, oh-nacrt-rusenje-podstresje-14.jpg, oh-nacrt-prerez-b-07.jpg, oh-nacrt-fasada-juzna-10.jpg, oh-nacrt-tloris-pritlicje-02.jpg, oh-nacrt-prerez-a-06.jpg, oh-nacrt-fasada-vzhodna-08.jpg, oh-nacrt-fasada-zahodna-09.jpg, oh-nacrt-fasada-severna-11.jpg, oh-nacrt-tloris-nadstropje-03.jpg, oh-nacrt-tloris-mansarda-04.jpg, oh-nacrt-tloris-podstreha-05.jpg

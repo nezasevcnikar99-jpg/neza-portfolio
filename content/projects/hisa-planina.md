@@ -4,6 +4,7 @@ podnaslov: Prenova hiše v Planini
 slug: hisa-planina
 kategorija: Idejna zasnova
 leto: 2025
+citat: Pod istimi oboki, a nikoli drug drugemu na poti.
 vloga: Mentorica izr. prof. dr. Nataša Koselj
 velikost: kvadrat
 naslovna: pl-fotografija-klop.jpg

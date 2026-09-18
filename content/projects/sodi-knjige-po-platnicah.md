@@ -4,6 +4,7 @@ podnaslov: Zbirka naslovnic različnih tematik
 slug: sodi-knjige-po-platnicah
 kategorija: Grafično oblikovanje
 leto: 2023
+citat: Naslovnica je kot prvi pozdrav med bralcem in bodočim prijateljem.
 naslovna: sodi-naslovna-01.jpg
 velikost: ležeče
 cele: sodi-umetnost-01.jpg, sodi-umetnost-02.jpg, sodi-umetnost-03.jpg, sodi-hrvaska-01.jpg, sodi-hrvaska-02.jpg, sodi-hrvaska-03.jpg, sodi-varstvo-podatkov-01.jpg, sodi-varstvo-podatkov-02.jpg, sodi-varstvo-podatkov-03.jpg, sodi-avstrija-svica-01.jpg, sodi-avstrija-svica-02.jpg, sodi-avstrija-svica-03.jpg, sodi-leksikon-01.jpg, sodi-leksikon-02.jpg, sodi-leksikon-03.jpg

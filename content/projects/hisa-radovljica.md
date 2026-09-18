@@ -4,6 +4,7 @@ podnaslov: Idejna prenova v enodružinsko hišo
 slug: hisa-radovljica
 kategorija: Idejna zasnova
 leto: 2025
+citat: Kjer ni prostora za naravo, ostane nebo.
 stranka: Zasebni investitor
 vloga: Mentorica izr. prof. dr. Nataša Koselj
 naslovna: rad-fotografija-detajl-stopnice-okno.jpg

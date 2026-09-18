@@ -4,6 +4,7 @@ podnaslov: Starostnikom in gibalno oviranim prilagojeno naselje, Škofja Loka
 slug: bi-zivel-z-mano
 kategorija: Idejna zasnova
 leto: 2022
+citat: Toliko samostojnosti, kot je mogoče – toliko pomoči, kot je potrebno.
 vloga: Idejni fakultetni projekt
 naslovna: bzm-pogled-01.jpg
 cele: bzm-tloris-pritlicje-01.jpg, bzm-prerez-01.jpg, bzm-tloris-nadstropje-01.jpg, bzm-shema-razvoj-01.jpg, bzm-situacija-01.jpg, bzm-sestavljanje-01.jpg, bzm-bivanje-01.jpg, bzm-dnevni-center-02.jpg, bzm-mehurcki-02.jpg

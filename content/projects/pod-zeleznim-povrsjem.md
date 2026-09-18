@@ -4,6 +4,7 @@ podnaslov: Prenova železniškega muzeja v Ljubljani
 slug: pod-zeleznim-povrsjem
 kategorija: Seminarski projekt
 leto: 2024
+citat: Ko bi vedel, kaj vse počnejo spodaj...
 vloga: Mentor prof. mag. Tomaž Krušec, asistent Miha Munda, demonstratorja Kevin Jelenc in Dan Napast
 naslovna: zel-render-stopnisce-01.jpg
 cele: zel-sheme-poteze-01.jpg, zel-sheme-program-01.jpg, zel-situacija-01.jpg, zel-tloris-klet-01.jpg, zel-tloris-medetaza-01.jpg, zel-prerez-a-01.jpg, zel-prerez-b-01.jpg
