@@ -35,6 +35,14 @@ const CYCLE: Slot[] = [
   { band: 3, col: 3, span: 2 },
 ];
 
+/**
+ * Where a picture of the other shape goes when a slot has to take one: a
+ * square picture sits in the first column of a wide slot, a wide picture
+ * spreads from a square slot into the free column beside it. Each of these is
+ * free in the figure, so nothing overlaps.
+ */
+const OTHER_COL: Record<string, number> = { "0:2": 2, "1:1": 1, "1:4": 3, "2:2": 2, "3:1": 1, "3:3": 3 };
+
 const CYCLE_BANDS = 4;
 
 export type Corner = "tl" | "tr" | "bl" | "br";
@@ -152,12 +160,13 @@ function assignLabels(images: Placed[], lastBand: number) {
  * empties included, so the grid can draw every rule.
  */
 export function buildIndexCells(projects: Project[]): Cell[] {
-  // The figure stays fixed and the projects are dealt into it for the sake of
-  // the composition, not their order: each slot takes the first project whose
-  // shape suits it. A chosen size decides that shape; on "auto" the hero picture
-  // does — a landscape picture wants the wide slot, anything squarer the square
-  // one. Order only breaks ties. If no project suits a slot, an "auto" project
-  // takes it anyway; a project with a chosen size never goes in the wrong shape.
+  // Newest work first: the projects are dealt into the figure year by year, so
+  // no project ever stands above a newer one. Within a year the order is free,
+  // and each slot takes the first project of that year whose shape suits it. A
+  // chosen size decides that shape; on "auto" the hero picture does — a
+  // landscape picture wants the wide slot, anything squarer the square one. If
+  // no project of the year suits the slot, the slot takes the project's shape
+  // instead (OTHER_COL), so the year order always holds.
   const shapeOf = (project: Project): number | null => {
     if (project.gridSize === "1x1") return 1;
     if (project.gridSize === "2x1") return 2;
@@ -165,17 +174,18 @@ export function buildIndexCells(projects: Project[]): Cell[] {
     const ratio = hero?.width && hero?.height ? hero.width / hero.height : null;
     return ratio === null ? null : ratio >= 1.25 ? 2 : 1;
   };
-  const chosen = (project: Project) => project.gridSize === "1x1" || project.gridSize === "2x1";
-
+  // Stable, so projects of one year keep their "order" among themselves.
+  const pending = [...projects].sort((a, b) => b.year - a.year);
   const images: Placed[] = [];
-  const pending = [...projects];
   for (let i = 0; pending.length > 0; i++) {
     const slot = CYCLE[i % CYCLE.length];
-    let at = pending.findIndex((project) => shapeOf(project) === slot.span);
-    if (at === -1) at = pending.findIndex((project) => !chosen(project));
-    if (at === -1) continue;
+    const year = pending[0].year;
+    let at = pending.findIndex((project) => project.year === year && shapeOf(project) === slot.span);
+    if (at === -1) at = 0;
 
     const [project] = pending.splice(at, 1);
+    const span = shapeOf(project) ?? slot.span;
+    const col = span === slot.span ? slot.col : OTHER_COL[`${slot.band}:${slot.col}`];
     const cycle = Math.floor(i / CYCLE.length);
     // Numbered in the order pictures appear, which is also the order the phone
     // stacks them in, so each caption still follows its own picture there.
@@ -183,8 +193,8 @@ export function buildIndexCells(projects: Project[]): Cell[] {
       index: images.length,
       project,
       band: cycle * CYCLE_BANDS + slot.band,
-      col: slot.col,
-      span: slot.span,
+      col,
+      span,
     });
   }
 

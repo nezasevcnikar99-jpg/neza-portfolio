@@ -30,8 +30,12 @@ export const About: GlobalConfig = {
     {
       name: "education",
       type: "array",
-      label: "Izobrazba",
+      label: "Izobrazba in delovne izkušnje",
       labels: { singular: "Vrstica", plural: "Vrstice" },
+      admin: {
+        description:
+          "Vrstica, ki se začne z »Delovne izkušnje - «, se na strani pokaže pod naslovom Delovne izkušnje (brez te predpone).",
+      },
       fields: [
         {
           name: "label",

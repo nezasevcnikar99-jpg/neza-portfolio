@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { RichText, type JSXConvertersFunction } from "@payloadcms/richtext-lexical/react";
@@ -44,6 +45,28 @@ const withNoteMarks: JSXConvertersFunction = ({ defaultConverters }) => ({
     return typeof text === "function" ? text(args) : node.text;
   },
 });
+
+/** The first sentence, so a link preview reads as a sentence and not a cut. */
+const firstSentence = (text: string) => (text.match(/^.*?[.!?](?=\s|$)/)?.[0] ?? text).slice(0, 200);
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const project = await getProjectBySlug(slug);
+  if (!project) return {};
+  const hero = typeof project.heroImage === "object" ? (project.heroImage as Media | null) : null;
+  const description = [project.subtitle, project.intro && firstSentence(project.intro)]
+    .filter(Boolean)
+    .join(". ")
+    .replace(/\.\./g, ".");
+  const title = `${project.title} — Neža Sevčnikar`;
+  const images = hero?.url && hero.mimeType?.startsWith("image/") ? [{ url: hero.url, alt: project.title }] : undefined;
+  return {
+    title: project.title,
+    description: description || undefined,
+    openGraph: { title, description: description || undefined, ...(images ? { images } : {}) },
+    twitter: { title, description: description || undefined, ...(images ? { images } : {}) },
+  };
+}
 
 export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;

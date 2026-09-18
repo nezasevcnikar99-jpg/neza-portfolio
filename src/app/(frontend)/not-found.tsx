@@ -1,6 +1,9 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+
+export const metadata: Metadata = { title: "Stran ne obstaja" };
 
 export const dynamic = "force-dynamic";
 

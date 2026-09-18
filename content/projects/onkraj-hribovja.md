@@ -40,3 +40,5 @@ galerija:
   oh-fotografija-07.jpg | galerija | Obstoječe stanje — okno
   oh-fotografija-08.jpg | galerija | Obstoječe stanje — kuhinja
 ---
+
+Idejna zasnova prenove zapuščene hiše v Železnikih v družinsko hišo z apartmaji.

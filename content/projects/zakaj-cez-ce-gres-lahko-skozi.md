@@ -3,7 +3,7 @@ naslov: Zakaj čez, če greš lahko skozi?
 podnaslov: Predlog revitalizacije gradu Hrastovec, RevitLab
 slug: zakaj-cez-ce-gres-lahko-skozi
 kategorija: Seminarski projekt
-leto: 2024
+leto: 2023
 vloga: Skupinski seminarski projekt — Luka Miklavčič, Neža Sevčnikar, Marie Kinkela, Nina Umer; mentorji doc. Mitja Zorc, doc. dr. Miloš Kosec, asist. Tadej Urh
 citat: Ker najboljše povezave se zgodijo tam, kjer jih nihče ne vidi.
 naslovna: hrastovec-podzemlje-07.jpg

@@ -1,6 +1,13 @@
+import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { getSettings } from "@/lib/settings";
+
+export const metadata: Metadata = {
+  title: "Kontakt",
+  description: "Kontakt za povpraševanja o projektih, sodelovanjih in besedilih.",
+  openGraph: { title: "Kontakt — Neža Sevčnikar", description: "Kontakt za povpraševanja o projektih, sodelovanjih in besedilih." },
+};
 
 export const dynamic = "force-dynamic";
 

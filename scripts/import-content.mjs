@@ -368,7 +368,8 @@ async function importOne(name) {
     ...(meta.vrstniRed ? { order: Number(meta.vrstniRed) } : {}),
     ...(meta.velikost ? { gridSize: size(meta.velikost, name) } : {}),
     ...(meta.oblika ? { asText: /^besedil/i.test(meta.oblika.trim()) } : {}),
-    ...(concept ? { concept: lexical(concept) } : {}),
+    // Sent even when empty, so text taken out of a file also leaves the site.
+    concept: concept ? lexical(concept) : null,
     notes: notes.length ? notes.join("\n") : null,
     sources: sources.length ? sources.join("\n") : null,
   };

@@ -101,7 +101,8 @@ export default function ProjectGallery({
   if (total === 0) return null;
 
   const current = slides[index];
-  const title = current.caption?.trim() || current.image?.alt?.trim() || fallbackTitle;
+  const title =
+    current.caption?.trim() || current.image?.alt?.trim().replace(/\s+—\s+naslovna$/, "") || fallbackTitle;
 
   return (
     <div

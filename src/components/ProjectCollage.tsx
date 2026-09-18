@@ -61,8 +61,8 @@ export default function ProjectCollage({
       {shown.map((slot, i) => {
         const entry = onPage[i];
         const slide = entry?.slide;
-        const label =
-          slide?.caption?.trim() || slide?.image?.alt?.trim() || `${fallbackTitle} ${i + 1}`;
+        const caption = slide?.caption?.trim();
+        const label = caption || slide?.image?.alt?.trim() || `${fallbackTitle} ${i + 1}`;
 
         return (
           <button
@@ -89,7 +89,9 @@ export default function ProjectCollage({
               ) : (
                 <span className="cell-blank">{placeholderLabel}</span>
               )}
-              <span className="cell-shot-caption">{label}</span>
+              {/* Only a written caption is shown; the opening picture has none,
+                  and its stored description ("… — naslovna") is not one. */}
+              {caption && <span className="cell-shot-caption">{caption}</span>}
             </span>
           </button>
         );

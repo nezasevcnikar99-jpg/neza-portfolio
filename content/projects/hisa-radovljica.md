@@ -31,3 +31,5 @@ galerija:
   rad-fotografija-05.jpg | galerija | Obstoječe stanje — okno
   rad-fotografija-06.jpg | galerija | Obstoječe stanje — zatrep
 ---
+
+Idejna zasnova prenove stare hiše v mestnem jedru Radovljice v enodružinsko hišo.

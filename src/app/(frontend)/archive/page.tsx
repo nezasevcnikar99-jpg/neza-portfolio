@@ -1,8 +1,15 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { getArchiveGroups } from "@/lib/projects-data";
 import { CATEGORIES } from "@/lib/categories";
+
+export const metadata: Metadata = {
+  title: "Arhiv",
+  description: "Vsa dela Neže Sevčnikar po letih in vrstah dela.",
+  openGraph: { title: "Arhiv — Neža Sevčnikar", description: "Vsa dela Neže Sevčnikar po letih in vrstah dela." },
+};
 
 export const dynamic = "force-dynamic";
 

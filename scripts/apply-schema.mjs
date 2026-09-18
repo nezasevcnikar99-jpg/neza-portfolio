@@ -81,6 +81,10 @@ const STATEMENTS = [
   `ALTER TABLE "media" ADD COLUMN IF NOT EXISTS "used_in" varchar`,
   `ALTER TABLE "projects" ADD COLUMN IF NOT EXISTS "notes" varchar`,
   `ALTER TABLE "projects" ADD COLUMN IF NOT EXISTS "sources" varchar`,
+  // The landing label was a long description before it was a single word;
+  // only that exact old text is replaced, so a later choice in the admin stays.
+  `UPDATE "home" SET "hero_description" = 'Portfolio'
+     WHERE "hero_description" LIKE 'Zbirka arhitekturnih projektov%'`,
 ];
 
 // Marks which pictures the site uses. The same statement as MEDIA_USAGE_SQL in
