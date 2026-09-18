@@ -4,7 +4,7 @@ import "./globals.css";
 const DESCRIPTION = "Portfolio Neže Sevčnikar – izbrani arhitekturni projekti, raziskave in besedila.";
 const TITLE = "Neža Sevčnikar – Portfolio";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://neza-portfolio.vercel.app";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.nezasevcnikar.eu";
 
 export const metadata: Metadata = {
   // Without a base, Open Graph image paths stay relative and no service can

@@ -24,7 +24,7 @@ const flag = (name, fallback) => {
 };
 const has = (name) => args.includes(`--${name}`);
 
-const SITE = (flag("site", "https://neza-portfolio.vercel.app")).replace(/\/$/, "");
+const SITE = (flag("site", "https://www.nezasevcnikar.eu")).replace(/\/$/, "");
 const ONLY = flag("only", null);
 const DRY = has("dry-run");
 
