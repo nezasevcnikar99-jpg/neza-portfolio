@@ -6,7 +6,6 @@ import { getSettings } from "@/lib/settings";
 export const metadata: Metadata = {
   title: "Kontakt",
   description: "Kontakt za povpraševanja o projektih, sodelovanjih in besedilih.",
-  openGraph: { title: "Kontakt — Neža Sevčnikar", description: "Kontakt za povpraševanja o projektih, sodelovanjih in besedilih." },
 };
 
 export const dynamic = "force-dynamic";
