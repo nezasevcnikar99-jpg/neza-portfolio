@@ -9,13 +9,13 @@ naslovna: bzm-pogled-01.jpg
 cele: bzm-tloris-pritlicje-01.jpg, bzm-prerez-01.jpg, bzm-tloris-nadstropje-01.jpg, bzm-shema-razvoj-01.jpg, bzm-situacija-01.jpg, bzm-sestavljanje-01.jpg, bzm-bivanje-01.jpg, bzm-dnevni-center-02.jpg, bzm-mehurcki-02.jpg
 galerija:
   bzm-shema-razvoj-01.jpg | galerija | Obstoječa stavba, razširitev, nove osi
-  bzm-situacija-01.jpg | galerija | Situacija 1 : 1000
-  bzm-tloris-pritlicje-01.jpg | stran | Tloris pritličja 1 : 200
-  bzm-prerez-01.jpg | stran | Prerez A–A 1 : 200
-  bzm-tloris-nadstropje-01.jpg | stran | Tloris nadstropja 1 : 200
+  bzm-situacija-01.jpg | galerija | Situacija
+  bzm-tloris-pritlicje-01.jpg | stran | Tloris pritličja
+  bzm-prerez-01.jpg | stran | Prerez A–A
+  bzm-tloris-nadstropje-01.jpg | stran | Tloris nadstropja
   bzm-sestavljanje-01.jpg | galerija | Sestavljanje v različnem merilu
-  bzm-bivanje-01.jpg | galerija | Bivanje — bivanjska skupnost in samostojna stanovanja
-  bzm-dnevni-center-02.jpg | galerija | Delo in druženje — dnevni center
+  bzm-bivanje-01.jpg | galerija | Bivanje – bivanjska skupnost in samostojna stanovanja
+  bzm-dnevni-center-02.jpg | galerija | Delo in druženje – dnevni center
   bzm-mehurcki-02.jpg | galerija | Mehurčki in varovana stanovanja
 ---
 

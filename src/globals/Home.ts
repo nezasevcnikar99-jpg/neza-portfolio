@@ -23,7 +23,7 @@ export const Home: GlobalConfig = {
       label: "Uvodna slika ali video",
       admin: {
         description:
-          "Zapolni prvi zaslon. Video naj bo kratek in brez zvoka — brskalniki drugače ne predvajajo samodejno.",
+          "Zapolni prvi zaslon. Video naj bo kratek in brez zvoka – brskalniki drugače ne predvajajo samodejno.",
       },
     },
     {
@@ -38,7 +38,7 @@ export const Home: GlobalConfig = {
     {
       name: "landingLight",
       type: "checkbox",
-      label: "Svetla slika — temno besedilo",
+      label: "Svetla slika – temno besedilo",
       defaultValue: false,
       admin: {
         description:

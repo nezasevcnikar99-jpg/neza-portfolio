@@ -4,20 +4,20 @@ podnaslov: Samostan Velesovo
 slug: zadnja-vecerja
 kategorija: Seminarski projekt
 leto: 2025
-vloga: Skupinski projekt — Gal Ibrišimovič, Jernej Klenovšek, Veronika Rihtaršič
+vloga: Skupinski projekt – Gal Ibrišimovič, Jernej Klenovšek, Veronika Rihtaršič
 citat: An der Gasse, An der Gras
 naslovna: vecerja-jedilnica-01.jpg
 cele: vecerja-prerez-01.jpg, vecerja-tloris-novo-01.jpg, vecerja-aksonometrija-01.jpg, vecerja-zasnova-01.jpg, vecerja-tloris-rusitve-01.jpg, vecerja-fasada-01.jpg, vecerja-razvoj-01.jpg, vecerja-obstojece-aksonometrija-01.jpg, vecerja-obstojece-tloris-01.jpg
 galerija:
-  vecerja-razvoj-01.jpg | galerija | Aksonometrije razvoja kompleksa po fazah 1 : 750
-  vecerja-obstojece-aksonometrija-01.jpg | galerija | Aksonometrija obstoječega stanja 1 : 500
-  vecerja-obstojece-tloris-01.jpg | galerija | Tloris obstoječega stanja z okolico 1 : 750
-  vecerja-tloris-rusitve-01.jpg | galerija | Tloris rušitev 1 : 200
-  vecerja-zasnova-01.jpg | galerija | Celostna konceptualna zasnova — križni hodnik kot povezava
+  vecerja-razvoj-01.jpg | galerija | Aksonometrije razvoja kompleksa po fazah
+  vecerja-obstojece-aksonometrija-01.jpg | galerija | Aksonometrija obstoječega stanja
+  vecerja-obstojece-tloris-01.jpg | galerija | Tloris obstoječega stanja z okolico
+  vecerja-tloris-rusitve-01.jpg | galerija | Tloris rušitev
+  vecerja-zasnova-01.jpg | galerija | Celostna konceptualna zasnova – križni hodnik kot povezava
   vecerja-prerez-01.jpg | stran | Prerez povezovanja obstoječega samostana z novim prizidkom (A–A)
-  vecerja-fasada-01.jpg | galerija | Pogled na fasado 1 : 100
-  vecerja-tloris-novo-01.jpg | stran | Tloris novega stanja 1 : 100
-  vecerja-aksonometrija-01.jpg | stran | Aksonometrija 1 : 75
+  vecerja-fasada-01.jpg | galerija | Pogled na fasado
+  vecerja-tloris-novo-01.jpg | stran | Tloris novega stanja
+  vecerja-aksonometrija-01.jpg | stran | Aksonometrija
   vecerja-jedilnica-pogled-01.jpg | galerija | Jedilni prostor
   vecerja-foto-procelje-01.jpg | galerija | Glavno pročelje
   vecerja-foto-ravnica-01.jpg | galerija | Ravnica pred cerkvijo
@@ -39,6 +39,6 @@ Idejna zasnova prenove samostana Velesovo. Projekt dopolni obstoječi, zastali p
 
 Križni hodnik je v zasnovi hrbtenica kompleksa. Obstoječi hodniki se povežejo v sklenjeno pot, dopolnita pa jo preboj skozi emporo in nov zunanji križni hodnik ob prizidku. Deli samostana in cerkev se tako povežejo v berljivo celoto.
 
-Ob tej poti je urejen obravnavani prostor — nov jedilni prostor s čajno kuhinjo. Neposredno se poveže s križnim hodnikom, obnovljen pa je tudi pogled v cerkev.
+Ob tej poti je urejen obravnavani prostor – nov jedilni prostor s čajno kuhinjo. Neposredno se poveže s križnim hodnikom, obnovljen pa je tudi pogled v cerkev.
 
-Zasnovi je predhodila primerjava treh dominikanskih samostanov na Slovenskem — Studenic, Velesovega in Marenberga — ter analiza razvoja kompleksa od Marijine kapele iz leta 1220 do danes, z valorizacijo obstoječega stanja.
+Zasnovi je predhodila primerjava treh dominikanskih samostanov na Slovenskem – Studenic, Velesovega in Marenberga – ter analiza razvoja kompleksa od Marijine kapele iz leta 1220 do danes, z valorizacijo obstoječega stanja.

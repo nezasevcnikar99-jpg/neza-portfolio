@@ -190,7 +190,7 @@ export const Projects: CollectionConfig = {
       admin: {
         condition: (data) => data?.asText === true,
         description:
-          "Ena opomba v vrstici, po vrsti — prva vrstica je opomba 1. V besedilu (Koncept) napiši številko in jo označi kot nadpisano (x²); na strani postane povezava do opombe.",
+          "Ena opomba v vrstici, po vrsti – prva vrstica je opomba 1. V besedilu (Koncept) napiši številko in jo označi kot nadpisano (x²); na strani postane povezava do opombe.",
       },
     },
     {
@@ -210,7 +210,7 @@ export const Projects: CollectionConfig = {
       filterOptions: { mimeType: { equals: "application/pdf" } },
       admin: {
         description:
-          "Celotna knjižica, plakat ali poročilo. Na strani projekta se pokaže povezava za prenos. PDF naloži tu, v adminu — uvoz iz datotek večjih PDF-jev ne prenese.",
+          "Celotna knjižica, plakat ali poročilo. Na strani projekta se pokaže povezava za prenos. PDF naloži tu, v adminu – uvoz iz datotek večjih PDF-jev ne prenese.",
       },
     },
     {
@@ -228,7 +228,7 @@ export const Projects: CollectionConfig = {
       labels: { singular: "Slika", plural: "Galerija" },
       admin: {
         description:
-          "Naslovna slika je na strani projekta vedno prva. Tu odkljukaj še tiste, ki naj se vidijo poleg nje — mest so štiri, torej naslovna in največ tri od tu, po vrstnem redu od zgoraj. Vse ostalo se pokaže šele, ko obiskovalec odpre galerijo.",
+          "Naslovna slika je na strani projekta vedno prva. Tu odkljukaj še tiste, ki naj se vidijo poleg nje – mest so štiri, torej naslovna in največ tri od tu, po vrstnem redu od zgoraj. Vse ostalo se pokaže šele, ko obiskovalec odpre galerijo.",
       },
       fields: [
         {

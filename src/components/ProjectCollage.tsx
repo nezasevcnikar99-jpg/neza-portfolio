@@ -71,7 +71,7 @@ export default function ProjectCollage({
             className="cell cell-shot"
             style={{ gridColumn: `${slot.col} / span ${slot.span}`, gridRow: slot.row }}
             onClick={() => entry && setOpenAt(entry.index)}
-            aria-label={`Odpri galerijo — ${label}`}
+            aria-label={`Odpri galerijo – ${label}`}
           >
             <span className="cell-inner">
               {slide?.image?.url ? (
@@ -90,7 +90,7 @@ export default function ProjectCollage({
                 <span className="cell-blank">{placeholderLabel}</span>
               )}
               {/* Only a written caption is shown; the opening picture has none,
-                  and its stored description ("… — naslovna") is not one. */}
+                  and its stored description ("… – naslovna") is not one. */}
               {caption && <span className="cell-shot-caption">{caption}</span>}
             </span>
           </button>
@@ -120,7 +120,7 @@ export default function ProjectCollage({
           className="cell cell-more"
           style={{ gridColumn: BUTTON.col, gridRow: BUTTON.row }}
           onClick={() => setOpenAt(firstHidden === -1 ? 0 : firstHidden)}
-          aria-label={`Odpri galerijo — ${slides.length} slik`}
+          aria-label={`Odpri galerijo – ${slides.length} slik`}
         >
           <span className="cell-inner">
             {teaser?.image?.url && (

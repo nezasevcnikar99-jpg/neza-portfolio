@@ -58,7 +58,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     .filter(Boolean)
     .join(". ")
     .replace(/\.\./g, ".");
-  const title = `${project.title} — Neža Sevčnikar`;
+  const title = `${project.title} – Neža Sevčnikar`;
   const images = hero?.url && hero.mimeType?.startsWith("image/") ? [{ url: hero.url, alt: project.title }] : undefined;
   return {
     title: project.title,

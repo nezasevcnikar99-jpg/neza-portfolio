@@ -8,13 +8,13 @@ vloga: Soavtorica dr. Apolonija Šušteršič
 naslovna: sotha-naslovna-cista-02.jpg
 cele: sotha-situacija-obstojece-04.jpg, sotha-situacija-novo-03.jpg, sotha-prerez-05.jpg, sotha-faze-06.jpg, sotha-sedisca-01.jpg, sotha-ribnik-02.jpg, sotha-panj-detajl-02.jpg, sotha-kolaz-pot-07.jpg, sotha-kolaz-sprehod-07.jpg, sotha-kolaz-panj-02.jpg, sotha-kolaz-travnik-07.jpg
 galerija:
-  sotha-situacija-obstojece-04.jpg | galerija | Obstoječa situacija z drevesi 1 : 50
-  sotha-situacija-novo-03.jpg | stran | Nova situacija z opremo 1 : 50
-  sotha-prerez-05.jpg | stran | Prerez 1 : 50
-  sotha-faze-06.jpg | galerija | Proces učenja in gradnje — travnik, ribniki, sedišča, čebelnjak 1 : 200
-  sotha-sedisca-01.jpg | galerija | Sedišča — okrogla klop in lesene ploščadi 1 : 20
-  sotha-ribnik-02.jpg | galerija | Ribnik 1 : 20
-  sotha-panj-detajl-02.jpg | galerija | Čebelnjak 1 : 20
+  sotha-situacija-obstojece-04.jpg | galerija | Obstoječa situacija z drevesi
+  sotha-situacija-novo-03.jpg | stran | Nova situacija z opremo
+  sotha-prerez-05.jpg | stran | Prerez
+  sotha-faze-06.jpg | galerija | Proces učenja in gradnje – travnik, ribniki, sedišča, čebelnjak
+  sotha-sedisca-01.jpg | galerija | Sedišča – okrogla klop in lesene ploščadi
+  sotha-ribnik-02.jpg | galerija | Ribnik
+  sotha-panj-detajl-02.jpg | galerija | Čebelnjak
   sotha-kolaz-pot-07.jpg | stran | Pot skozi travnik in lesena ploščad
   sotha-kolaz-sprehod-07.jpg | galerija | Pogled proti okrogli klopi
   sotha-kolaz-travnik-07.jpg | galerija | Cvetoči travnik
@@ -31,4 +31,4 @@ Zaporniki v participativnem procesu zasejejo pisane travnike, ki skozi vse leto 
 
 Živa, spreminjajoča se pokrajina namesto statične zelenice prinaša ritem rasti, odmiranja in obnove, ki nasprotuje togosti zapora in vrača občutek za čas. Travniška mešanica avtohtonih rož in trav je izbrana tako, da cveti od marca do novembra, pozimi pa suha stebla in semena ostanejo kot zavetje za žuželke in hrana za ptice.
 
-Park tako ni le zelena površina, temveč prostor rehabilitacije. Z načrtovanjem, gradnjo in vzdrževanjem pokrajine zaporniki pridobijo praktična znanja, samozavest in občutek pripadnosti — premik od zgolj pridržanja k skrbi, povezanosti in možnosti spremembe.
+Park tako ni le zelena površina, temveč prostor rehabilitacije. Z načrtovanjem, gradnjo in vzdrževanjem pokrajine zaporniki pridobijo praktična znanja, samozavest in občutek pripadnosti – premik od zgolj pridržanja k skrbi, povezanosti in možnosti spremembe.

@@ -28,7 +28,7 @@ export default function EssayFigures({ slides, title, notes = [] }: { slides: Sl
             type="button"
             className="essay-figure-button"
             onClick={() => setOpenAt(index)}
-            aria-label={`Odpri galerijo — ${slide.caption?.trim() || title}`}
+            aria-label={`Odpri galerijo – ${slide.caption?.trim() || title}`}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={slide.image!.url!} alt={slide.image?.alt ?? ""} className="essay-figure-img" />

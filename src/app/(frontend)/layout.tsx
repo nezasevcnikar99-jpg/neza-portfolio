@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
-const DESCRIPTION = "Portfolio Neže Sevčnikar — izbrani arhitekturni projekti, raziskave in besedila.";
-const TITLE = "Neža Sevčnikar — Portfolio";
+const DESCRIPTION = "Portfolio Neže Sevčnikar – izbrani arhitekturni projekti, raziskave in besedila.";
+const TITLE = "Neža Sevčnikar – Portfolio";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://neza-portfolio.vercel.app";
 
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
     default: TITLE,
-    template: "%s — Neža Sevčnikar",
+    template: "%s – Neža Sevčnikar",
   },
   description: DESCRIPTION,
   openGraph: {

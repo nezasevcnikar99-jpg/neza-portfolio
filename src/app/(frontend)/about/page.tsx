@@ -8,7 +8,7 @@ import type { Media } from "@/payload-types";
 
 export const metadata: Metadata = {
   title: "O meni",
-  description: "Neža Sevčnikar — izobrazba, izkušnje in veščine.",
+  description: "Neža Sevčnikar – izobrazba, izkušnje in veščine.",
 };
 
 export const dynamic = "force-dynamic";

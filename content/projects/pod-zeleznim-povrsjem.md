@@ -10,15 +10,15 @@ cele: zel-sheme-poteze-01.jpg, zel-sheme-program-01.jpg, zel-situacija-01.jpg, z
 galerija:
   zel-sheme-poteze-01.jpg | galerija | Rušitev propadlih objektov, povezava s poglobitvijo, stopnišča in atriji kot svetlobniki
   zel-sheme-program-01.jpg | galerija | Poglobitev, razdeljena na muzejsko pot in javni program
-  zel-situacija-01.jpg | galerija | Tloris pritličja z okolico 1 : 500
-  zel-tloris-klet-01.jpg | galerija | Tloris kleti 1 : 250
-  zel-tloris-medetaza-01.jpg | galerija | Tloris medetaže 1 : 250
-  zel-prerez-a-01.jpg | stran | Prerez A–A 1 : 250
-  zel-prerez-b-01.jpg | stran | Prerez B–B 1 : 250
+  zel-situacija-01.jpg | galerija | Tloris pritličja z okolico
+  zel-tloris-klet-01.jpg | galerija | Tloris kleti
+  zel-tloris-medetaza-01.jpg | galerija | Tloris medetaže
+  zel-prerez-a-01.jpg | stran | Prerez A–A
+  zel-prerez-b-01.jpg | stran | Prerez B–B
   zel-render-atrij-01.jpg | stran | Pogled iz javnega programa proti atriju
   zel-render-zunanjost-01.jpg | galerija | Obstoječe hale na površju
   zel-maketa-01.jpg | galerija | Maketa
-  zel-maketa-02.jpg | galerija | Maketa — pogled na rotondo
+  zel-maketa-02.jpg | galerija | Maketa – pogled na rotondo
 ---
 
 Projekt prenove območja železniškega muzeja obravnava specifičen kontekst industrijske dediščine, ki danes kljub bogatemu vsebinskemu gradivu deluje v omejenem prostorskem okviru. Obstoječe industrijske hale in rotonda predstavljajo dragocen arhitekturni spomin, a zaradi razpršene zasnove in prostorske stiske ne omogočajo zadovoljive muzejske izkušnje.

@@ -54,7 +54,7 @@ export const MediaFocalField = () => {
       <div style={{ marginBottom: 8, fontSize: 13, fontWeight: 600 }}>Kateri del slike ostane viden</div>
       <p style={{ margin: "0 0 10px", fontSize: 12, opacity: 0.7, maxWidth: 560 }}>
         {whole
-          ? "Slika je označena, da se pokaže cela — v vsakem okvirju je vsa, na svetli podlagi, zato točke ni treba izbirati."
+          ? "Slika je označena, da se pokaže cela – v vsakem okvirju je vsa, na svetli podlagi, zato točke ni treba izbirati."
           : "Klikni na sliko, kjer je tisto, kar mora ostati. Spodaj vidiš, kako jo bo stran obrezala v vsakem okvirju. Velja povsod, kjer se slika pojavi, razen na prvi strani, če ima projekt tam svoj izrez."}
       </p>
 

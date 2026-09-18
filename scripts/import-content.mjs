@@ -63,7 +63,7 @@ function parse(source, file) {
     }
 
     const at = raw.indexOf(":");
-    if (at === -1) throw new Error(`${file}: nerazumljiva vrstica v glavi — ${raw}`);
+    if (at === -1) throw new Error(`${file}: nerazumljiva vrstica v glavi – ${raw}`);
     const key = raw.slice(0, at).trim();
     const value = raw.slice(at + 1).trim();
     if (key === "galerija") {
@@ -84,7 +84,7 @@ function parse(source, file) {
   });
   notes.sort((a, b) => a.n - b.n);
   notes.forEach((note, i) => {
-    if (note.n !== i + 1) throw new Error(`${file}: opombe morajo biti oštevilčene 1, 2, 3 … — manjka ${i + 1}`);
+    if (note.n !== i + 1) throw new Error(`${file}: opombe morajo biti oštevilčene 1, 2, 3 … – manjka ${i + 1}`);
   });
   let sources = [];
   prose = prose.replace(/^##\s*Viri\s*$([\s\S]*?)(?=^##\s|(?![\s\S]))/im, (_, list) => {
@@ -140,7 +140,7 @@ const lexical = (text) => ({
 function size(value, file) {
   const key = value.trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
   const known = { samodejno: "auto", kvadrat: "1x1", lezece: "2x1" };
-  if (!known[key]) throw new Error(`${file}: "velikost" je lahko samodejno, kvadrat ali ležeče — ne ${value}`);
+  if (!known[key]) throw new Error(`${file}: "velikost" je lahko samodejno, kvadrat ali ležeče – ne ${value}`);
   return known[key];
 }
 
@@ -183,7 +183,7 @@ function askSecret(question) {
   return new Promise((resolve) => {
     const stdin = process.stdin;
     if (!stdin.isTTY) {
-      throw new Error("geslo je mogoče vpisati samo v terminalu — sicer nastavi PAYLOAD_PASSWORD");
+      throw new Error("geslo je mogoče vpisati samo v terminalu – sicer nastavi PAYLOAD_PASSWORD");
     }
 
     process.stdout.write(question);
@@ -303,7 +303,7 @@ const files = (await readdir(PROJECTS_DIR).catch(() => []))
   .sort();
 
 if (files.length === 0) {
-  console.log("V content/projects ni nobene datoteke .md — ni kaj uvoziti.");
+  console.log("V content/projects ni nobene datoteke .md – ni kaj uvoziti.");
   process.exit(0);
 }
 
@@ -319,7 +319,7 @@ if (!DRY) {
   if (!token) throw new Error("prijava ni uspela");
   console.log(`Prijavljen v ${SITE}\n`);
 } else {
-  console.log(`Suhi tek proti ${SITE} — nič se ne bo spremenilo.\n`);
+  console.log(`Suhi tek proti ${SITE} – nič se ne bo spremenilo.\n`);
 }
 
 const cache = new Map();
@@ -344,7 +344,7 @@ async function importOne(name) {
   const slug = meta.slug || slugify(title);
   if (ONLY && ONLY !== slug) return;
 
-  console.log(`${slug} — ${title}`);
+  console.log(`${slug} – ${title}`);
 
   // Pictures that are drawings are shown whole instead of cut to their frame.
   // Checked before anything is uploaded, so a typo stops the project cleanly.
@@ -380,7 +380,7 @@ async function importOne(name) {
   }
 
   if (meta.naslovna) {
-    data.heroImage = await mediaId(token, meta.naslovna, `${title} — naslovna`, cache);
+    data.heroImage = await mediaId(token, meta.naslovna, `${title} – naslovna`, cache);
   }
 
   if (gallery.length) {
@@ -413,7 +413,7 @@ async function importOne(name) {
 
   if (DRY) {
     const shown = 1 + gallery.filter((row) => row.onPage).length;
-    console.log(`   ${doc ? "posodobil bi" : "ustvaril bi"} — ${pictures(gallery.length)} v galeriji, ${Math.min(shown, 4)} na strani\n`);
+    console.log(`   ${doc ? "posodobil bi" : "ustvaril bi"} – ${pictures(gallery.length)} v galeriji, ${Math.min(shown, 4)} na strani\n`);
     return;
   }
 

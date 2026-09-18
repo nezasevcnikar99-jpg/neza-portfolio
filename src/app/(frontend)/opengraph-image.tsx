@@ -3,7 +3,7 @@ import { getSettings } from "@/lib/settings";
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
-export const alt = "Neža Sevčnikar — Portfolio";
+export const alt = "Neža Sevčnikar – Portfolio";
 
 /** The card people see when the site is shared. Set like the landing screen. */
 export default async function OpengraphImage() {
