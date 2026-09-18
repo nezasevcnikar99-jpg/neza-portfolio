@@ -2,7 +2,7 @@
 naslov: Kdo in kaj je arhitekt?
 podnaslov: Esej na temo pojma arhitekt
 slug: kdo-in-kaj-je-arhitekt
-kategorija: Raziskava
+kategorija: Esej
 oblika: besedilo
 leto: 2022
 citat: Zame je arhitektura jezik, edinstven način izražanja, arhitekt pa nekakšen jezikoslovec, pisatelj ali celo pesnik.

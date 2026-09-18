@@ -206,7 +206,7 @@ export interface Project {
   /**
    * Izpiše se nad naslovom projekta in v arhivu, kjer je tudi filter.
    */
-  category: 'Idejna zasnova' | 'Seminarski projekt' | 'Raziskava' | 'Natečaj' | 'Grafično oblikovanje';
+  category: 'Idejna zasnova' | 'Seminarski projekt' | 'Raziskava' | 'Natečaj' | 'Esej' | 'Grafično oblikovanje';
   year: number;
   /**
    * Kratek citat, prikazan ob prehodu miške čez projekt na Domov.

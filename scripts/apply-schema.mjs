@@ -43,7 +43,7 @@ const STATEMENTS = [
      SELECT udt_name INTO t FROM information_schema.columns
        WHERE table_name = 'projects' AND column_name = 'category';
      IF t IS NOT NULL AND t NOT IN ('varchar', 'text') THEN
-       FOREACH v IN ARRAY ARRAY['Idejna zasnova', 'Seminarski projekt', 'Raziskava', 'Natečaj', 'Grafično oblikovanje'] LOOP
+       FOREACH v IN ARRAY ARRAY['Idejna zasnova', 'Seminarski projekt', 'Raziskava', 'Natečaj', 'Grafično oblikovanje', 'Esej'] LOOP
          EXECUTE format('ALTER TYPE %I ADD VALUE IF NOT EXISTS %L', t, v);
        END LOOP;
      END IF;
@@ -102,6 +102,11 @@ const STATEMENTS = [
      FROM ranked
     WHERE p.id = ranked.id AND ranked.n <= 62
       AND NOT EXISTS (SELECT 1 FROM "projects" WHERE "_order" IS NOT NULL)`,
+  // The essay moves to the new kind once; a later choice in the admin stays
+  // because the row is then newer than this.
+  `UPDATE "projects" SET "category" = 'Esej'
+     WHERE "slug" = 'kdo-in-kaj-je-arhitekt' AND "category"::text = 'Raziskava'
+       AND "updated_at" <= '2026-09-18T17:48:46.630Z'`,
   `ALTER TABLE "settings" ADD COLUMN IF NOT EXISTS "phone" varchar`,
   `ALTER TABLE "settings" ADD COLUMN IF NOT EXISTS "linkedin" varchar`,
   // The phone from the CV, filled in once: only while the settings have not been
