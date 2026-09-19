@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Analytics } from "@vercel/analytics/next";
+import SiteAnalytics from "@/components/SiteAnalytics";
 import "./globals.css";
 
 const DESCRIPTION = "Portfolio Neže Sevčnikar – izbrani arhitekturni projekti, raziskave in besedila.";
@@ -46,7 +46,7 @@ export default function RootLayout({
         {children}
         {/* Vercel Web Analytics: page views without cookies, so no consent banner
             is needed. Only the site's pages carry it, not the admin. */}
-        <Analytics />
+        <SiteAnalytics />
       </body>
     </html>
   );
