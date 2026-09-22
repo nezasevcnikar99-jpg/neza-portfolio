@@ -62,6 +62,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const images = hero?.url && hero.mimeType?.startsWith("image/") ? [{ url: hero.url, alt: project.title }] : undefined;
   return {
     title: project.title,
+    alternates: { canonical: `/projects/${slug}` },
     description: description || undefined,
     openGraph: { title, description: description || undefined, ...(images ? { images } : {}) },
     twitter: { title, description: description || undefined, ...(images ? { images } : {}) },

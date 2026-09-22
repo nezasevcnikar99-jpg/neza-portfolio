@@ -7,6 +7,7 @@ import { CATEGORIES } from "@/lib/categories";
 
 export const metadata: Metadata = {
   title: "Arhiv",
+  alternates: { canonical: "/archive" },
   description: "Vsa dela Neže Sevčnikar po letih in vrstah dela.",
 };
 

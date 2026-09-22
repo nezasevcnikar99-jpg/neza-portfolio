@@ -6,6 +6,10 @@ import LandingPass from "@/components/LandingPass";
 import { getAllProjects } from "@/lib/projects-data";
 import { getHome, getSettings } from "@/lib/settings";
 import type { Media } from "@/payload-types";
+import type { Metadata } from "next";
+
+// One address for the site: the www one, whatever a visitor typed.
+export const metadata: Metadata = { alternates: { canonical: "/" } };
 
 export const dynamic = "force-dynamic";
 

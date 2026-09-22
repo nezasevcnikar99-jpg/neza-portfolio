@@ -8,6 +8,7 @@ import type { Media } from "@/payload-types";
 
 export const metadata: Metadata = {
   title: "O meni",
+  alternates: { canonical: "/about" },
   description: "Neža Sevčnikar – izobrazba, izkušnje in veščine.",
 };
 

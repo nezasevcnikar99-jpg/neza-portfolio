@@ -5,6 +5,7 @@ import { getSettings } from "@/lib/settings";
 
 export const metadata: Metadata = {
   title: "Kontakt",
+  alternates: { canonical: "/kontakt" },
   description: "Kontakt za povpraševanja o projektih, sodelovanjih in besedilih.",
 };
 
