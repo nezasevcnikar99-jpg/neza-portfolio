@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import SiteAnalytics from "@/components/SiteAnalytics";
 import "./globals.css";
 
@@ -47,6 +48,7 @@ export default function RootLayout({
         {/* Vercel Web Analytics: page views without cookies, so no consent banner
             is needed. Only the site's pages carry it, not the admin. */}
         <SiteAnalytics />
+        <SpeedInsights />
       </body>
     </html>
   );
