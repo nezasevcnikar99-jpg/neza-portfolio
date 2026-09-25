@@ -2,6 +2,7 @@ import type React from "react";
 import Link from "next/link";
 import type { Media } from "@/payload-types";
 import { buildIndexCells, type Cell, type Project } from "@/lib/projects";
+import IndexMotion from "./IndexMotion";
 
 /** How a picture sits in the phone's stack: wide across, or narrower beside its caption. */
 type Phone = { side: "wide" | "sq-left" | "sq-right"; order: number };
@@ -27,13 +28,18 @@ function ImageCell({ cell, phone }: { cell: Extract<Cell, { kind: "image" }>; ph
     >
       <span className="cell-inner">
         {hero?.url ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={hero.url}
-            alt={hero.alt}
-            className={hero.showWhole ? "cell-photo is-whole" : "cell-photo"}
-            style={hero.showWhole ? undefined : { objectPosition: `${x}% ${y}%` }}
-          />
+          // The picture sits in a layer of its own so it can travel inside the
+          // frame while the page scrolls (IndexMotion), leaving the image's own
+          // transform free for the settling zoom.
+          <span className="cell-par">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={hero.url}
+              alt={hero.alt}
+              className={hero.showWhole ? "cell-photo is-whole" : "cell-photo"}
+              style={hero.showWhole ? undefined : { objectPosition: `${x}% ${y}%` }}
+            />
+          </span>
         ) : p.asText ? (
           // A written piece with no picture stands on a line from it, set like
           // the quotes elsewhere; the title is already in its caption.
@@ -102,6 +108,7 @@ export default function IndexGrid({ projects }: { projects: Project[] }) {
 
   return (
     <div className="ruled index-grid">
+      <IndexMotion />
       {cells.map((cell, i) => {
         if (cell.kind === "image") return <ImageCell key={i} cell={cell} phone={phone.get(cell.index)!} />;
         if (cell.kind === "label") return <LabelCell key={i} cell={cell} phone={phone.get(cell.index)!} />;
