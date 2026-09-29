@@ -30,6 +30,7 @@ const DRY = has("dry-run");
 
 const PROJECTS_DIR = path.join(process.cwd(), "content", "projects");
 const IMAGES_DIR = path.join(process.cwd(), "content", "images");
+const FILES_DIR = path.join(process.cwd(), "content", "files");
 
 /* ---------- the file format ---------- */
 
@@ -248,6 +249,7 @@ const MIME = {
   ".gif": "image/gif",
   ".avif": "image/avif",
   ".svg": "image/svg+xml",
+  ".pdf": "application/pdf",
 };
 
 /** Uploads a picture unless one with that filename is already there. */
@@ -272,13 +274,14 @@ async function mediaId(token, filename, alt, cache) {
     return match.id;
   }
 
-  const full = path.join(IMAGES_DIR, filename);
+  const isFile = filename.toLowerCase().endsWith(".pdf");
+  const full = path.join(isFile ? FILES_DIR : IMAGES_DIR, filename);
   await stat(full).catch(() => {
-    throw new Error(`slike ni v content/images: ${filename}`);
+    throw new Error(`datoteke ni v content/${isFile ? "files" : "images"}: ${filename}`);
   });
 
   if (DRY) {
-    console.log(`   + naložil bi sliko ${filename}`);
+    console.log(`   + naložil bi ${isFile ? "datoteko" : "sliko"} ${filename}`);
     cache.set(filename, `<${filename}>`);
     return cache.get(filename);
   }
@@ -370,6 +373,7 @@ async function importOne(name) {
     ...only("intro", intro),
     ...(meta.velikost ? { gridSize: size(meta.velikost, name) } : {}),
     ...(meta.oblika ? { asText: /^besedil/i.test(meta.oblika.trim()) } : {}),
+    ...only("documentLabel", meta.oznakaDatoteke),
     ...(concept ? { concept: lexical(concept) } : {}),
     ...(notes.length ? { notes: notes.join("\n") } : {}),
     ...(sources.length ? { sources: sources.join("\n") } : {}),
@@ -378,6 +382,11 @@ async function importOne(name) {
   if (meta.izrez) {
     const [x, y] = meta.izrez.split(/[\s,/]+/).map(Number);
     if (Number.isFinite(x) && Number.isFinite(y)) data.indexFocal = { x, y };
+  }
+
+  // A PDF to download: uploaded from content/files like any other file.
+  if (meta.datoteka) {
+    data.document = await mediaId(token, meta.datoteka, `${title} – za prenos`, cache);
   }
 
   if (meta.naslovna) {

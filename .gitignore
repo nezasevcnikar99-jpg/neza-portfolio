@@ -51,3 +51,5 @@ next-env.d.ts
 # PDF-i za pretvorbo ostanejo lokalno; v repozitorij gredo samo besedila
 /content/pdf/*
 !/content/pdf/.gitkeep
+/content/files/*
+!/content/files/.gitkeep
