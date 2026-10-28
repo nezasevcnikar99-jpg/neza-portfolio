@@ -7,18 +7,23 @@ leto: 2025
 vloga: Skupinski projekt – Gal Ibrišimovič, Jernej Klenovšek, Veronika Rihtaršič
 citat: An der Gasse, An der Gras
 naslovna: vecerja-jedilnica-01.jpg
-cele: vecerja-prerez-01.jpg, vecerja-tloris-novo-01.jpg, vecerja-aksonometrija-01.jpg, vecerja-zasnova-01.jpg, vecerja-tloris-rusitve-01.jpg, vecerja-fasada-01.jpg, vecerja-razvoj-01.jpg, vecerja-obstojece-aksonometrija-01.jpg, vecerja-obstojece-tloris-01.jpg
+cele: vecerja-prerez-01.jpg, vecerja-tloris-novo-01.jpg, vecerja-aksonometrija-01.jpg, vecerja-zasnova-01.jpg, vecerja-tloris-rusitve-01.jpg, vecerja-fasada-01.jpg, vecerja-razvoj-01.jpg, vecerja-obstojece-aksonometrija-01.jpg, vecerja-obstojece-tloris-01.jpg, vecerja-primerjava-samostanov-01.jpg, vecerja-aksonometrija-novo-01.jpg, vecerja-program-01.jpg, vecerja-dostopi-01.jpg, vecerja-obstojece-jedilnica-01.jpg
 galerija:
+  vecerja-primerjava-samostanov-01.jpg | galerija | Primerjava dominikanskih samostanov: Studenice, Velesovo in Marenberg
   vecerja-razvoj-01.jpg | galerija | Aksonometrije razvoja kompleksa po fazah
   vecerja-obstojece-aksonometrija-01.jpg | galerija | Aksonometrija obstoječega stanja
   vecerja-obstojece-tloris-01.jpg | galerija | Tloris obstoječega stanja z okolico
   vecerja-tloris-rusitve-01.jpg | galerija | Tloris rušitev
   vecerja-zasnova-01.jpg | galerija | Celostna konceptualna zasnova – križni hodnik kot povezava
+  vecerja-aksonometrija-novo-01.jpg | galerija | Aksonometrija novega stanja
+  vecerja-program-01.jpg | galerija | Programska umestitev po etažah
+  vecerja-dostopi-01.jpg | galerija | Dostopi in komunikacije po skupinah uporabnikov
   vecerja-prerez-01.jpg | stran | Prerez povezovanja obstoječega samostana z novim prizidkom (A–A)
   vecerja-fasada-01.jpg | galerija | Pogled na fasado
   vecerja-tloris-novo-01.jpg | stran | Tloris novega stanja
   vecerja-aksonometrija-01.jpg | stran | Aksonometrija
   vecerja-jedilnica-pogled-01.jpg | galerija | Jedilni prostor
+  vecerja-obstojece-jedilnica-01.jpg | galerija | Obstoječe stanje – jedilnica in prostor za vaje
   vecerja-foto-procelje-01.jpg | galerija | Glavno pročelje
   vecerja-foto-ravnica-01.jpg | galerija | Ravnica pred cerkvijo
   vecerja-foto-zid-01.jpg | galerija | Samostanski zid

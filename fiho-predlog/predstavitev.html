@@ -1,0 +1,757 @@
+<!doctype html>
+<html lang="sl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prenova fiho.si · predstavitev</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:wght@400;600&family=Atkinson+Hyperlegible+Next:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap">
+<style>
+/* Diapozitivi 1600 × 900, levo poravnani; bloka zelene in modre iz znaka F/H kot ločila poglavij, rumena samo za oznake na posnetkih */
+:root{
+  --zelena:#00A870; --zelena-tm:#00704B; --modra:#0070B8; --modra-tm:#00548C;
+  --crnilo:#0D2231; --papir:#FFFFFF; --megla:#EEF3F7; --crta:#CAD6DF; --siva:#4A5B69; --rumena:#FFD23F; --rdeca:#B4232C;
+  --f-tekst:"Atkinson Hyperlegible Next", "Segoe UI", system-ui, sans-serif;
+  --f-data:"Atkinson Hyperlegible Mono", ui-monospace, Menlo, monospace;
+  color-scheme: light;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:#08131C;color:var(--crnilo);font-family:var(--f-tekst);-webkit-font-smoothing:antialiased}
+h1,h2,h3,p,ul,ol,figure{margin:0;padding:0}
+h1,h2,h3{text-wrap:balance;letter-spacing:-.02em;line-height:1.05}
+img{display:block;max-width:100%}
+
+.oder{position:fixed;inset:0;display:grid;place-items:center;overflow:hidden}
+.platno{width:1600px;height:900px;position:relative;transform-origin:center center;flex:none}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;background:var(--papir);padding:68px 88px 92px;overflow:hidden}
+.slide.aktivna{display:flex}
+
+/* skupni elementi */
+.nad{font-family:var(--f-data);font-size:15px;letter-spacing:.08em;text-transform:uppercase;color:var(--siva);display:flex;gap:14px;align-items:center}
+.nad b{font-weight:600;color:var(--zelena-tm)}
+.naslov{font-size:56px;font-weight:800;margin-top:14px;max-width:1250px}
+.uvodnik{font-size:24px;line-height:1.45;color:var(--siva);margin-top:16px;max-width:980px}
+.vsebina{flex:1;display:grid;margin-top:40px;min-height:0}
+.podnozje{position:absolute;left:88px;right:88px;bottom:32px;display:flex;justify-content:space-between;align-items:center;font-family:var(--f-data);font-size:13px;color:var(--siva);letter-spacing:.04em}
+.znak{display:inline-flex;gap:3px;margin-right:12px;vertical-align:-2px}
+.znak i{width:12px;height:16px;display:block}
+.znak i:first-child{background:var(--zelena)} .znak i:last-child{background:var(--modra)}
+.temna .podnozje,.temna .nad{color:#B9C7D2}
+
+.okvir{border:1px solid var(--crta);background:var(--papir);box-shadow:0 30px 60px -30px rgba(13,34,49,.45);overflow:hidden;position:relative}
+.okvir .vrh{height:34px;display:flex;align-items:center;gap:7px;padding:0 14px;background:var(--megla);border-bottom:1px solid var(--crta)}
+.okvir .vrh i{width:10px;height:10px;border-radius:50%;background:var(--crta)}
+.okvir .vrh span{margin-left:14px;font-family:var(--f-data);font-size:12px;color:var(--siva);background:var(--papir);padding:3px 12px;border:1px solid var(--crta)}
+.okvir .slika{position:relative}
+.okvir img{width:100%}
+.telefon{border:9px solid var(--crnilo);border-radius:34px;overflow:hidden;background:var(--papir);box-shadow:0 30px 60px -30px rgba(13,34,49,.5)}
+.telefon img{width:100%}
+
+.oznacba{position:absolute;width:38px;height:38px;margin:-19px 0 0 -19px;background:var(--rumena);color:var(--crnilo);border:2px solid var(--crnilo);display:grid;place-items:center;font-family:var(--f-data);font-weight:600;font-size:18px;box-shadow:0 4px 12px rgba(13,34,49,.35)}
+.ugotovitve{list-style:none;display:grid;gap:16px;align-content:start;counter-reset:u}
+.ugotovitve li{display:grid;grid-template-columns:38px 1fr;gap:16px;font-size:20px;line-height:1.4;align-items:start}
+.ugotovitve li::before{counter-increment:u;content:counter(u);width:32px;height:32px;display:grid;place-items:center;background:var(--rumena);border:2px solid var(--crnilo);font-family:var(--f-data);font-weight:600;font-size:16px;margin-top:-1px}
+.ugotovitve b{font-weight:700}
+
+.oznaka{font-family:var(--f-data);font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:var(--siva)}
+.kvadratki{list-style:none;display:grid;gap:16px}
+.kvadratki li{display:grid;grid-template-columns:22px 1fr;gap:14px;font-size:21px;line-height:1.4}
+.kvadratki li::before{content:"";width:12px;height:12px;background:var(--zelena);margin-top:9px}
+
+/* 1 naslovnica */
+.s-naslovnica{padding-right:0}
+.s-naslovnica .mreza{flex:1;display:grid;grid-template-columns:640px 1fr;gap:64px;align-items:center}
+.s-naslovnica h1{font-size:112px;font-weight:800;letter-spacing:-.045em;line-height:.95;margin-top:28px}
+.s-naslovnica h1 span{color:var(--modra)}
+.s-naslovnica .pod{font-size:28px;line-height:1.35;margin-top:28px;max-width:620px}
+.s-naslovnica .avtor{margin-top:56px;font-size:20px;line-height:1.5}
+.s-naslovnica .avtor b{display:block;font-size:22px}
+.s-naslovnica .okvir{width:1000px;margin-right:-120px}
+.velik-znak{display:flex;gap:6px}
+.velik-znak i{width:44px;height:60px;display:block}
+.velik-znak i:first-child{background:var(--zelena)} .velik-znak i:last-child{background:var(--modra)}
+.namig{position:absolute;left:88px;bottom:32px;font-family:var(--f-data);font-size:13px;color:var(--siva)}
+
+/* ločila */
+.locilo{justify-content:flex-end;padding-bottom:120px}
+.locilo .st{font-family:var(--f-tekst);font-size:300px;font-weight:800;line-height:.8;letter-spacing:-.06em}
+.locilo h2{font-size:84px;font-weight:800;margin-top:40px}
+.locilo p{font-size:28px;line-height:1.4;margin-top:20px;max-width:900px}
+.locilo--z{background:var(--zelena);color:var(--crnilo)}
+.locilo--m{background:var(--modra);color:#fff}
+.locilo--m .podnozje{color:#D3E6F5}
+.locilo .podnozje{color:inherit;opacity:.8}
+
+/* publika */
+.publika{grid-template-columns:repeat(3,1fr);gap:0;border-top:3px solid var(--crnilo);align-content:start}
+.publika > div{padding:28px 36px 0 0}
+.publika > div + div{padding-left:36px;border-left:1px solid var(--crta)}
+.publika h3{font-size:30px;font-weight:800;margin-top:14px}
+.publika .kdo{display:inline-block;width:56px;height:8px}
+.publika ul{list-style:none;margin-top:22px;display:grid;gap:12px}
+.publika li{font-size:21px;line-height:1.4;padding-left:22px;position:relative}
+.publika li::before{content:"?";position:absolute;left:0;font-family:var(--f-data);font-weight:600;color:var(--modra)}
+.trak-izjava{margin-top:auto;background:var(--crnilo);color:#fff;padding:26px 32px;font-size:26px;font-weight:700;display:flex;gap:20px;align-items:center}
+.trak-izjava::before{content:"";width:14px;height:14px;background:var(--rumena);flex:none}
+
+/* deluje */
+.deluje{grid-template-columns:480px 1fr;gap:80px;align-items:start}
+.deluje .citat{font-size:44px;font-weight:800;line-height:1.12;letter-spacing:-.02em;border-left:8px solid var(--zelena);padding-left:28px}
+.deluje ul{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid var(--crta)}
+.deluje li{padding:22px 24px 22px 0;border-bottom:1px solid var(--crta);font-size:20px;line-height:1.4}
+.deluje li:nth-child(even){padding-left:24px;border-left:1px solid var(--crta)}
+.deluje li b{display:block;font-size:22px;margin-bottom:6px}
+
+/* posnetek + ugotovitve */
+.posnetek-ugot{grid-template-columns:860px 1fr;gap:56px;align-items:start}
+
+/* struktura */
+.drevo{grid-template-columns:560px 1fr;gap:72px;align-items:start}
+.meni-zdaj{border:2px solid var(--crnilo);padding:24px 28px;font-size:19px;line-height:1.35}
+.meni-zdaj > div{display:grid;grid-template-columns:150px 1fr;gap:16px;padding:12px 0;border-bottom:1px solid var(--crta)}
+.meni-zdaj > div:last-child{border-bottom:0}
+.meni-zdaj b{font-weight:800}
+.meni-zdaj span{color:var(--siva)}
+mark{background:var(--rumena);color:var(--crnilo);padding:0 4px}
+
+/* telefon prej / potem */
+.primerjava-tel{grid-template-columns:300px 1fr 300px 1fr;gap:40px;align-items:start}
+.primerjava-tel .telefon{width:300px;height:620px}
+.primerjava-tel .telefon img{object-fit:cover;object-position:top}
+.primerjava-tel h3{font-size:28px;font-weight:800;margin-bottom:22px}
+.primerjava-tel .kvadratki li::before{background:var(--rdeca)}
+.primerjava-tel .dobro li::before{background:var(--zelena)}
+
+/* vizualna podoba zdaj */
+.barve-zdaj{grid-template-columns:1fr 1fr;gap:72px;align-items:start}
+.vzorci{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.vzorec{border:1px solid var(--crta)}
+.vzorec div{height:96px}
+.vzorec p{padding:10px 12px;font-family:var(--f-data);font-size:13px;line-height:1.4;color:var(--siva)}
+.vzorec p b{display:block;color:var(--crnilo);font-family:var(--f-tekst);font-size:15px}
+.logo-barve{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+
+/* hitri popravki */
+.popravki{list-style:none;grid-template-columns:1fr 1fr;gap:0 64px;counter-reset:p;align-content:start}
+.popravki li{counter-increment:p;display:grid;grid-template-columns:52px 1fr;gap:12px;padding:15px 0;border-bottom:1px solid var(--crta);font-size:19px;line-height:1.4}
+.popravki li::before{content:counter(p,decimal-leading-zero);font-family:var(--f-data);font-weight:600;color:var(--modra);font-size:17px;padding-top:2px}
+.popravki code{font-family:var(--f-data);font-size:16px;background:var(--megla);padding:1px 6px}
+
+/* nova struktura */
+.zemljevid{grid-template-columns:repeat(6,1fr);gap:12px;align-content:start}
+.zemljevid .stolpec h3{font-size:20px;font-weight:800;padding:16px 16px 18px;background:var(--crnilo);color:#fff;min-height:84px;display:flex;align-items:flex-end}
+.zemljevid .stolpec:nth-child(1) h3{background:var(--zelena);color:var(--crnilo)}
+.zemljevid .stolpec:nth-child(2) h3{background:var(--modra)}
+.zemljevid ul{list-style:none;border:1px solid var(--crta);border-top:0}
+.zemljevid li{padding:11px 16px;border-top:1px solid var(--crta);font-size:17px;line-height:1.3}
+.zemljevid li small{display:block;color:var(--siva);font-size:14px;margin-top:2px}
+.pripomocki{display:flex;gap:12px;margin-top:22px;align-items:center;font-size:18px}
+.pripomocki span{border:2px solid var(--crnilo);padding:8px 14px;font-weight:700}
+.pripomocki .vstop-z{background:var(--zelena);border-color:var(--zelena)}
+.pripomocki .vstop-m{background:var(--modra);border-color:var(--modra);color:#fff}
+.pripomocki .oznaka{margin-right:6px}
+
+/* vizualni sistem */
+.sistem{grid-template-columns:620px 1fr;gap:72px;align-items:start}
+.paleta{display:grid;grid-template-columns:repeat(6,1fr);grid-template-rows:150px 150px;gap:8px}
+.paleta div{padding:14px;display:flex;flex-direction:column;justify-content:flex-end;font-size:15px;line-height:1.3}
+.paleta b{font-size:18px}
+.paleta span{font-family:var(--f-data);font-size:13px;opacity:.85}
+.specimen{font-size:112px;font-weight:800;letter-spacing:-.03em;line-height:1;margin-top:30px}
+.specimen-vrstica{display:flex;gap:40px;align-items:baseline;margin-top:8px}
+.specimen-vrstica div{font-size:64px;font-weight:700;letter-spacing:.02em}
+.specimen-vrstica p{font-size:17px;color:var(--siva);max-width:300px;line-height:1.4}
+.sistem .opis{font-size:20px;line-height:1.5;margin-top:24px;max-width:760px}
+.sistem .mono-vzorec{font-family:var(--f-data);font-size:30px;font-weight:600;margin-top:28px;padding-top:24px;border-top:1px solid var(--crta)}
+.sistem .mono-vzorec small{display:block;font-family:var(--f-tekst);font-weight:400;font-size:17px;color:var(--siva);margin-top:6px}
+
+/* prej / potem */
+.prej-potem{grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+.prej-potem p{font-size:20px;line-height:1.45;color:var(--siva);margin-top:20px;max-width:640px}
+.prej-potem figcaption{display:flex;align-items:center;gap:12px;font-size:22px;font-weight:800;margin-bottom:16px}
+.prej-potem figcaption i{width:14px;height:14px;display:block}
+
+/* naslovnica, scroll */
+.naslovnica-zgradba{grid-template-columns:520px 1fr;gap:72px;align-items:start}
+.zaporedje{list-style:none;counter-reset:z;border-top:2px solid var(--crnilo)}
+.zaporedje li{counter-increment:z;display:grid;grid-template-columns:48px 1fr;gap:12px;padding:10px 0;border-bottom:1px solid var(--crta);font-size:19px;line-height:1.35}
+.zaporedje li::before{content:counter(z);font-family:var(--f-data);font-weight:600;color:var(--modra);font-size:18px}
+.zaporedje b{display:block;font-size:20px}
+.zaporedje span{color:var(--siva);font-size:17px}
+.listaj{height:600px}
+.listaj .slika{height:566px;overflow:hidden}
+.listaj img{width:100%}
+@media (prefers-reduced-motion:no-preference){
+  .aktivna .listaj img{animation:listaj 26s ease-in-out 1s infinite alternate}
+}
+@keyframes listaj{0%,6%{transform:translateY(0)}94%,100%{transform:translateY(calc(-100% + 566px))}}
+
+/* razpis */
+.razpis-mreza{grid-template-columns:1fr 250px 360px;gap:40px;align-items:start}
+.razpis-mreza .telefon{width:250px;height:540px}
+.razpis-mreza .telefon img{object-fit:cover;object-position:top;height:100%}
+
+/* dostopnost */
+.dostop{grid-template-columns:560px 1fr;gap:64px;align-items:start}
+.dostop .izhodisce{font-size:24px;line-height:1.45;font-weight:600;border-left:8px solid var(--modra);padding-left:24px;margin-bottom:32px}
+
+
+/* hvala */
+.hvala{background:var(--crnilo);color:#fff}
+.hvala h2{font-size:150px;font-weight:800;letter-spacing:-.05em;line-height:.9}
+.hvala .mreza{flex:1;display:grid;grid-template-columns:1fr 520px;gap:80px;align-items:end;padding-bottom:40px}
+.hvala p{font-size:26px;line-height:1.45;margin-top:28px;color:#D7E1E8;max-width:760px}
+.hvala .povezava{border:2px solid #fff;padding:26px 28px}
+.hvala .povezava b{display:block;font-size:26px;margin-top:8px}
+.hvala .povezava p{font-size:19px;margin-top:10px}
+.hvala .oznaka{color:#B9C7D2}
+
+/* glavni nalogi */
+.naloge{grid-template-columns:1fr 1fr 380px;gap:24px;align-content:start}
+.naloga{padding:28px 32px 32px}
+.naloga--z{background:var(--zelena);color:var(--crnilo)}
+.naloga--m{background:var(--modra);color:#fff}
+.naloga .oznaka{color:inherit;opacity:.85}
+.naloga h3{font-size:40px;font-weight:800;margin-top:10px}
+.naloga ul{list-style:none;margin-top:20px;display:grid;gap:10px}
+.naloga li{font-size:21px;line-height:1.35;padding-left:24px;position:relative}
+.naloga li::before{content:"?";position:absolute;left:0;font-family:var(--f-data);font-weight:600}
+.druge{border-top:3px solid var(--crnilo);padding-top:18px;display:grid;gap:18px;align-content:start}
+.druge p:not(.oznaka){font-size:19px;line-height:1.45;color:var(--siva)}
+.druge b{display:block;color:var(--crnilo);font-size:21px;margin-bottom:4px}
+
+/* gradiva danes */
+.gradiva-zdaj{grid-template-columns:720px 1fr;gap:56px;align-items:start}
+.izrez-noga{height:170px;overflow:hidden}
+.izrez-noga img{position:relative;top:-200px}
+.izrez-prijava{height:300px;overflow:hidden}
+.izrez-prijava img{position:relative;top:-60px}
+
+/* dostopnost danes */
+.dostop-zdaj{grid-template-columns:760px 1fr;gap:56px;align-items:start}
+.kvadratki.slabo li::before{background:var(--rdeca)}
+.dostop-noga{font-size:19px;line-height:1.5;color:var(--siva);margin-top:18px;max-width:1300px}
+
+/* kontrole */
+.kontrole{position:fixed;right:16px;bottom:14px;display:flex;align-items:center;gap:6px;z-index:10;font-family:var(--f-data);font-size:13px;color:#B9C7D2;opacity:.35;transition:opacity .2s}
+.kontrole:hover,.kontrole:focus-within{opacity:1}
+.kontrole button{background:#16293A;color:#fff;border:1px solid #2A4254;width:38px;height:34px;cursor:pointer;font:inherit;font-size:16px}
+.kontrole button:focus-visible{outline:3px solid var(--rumena);outline-offset:2px}
+.napredek{position:fixed;left:0;bottom:0;height:4px;background:var(--zelena);z-index:10;transition:width .25s}
+
+@page{size:1600px 900px;margin:0}
+@media print{
+  html,body{height:auto;background:#fff}
+  .oder{position:static;display:block}
+  .platno{transform:none!important;width:1600px;height:auto}
+  .slide{position:relative;display:flex!important;width:1600px;height:900px;break-after:page;page-break-after:always}
+  .kontrole,.napredek,.namig{display:none}
+  .listaj img{animation:none!important}
+  .okvir,.telefon{box-shadow:none}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+<div class="oder"><div class="platno" id="platno">
+
+<!-- 1 -->
+<section class="slide s-naslovnica" aria-label="Naslovnica">
+  <div class="mreza">
+    <div>
+      <div class="velik-znak" aria-hidden="true"><i></i><i></i></div>
+      <h1>Prenova <span>fiho.si</span></h1>
+      <p class="pod">Analiza obstoječe strani in predlog nove</p>
+      <p class="avtor"><b>Neža Sevčnikar</b>oktober 2026</p>
+    </div>
+    <div class="okvir"><div class="vrh"><i></i><i></i><i></i><span>fiho.si · predlog</span></div><div class="slika"><img src="img/novo/domov-1.png" alt="Predlog nove naslovnice FIHO"></div></div>
+  </div>
+  <p class="namig">Puščici ← → za premikanje · F za celozaslonski način</p>
+</section>
+
+<!-- 2 -->
+<section class="slide locilo locilo--z" aria-label="Analiza">
+  <div class="st">1</div>
+  <h2>Analiza obstoječe strani</h2>
+  <p>Kdo stran uporablja, kaj že deluje, kje se obiskovalci zataknejo in kaj lahko popravimo takoj.</p>
+  <div class="podnozje"><span><span class="znak"><i></i><i></i></span>Prenova fiho.si</span><span data-st></span></div>
+</section>
+
+<!-- 3 -->
+<section class="slide" aria-label="Glavni nalogi strani">
+  <p class="nad"><b>Analiza</b> Obiskovalci</p>
+  <h2 class="naslov">Dve nalogi, zaradi katerih ljudje odprejo fiho.si</h2>
+  <div class="vsebina naloge">
+    <div class="naloga naloga--z">
+      <p class="oznaka">Invalidske in humanitarne organizacije</p>
+      <h3>Javni razpis</h3>
+      <ul><li>Kdaj je rok za oddajo vloge?</li><li>Kje so besedilo razpisa in navodila?</li><li>Kako vstopim v portal?</li><li>Koga pokličem, ko se zatakne?</li></ul>
+    </div>
+    <div class="naloga naloga--m">
+      <p class="oznaka">Člani Sveta FIHO</p>
+      <h3>Gradiva za seje</h3>
+      <ul><li>Kje so gradiva za naslednjo sejo?</li><li>Kako se prijavim?</li><li>Kje so sklepi in gradiva preteklih sej?</li><li>Koga pokličem, ko prijava ne deluje?</li></ul>
+    </div>
+    <div class="druge">
+      <p class="oznaka">Tudi</p>
+      <p><b>Javnost in mediji</b> Kaj je FIHO, komu razdeli sredstva in kaj so organizacije dosegle.</p>
+      <p><b>Država in nadzor</b> Letna poročila, akti, javne objave, informacije javnega značaja.</p>
+    </div>
+  </div>
+  <p class="trak-izjava">Danes ima prednost vabilo na dogodek. Razpis je v majhni kartici, gradiva za Svet pa samo v nogi strani.</p>
+  <div class="podnozje"><span><span class="znak"><i></i><i></i></span>Prenova fiho.si</span><span data-st></span></div>
+</section>
+
+<!-- 4 -->
+<section class="slide" aria-label="Kaj že deluje">
+  <p class="nad"><b>Analiza</b> Prednosti</p>
+  <h2 class="naslov">Kaj že deluje</h2>
+  <div class="vsebina deluje">
+    <p class="citat">Prenova naj gradi na tem, kar FIHO že ima.</p>
+    <ul>
+      <li><b>Ažurne vsebine</b>Novice izhajajo skoraj vsak teden, razpis 2027 je objavljen pravočasno.</li>
+      <li><b>Meni Dostopnost</b>Pet barvnih kontrastov, velikost besedila, odebelitev, fokus, kurzor, povečava in ustavitev animacij. Nastavitve si zapomni.</li>
+      <li><b>Bogat arhiv</b>Letna poročila od leta 1999, pretekli razpisi in zgodovina fundacije.</li>
+      <li><b>Dobre zgodbe</b>Pristni glasovi predstavnikov organizacij z njihovimi fotografijami.</li>
+      <li><b>Drobtine in podstrani</b>Vsaka podstran pove, kje v strukturi se obiskovalec nahaja.</li>
+      <li><b>Močan znak</b>Logotip z zeleno in modro je prepoznaven in primeren za digitalno rabo.</li>
+    </ul>
+  </div>
+  <div class="podnozje"><span><span class="znak"><i></i><i></i></span>Prenova fiho.si</span><span data-st></span></div>
+</section>
+
+<!-- 5 -->
+<section class="slide" aria-label="Prvi vtis">
+  <p class="nad"><b>Analiza</b> Naslovnica danes</p>
+  <h2 class="naslov">Prvi vtis: naslovnica ne pove, kaj je FIHO</h2>
+  <div class="vsebina posnetek-ugot">
+    <div class="okvir"><div class="vrh"><i></i><i></i><i></i><span>fiho.si</span></div>
+      <div class="slika"><img src="img/prej/domov-desktop.png" alt="Današnja naslovnica fiho.si">
+        <span class="oznacba" style="left:24%;top:46%">1</span>
+        <span class="oznacba" style="left:75%;top:56%">2</span>
+        <span class="oznacba" style="left:6.5%;top:92%">3</span>
+        <span class="oznacba" style="left:36%;top:70.5%">4</span>
+        <span class="oznacba" style="left:5%;top:11.8%">5</span>
+        <span class="oznacba" style="left:26%;top:19.5%">6</span>
+      </div>
+    </div>
+    <ol class="ugotovitve">
+      <li><span>Uvod govori o forumu, <b>ne o tem, kaj FIHO je in komu je namenjen.</b></span></li>
+      <li><span>Slika je plakat, ki ponovi isti naslov in še enkrat logotip.</span></li>
+      <li><span>Edini gumb vodi na »Več o nas«, <b>ne na prijavo na dogodek.</b></span></li>
+      <li><span>Ležeče, obojestransko poravnano besedilo je težje berljivo.</span></li>
+      <li><span>Logotip je premajhen, da bi se ime fundacije dalo prebrati.</span></li>
+      <li><span>Prazen pas pod menijem; naslov se dotika levega roba zaslona.</span></li>
+    </ol>
+  </div>
+  <div class="podnozje"><span><span class="znak"><i></i><i></i></span>Prenova fiho.si</span><span data-st></span></div>
+</section>
+
+<!-- 6 -->
+<section class="slide" aria-label="Razpis">
+  <p class="nad"><b>Analiza</b> Javni razpis 2027</p>
+  <h2 class="naslov">Rok za oddajo je skrit v besedilu</h2>
+  <div class="vsebina posnetek-ugot">
+    <div class="okvir"><div class="vrh"><i></i><i></i><i></i><span>fiho.si/razpisi/javni-razpis-2027</span></div>
+      <div class="slika"><img src="img/prej/razpis-desktop.png" alt="Današnja stran Javni razpis 2027">
+        <span class="oznacba" style="left:86%;top:90%">1</span>
+        <span class="oznacba" style="left:47%;top:55.8%">2</span>
+        <span class="oznacba" style="left:58.5%;top:75%">3</span>
+        <span class="oznacba" style="left:6%;top:91%">4</span>
+      </div>
+    </div>
+    <ol class="ugotovitve">
+      <li><span>Rok <b>19. 10. 2026</b> ni viden na prvem zaslonu. Zapisan je sredi četrtega odstavka.</span></li>
+      <li><span>Naslov strani se takoj ponovi kot prvi odstavek.</span></li>
+      <li><span>Besedilo razpisa je povezava v stavku: »na tej povezavi (word)«.</span></li>
+      <li><span>Velikost pisave se med odstavki spreminja.</span></li>
+      <li><span>Ni korakov, časovnice, pogostih vprašanj ali kontakta za pomoč.</span></li>
+      <li><span>Stran »Razpisi« ima eno samo kartico, za <b>pretekle</b> razpise.</span></li>
+      <li><span>Do portala vodita <b>dve različni povezavi</b> (it-group.si/fiho in it-group.si/razpisi), obe brez varne povezave https.</span></li>
+    </ol>
+  </div>
+  <div class="podnozje"><span><span class="znak"><i></i><i></i></span>Prenova fiho.si</span><span data-st></span></div>
+</section>
+
+<!-- 6b -->
+<section class="slide" aria-label="Gradiva za Svet danes">
+  <p class="nad"><b>Analiza</b> Gradiva za člane Sveta</p>
+  <h2 class="naslov">Gradiva za Svet so dosegljiva samo iz noge strani</h2>
+  <div class="vsebina gradiva-zdaj">
+    <figure>
+      <div class="okvir"><div class="vrh"><i></i><i></i><i></i><span>fiho.si · noga strani</span></div>
+        <div class="slika izrez-noga"><img src="img/prej/noga.png" alt="Noga strani fiho.si s povezavo Dostopi do gradiv">
+          <span class="oznacba" style="left:88%;top:46%">1</span>
+        </div>
+      </div>
+      <div class="okvir" style="margin-top:20px"><div class="vrh"><i></i><i></i><i></i><span>share.fiho.si</span></div>
+        <div class="slika izrez-prijava"><img src="img/prej/gradiva.png" alt="Prijavna stran share.fiho.si">
+          <span class="oznacba" style="left:64%;top:20%">2</span>
+        </div>
+      </div>
+    </figure>
+    <ol class="ugotovitve">
+      <li><span>Povezava »Dostopi do gradiv« je <b>samo v nogi strani</b>, brez pojasnila, komu je namenjena. V meniju in na naslovnici je ni.</span></li>
+      <li><span>Odpre ločeno stran share.fiho.si s <b>starejšo, poševno različico logotipa</b>.</span></li>
+      <li><span>Teče na aplikaciji Pydio z napisom <b>»Free non supported version © 2008–2013«</b>. Programska oprema brez podpore je tveganje za zaupna gradiva.</span></li>
+      <li><span>Na prijavni strani ni navodil, kontakta za pomoč ali poti nazaj na fiho.si.</span></li>
+    </ol>
+  </div>
+  <div class="podnozje"><span><span class="znak"><i></i><i></i></span>Prenova fiho.si</span><span data-st></span></div>
+</section>
+
+<!-- 7 -->
+<section class="slide" aria-label="Organizacija vsebin">
+  <p class="nad"><b>Analiza</b> Struktura</p>
+  <h2 class="naslov">Vsebine so razporejene po vrsti, ne po potrebah obiskovalcev</h2>
+  <div class="vsebina drevo">
+    <div>
+      <p class="oznaka" style="margin-bottom:12px">Današnji meni</p>
+      <div class="meni-zdaj">
+        <div><b>Razpisi</b><span>Javni razpis 2027 · Pretekli razpisi</span></div>
+        <div><b><mark>Aktualno</mark></b><span>Novice · FIHO v medijih · Dobre zgodbe</span></div>
+        <div><b><mark>Informacije</mark></b><span>Akti in zakonodaja · Katalog informacij javnega značaja · Letna poročila · Javne objave</span></div>
+        <div><b>O nas</b><span>Naša zgodba · <mark>Invalidske in humanitarne organizacije</mark> · Organizacija in upravljanje · Podatki o organizaciji · <mark>Politika kakovosti (PDF)</mark></span></div>
+        <div><b>Kontakt</b><span>ena stran</span></div>
+        <div><b>Noga</b><span>Spletni program razpisov · <mark>Dostopi do gradiv</mark> · Prijava neetičnih ravnanj</span></div>
+      </div>
+    </div>
+    <ul class="kvadratki">
+      <li><span>»Aktualno« in »Informacije« ne povesta, kaj je v njih.</span></li>
+      <li><span>Seznam 120 organizacij, ki prejemajo sredstva, je pod »O nas«, v dveh zaprtih harmonikah in brez iskanja. Nekatere so navedene samo s kratico (YHD, ILCO, KPŠRD).</span></li>
+      <li><span>Stran nima iskalnika.</span></li>
+      <li><span>Dobre zgodbe so v drsniku, naenkrat je vidna ena od šestih.</span></li>
+      <li><span>»Politika kakovosti« v meniju odpre PDF.</span></li>
+      <li><span>Portal za oddajo vlog in gradiva za Svet nimata stalnega mesta v glavi strani.</span></li>
+    </ul>
+  </div>
+  <div class="podnozje"><span><span class="znak"><i></i><i></i></span>Prenova fiho.si</span><span data-st></span></div>
+</section>
+
+<!-- 8 -->
+<section class="slide" aria-label="Na telefonu">
+  <p class="nad"><b>Analiza</b> Mobilni telefon</p>
+  <h2 class="naslov">Na telefonu prvi zaslon zasede en sam naslov</h2>
+  <div class="vsebina primerjava-tel">
+    <div class="telefon"><img src="img/prej/domov-mobile.png" alt="Današnja naslovnica na telefonu"></div>
+    <div><h3>Danes</h3>
+      <ul class="kvadratki">
+        <li><span>Naslov dogodka zasede ves prvi zaslon.</span></li>
+        <li><span>Prvi gumb je šele na drugem zaslonu.</span></li>
+        <li><span>Obojestranska poravnava ustvari luknje med besedami.</span></li>
+        <li><span>Naslovnica je dolga 6.700 pik, približno 8 zaslonov.</span></li>
+      </ul>
+    </div>
+    <div class="telefon"><img src="img/novo/mobile-1.png" alt="Predlog naslovnice na telefonu"></div>
+    <div><h3>Predlog</h3>
+      <ul class="kvadratki dobro">
+        <li><span>Na prvem zaslonu: kdo je FIHO, razpis in gradiva za Svet.</span></li>
+        <li><span>Meni Dostopnost in velikost pisave sta vedno na vrhu.</span></li>
+        <li><span>Besedilo je levo poravnano, z velikimi razmiki med vrsticami.</span></li>
+        <li><span>Gumbi so dovolj veliki za prst.</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="podnozje"><span><span class="znak"><i></i><i></i></span>Prenova fiho.si</span><span data-st></span></div>
+</section>
+
+<!-- 9 -->
+<section class="slide" aria-label="Vizualna podoba">
+  <p class="nad"><b>Analiza</b> Vizualna podoba</p>
+  <h2 class="naslov">Barve strani ne izhajajo iz logotipa</h2>
+  <div class="vsebina barve-zdaj">
+    <div>
+      <p class="oznaka" style="margin-bottom:14px">Barve ozadij na današnji strani</p>
+      <div class="vzorci">
+        <div class="vzorec"><div style="background:#FFE3D4"></div><p><b>Breskev</b>#FFE3D4</p></div>
+        <div class="vzorec"><div style="background:#D4F2FF"></div><p><b>Svetlo modra</b>#D4F2FF</p></div>
+        <div class="vzorec"><div style="background:#FFF1D6"></div><p><b>Krem</b>#FFF1D6</p></div>
+        <div class="vzorec"><div style="background:#F5F5DB"></div><p><b>Bež</b>#F5F5DB</p></div>
+        <div class="vzorec"><div style="background:#2E5262"></div><p><b>Sivo modra</b>#2E5262</p></div>
+        <div class="vzorec"><div style="background:#092633"></div><p><b>Temno modra</b>#092633</p></div>
+      </div>
+      <p class="oznaka" style="margin:28px 0 14px">Barvi logotipa</p>
+      <div class="logo-barve">
+        <div class="vzorec"><div style="background:var(--zelena)"></div><p><b>Zelena FIHO</b>#00A870 · na strani je ni</p></div>
+        <div class="vzorec"><div style="background:var(--modra)"></div><p><b>Modra FIHO</b>#0070B8 · na strani je ni</p></div>
+      </div>
+    </div>
+    <ul class="kvadratki" style="align-content:start">
+      <li><span><b>Šest barv ozadja</b>, ki se menjajo od sekcije do sekcije, a nobena ni iz logotipa. Stran zato ne deluje kot del iste celostne podobe.</span></li>
+      <li><span>Pisava <b>Arimo</b> je brezplačna različica pisave Arial: nevtralna, a brez značaja.</span></li>
+      <li><span>Slike so v različnih slogih: plakat z besedilom, fotografija prenosnika iz fotobanke, portreti v krogu.</span></li>
+      <li><span>Certifikati se vrtijo v neskončnem traku, isti logotipi se ponavljajo.</span></li>
+      <li><span>Gumbi so ponekod obrobljeni, drugje polni, brez jasnega pravila, kateri je glavni.</span></li>
+    </ul>
+  </div>
+  <div class="podnozje"><span><span class="znak"><i></i><i></i></span>Prenova fiho.si</span><span data-st></span></div>
+</section>
+
+<!-- 9b -->
+<section class="slide" aria-label="Meni Dostopnost danes">
+  <p class="nad"><b>Analiza</b> Meni Dostopnost</p>
+  <h2 class="naslov">Meni Dostopnost: dobra osnova z nekaj napakami</h2>
+  <div class="vsebina dostop-zdaj">
+    <div class="okvir"><div class="vrh"><i></i><i></i><i></i><span>fiho.si · Dostopnost</span></div><div class="slika"><img src="img/prej/dostopnost-plosca.png" alt="Odprt meni Dostopnost na fiho.si"></div></div>
+    <div>
+      <p class="oznaka" style="margin-bottom:12px">Deluje</p>
+      <ul class="kvadratki">
+        <li><span>Veliko možnosti: kontrasti, velikost besedila, odebelitev, fokus, kurzor, povečava, ustavitev animacij.</span></li>
+        <li><span>Odpre se s tipkovnico, tipka Esc ga zapre, nastavitve se shranijo.</span></li>
+      </ul>
+      <p class="oznaka" style="margin:26px 0 12px">Popraviti</p>
+      <ul class="kvadratki slabo">
+        <li><span>Pri največji pisavi se naslov <b>zmanjša</b> (68 → 48 px), odstavek zraste na 48 px, meni ostane 18 px.</span></li>
+        <li><span>V barvnih kontrastih izginejo vse slike, tudi logotip in z njim povezava na naslovnico.</span></li>
+        <li><span>Oznake za bralnike zaslona so delno v angleščini (»Open accessibility settings«, »small / medium / big«).</span></li>
+        <li><span>Po zaprtju ostane fokus na skritem gumbu namesto na gumbu »Dostopnost«.</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="podnozje"><span><span class="znak"><i></i><i></i></span>Prenova fiho.si</span><span data-st></span></div>
+</section>
+
+<!-- 10 -->
+<section class="slide" aria-label="Hitri popravki">
+  <p class="nad"><b>Analiza</b> Hitri popravki</p>
+  <h2 class="naslov">Napake, ki jih lahko odpravimo takoj</h2>
+  <p class="uvodnik">Neodvisno od prenove. Vsaka posebej je majhna, skupaj pa zmanjšujejo zaupanje v stran.</p>
+  <ol class="vsebina popravki" style="margin-top:28px">
+    <li><span>Naslov strani z organizacijami se konča z oklepajem: <code>…/invalidske-in-humanitarne-organizacije]</code></span></li>
+    <li><span>Svet FIHO: besedilo navaja 23 članov in 3 predstavnike vlade, seznam pa 21 članov in enega predstavnika. Ime »Midhet Huskić« je zapisano na dva načina.</span></li>
+    <li><span>Opis certifikata se glasi »ISO 9011« namesto ISO 9001.</span></li>
+    <li><span>Uradne ure so na kontaktni strani 9–14, na strani razpisa 9–13, brez pojasnila.</span></li>
+    <li><span>Telefon je zapisan kot »+386(01) 500 77 00«; pravilno je +386 1 500 77 00.</span></li>
+    <li><span>Zavihek »Poročila 2020–2024« odpre naslov »Poročila 2020–2025«.</span></li>
+    <li><span>V zgodovini je odstavek za leto 1995 kopiran pod 1998, vnosa za leto 2008 sta podvojena.</span></li>
+    <li><span>Uvod v zgodovino ponovi besedilo vizije.</span></li>
+    <li><span>Na strani s podatki je ime »Fundacija invalidskih in humanitarnih organizacij Slovenije«, ki ni uradno.</span></li>
+    <li><span>Zadnja dobra zgodba (Društvo Tvoj telefon) nima podpisa.</span></li>
+  </ol>
+  <div class="podnozje"><span><span class="znak"><i></i><i></i></span>Prenova fiho.si</span><span data-st></span></div>
+</section>
+
+<!-- 11 -->
+<section class="slide locilo locilo--m" aria-label="Predlog">
+  <div class="st">2</div>
+  <h2>Predlog nove strani</h2>
+  <p>Javni razpis in gradiva za Svet v ospredju, nova struktura, vizualni sistem iz logotipa in klikljiv prototip.</p>
+  <div class="podnozje"><span><span class="znak"><i></i><i></i></span>Prenova fiho.si</span><span data-st></span></div>
+</section>
+
+<!-- 12 -->
+<section class="slide" aria-label="Nova struktura">
+  <p class="nad"><b>Predlog</b> Struktura</p>
+  <h2 class="naslov">Razpis in gradiva Sveta sta vedno en klik stran</h2>
+  <div class="pripomocki"><span class="oznaka">Vedno na vrhu</span><span class="vstop-z">Portal FIHO Razpisi</span><span class="vstop-m">Gradiva za člane Sveta</span><span>Dostopnost</span><span>Iskanje</span></div>
+  <div class="vsebina zemljevid" style="margin-top:26px">
+    <div class="stolpec"><h3>Za organizacije</h3><ul><li>Javni razpis 2027<small>rok, koraki, dokumenti</small></li><li>Kako oddati vlogo</li><li>Dokumenti in obrazci</li><li>Pogosta vprašanja</li><li>Izobraževanja</li><li>Pretekli razpisi</li></ul></div>
+    <div class="stolpec"><h3>Svet FIHO</h3><ul><li>Gradiva za člane Sveta<small>vstop s prijavo</small></li><li>Seje in sklepi</li><li>Člani Sveta</li><li>Nadzorni odbor</li></ul></div>
+    <div class="stolpec"><h3>Organizacije</h3><ul><li>Imenik organizacij<small>iskanje in filtri</small></li><li>Dobre zgodbe</li><li>Sredstva po letih</li></ul></div>
+    <div class="stolpec"><h3>Novice</h3><ul><li>Novice</li><li>FIHO v medijih</li><li>Partnerstvo za prihodnost</li></ul></div>
+    <div class="stolpec"><h3>Transparentnost</h3><ul><li>Letna poročila</li><li>Akti in zakonodaja</li><li>Javne objave</li><li>Katalog informacij javnega značaja</li><li>Politika kakovosti</li><li>Prijava neetičnih ravnanj</li></ul></div>
+    <div class="stolpec"><h3>O FIHO</h3><ul><li>Poslanstvo in vrednote</li><li>Zgodovina</li><li>Strokovna služba</li><li>Podatki o fundaciji</li><li>Kontakt</li></ul></div>
+  </div>
+  <div class="podnozje"><span><span class="znak"><i></i><i></i></span>Prenova fiho.si</span><span data-st></span></div>
+</section>
+
+<!-- 13 -->
+<section class="slide" aria-label="Vizualni sistem">
+  <p class="nad"><b>Predlog</b> Vizualni sistem</p>
+  <h2 class="naslov">Barve iz logotipa, pisava za slabovidne bralce</h2>
+  <div class="vsebina sistem">
+    <div>
+      <div class="paleta">
+        <div style="grid-column:span 3;background:var(--zelena);color:var(--crnilo)"><b>Zelena FIHO</b><span>#00A870 · iz logotipa</span></div>
+        <div style="grid-column:span 3;background:var(--modra);color:#fff"><b>Modra FIHO</b><span>#0070B8 · iz logotipa</span></div>
+        <div style="grid-column:span 2;background:var(--crnilo);color:#fff"><b>Črnilo</b><span>#0D2231 · besedilo</span></div>
+        <div style="grid-column:span 2;background:var(--rumena);color:var(--crnilo)"><b>Rumena</b><span>#FFD23F · roki, stanje</span></div>
+        <div style="grid-column:span 2;background:var(--megla);color:var(--crnilo);border:1px solid var(--crta)"><b>Megla</b><span>#EEF3F7 · ozadja</span></div>
+      </div>
+      <ul class="kvadratki" style="margin-top:28px">
+        <li><span>Oglati bloki kot v znaku F/H, brez zaobljenih kartic.</span></li>
+        <li><span>Vse kombinacije besedila in ozadja dosegajo kontrast po WCAG 2.2 AA.</span></li>
+      </ul>
+    </div>
+    <div>
+      <p class="oznaka">Atkinson Hyperlegible Next</p>
+      <p class="specimen">Aa Čč Šš Žž</p>
+      <div class="specimen-vrstica"><div>Il1 O0</div><p>Podobne črke in številke so jasno različne. Ničla je prečrtana, da je ne zamenjamo s črko O.</p></div>
+      <p class="opis">Pisavo je za bralce s slabim vidom razvil Braille Institute. Je brezplačna (licenca SIL Open Font License) in podpira vse slovenske znake.</p>
+      <p class="mono-vzorec">Rok za oddajo: 19. 10. 2026<small>Atkinson Hyperlegible Mono za datume, zneske in oznake</small></p>
+    </div>
+  </div>
+  <div class="podnozje"><span><span class="znak"><i></i><i></i></span>Prenova fiho.si</span><span data-st></span></div>
+</section>
+
+<!-- 14 -->
+<section class="slide" aria-label="Prej in potem">
+  <p class="nad"><b>Predlog</b> Naslovnica</p>
+  <h2 class="naslov">Prej in potem</h2>
+  <div class="vsebina prej-potem">
+    <figure><figcaption><i style="background:var(--crta)"></i>Danes</figcaption>
+      <div class="okvir"><div class="vrh"><i></i><i></i><i></i><span>fiho.si</span></div><div class="slika"><img src="img/prej/domov-desktop.png" alt="Današnja naslovnica"></div></div><p>Vabilo na dogodek, šest različnih ozadij, pot do razpisa ni vidna.</p></figure>
+    <figure><figcaption><i style="background:var(--zelena)"></i>Predlog</figcaption>
+      <div class="okvir"><div class="vrh"><i></i><i></i><i></i><span>fiho.si</span></div><div class="slika"><img src="img/novo/domov-1.png" alt="Predlog nove naslovnice"></div></div><p>Dva glavna vstopa takoj pod uvodom: javni razpis z rokom in gradiva za Svet.</p></figure>
+  </div>
+  <div class="podnozje"><span><span class="znak"><i></i><i></i></span>Prenova fiho.si</span><span data-st></span></div>
+</section>
+
+<!-- 15 -->
+<section class="slide" aria-label="Naslovnica">
+  <p class="nad"><b>Predlog</b> Naslovnica</p>
+  <h2 class="naslov">Naslovnica: najprej razpis in Svet</h2>
+  <div class="vsebina naslovnica-zgradba">
+    <ol class="zaporedje">
+      <li><span><b>Kdo je FIHO in dva glavna vstopa</b><span>Javni razpis 2027 in gradiva za Svet</span></span></li>
+      <li><span><b>Javni razpis 2027</b><span>Stanje, rok, odštevanje in časovnica</span></span></li>
+      <li><span><b>Gradiva za člane Sveta</b><span>Vstop, zadnja seja in njeni sklepi</span></span></li>
+      <li><span><b>Sredstva za leto 2027</b><span>26,1 mio € in razdelitev, prikazana v merilu</span></span></li>
+      <li><span><b>Komu so sredstva namenjena</b><span>Področja s številom organizacij</span></span></li>
+      <li><span><b>Dobre zgodbe</b><span>Tri hkrati, s fotografijami in podpisi</span></span></li>
+      <li><span><b>Novice in FIHO v medijih</b><span>Zunanje povezave so jasno označene</span></span></li>
+      <li><span><b>Pregledno delovanje</b><span>Poročila, akti, javne objave, certifikati</span></span></li>
+    </ol>
+    <div class="okvir listaj"><div class="vrh"><i></i><i></i><i></i><span>fiho.si · celotna naslovnica</span></div><div class="slika"><img src="img/novo/domov-full.png" alt="Celotna predlagana naslovnica"></div></div>
+  </div>
+  <div class="podnozje"><span><span class="znak"><i></i><i></i></span>Prenova fiho.si</span><span data-st></span></div>
+</section>
+
+<!-- 16 -->
+<section class="slide" aria-label="Razpis na enem mestu">
+  <p class="nad"><b>Predlog</b> Javni razpis 2027</p>
+  <h2 class="naslov">Vse o razpisu na eni strani</h2>
+  <div class="vsebina razpis-mreza">
+    <div class="okvir"><div class="vrh"><i></i><i></i><i></i><span>fiho.si/za-organizacije/razpis-2027</span></div><div class="slika"><img src="img/novo/razpis.png" alt="Predlog strani Javni razpis 2027"></div></div>
+    <div class="telefon"><img src="img/novo/mobile-razpis.png" alt="Stran razpisa na telefonu"></div>
+    <ul class="kvadratki">
+      <li><span><b>Rok in odštevanje</b> sta prva stvar na strani.</span></li>
+      <li><span><b>Štirje koraki</b> od branja navodil do oddane vloge.</span></li>
+      <li><span><b>Časovnica</b> pokaže, kje v postopku smo.</span></li>
+      <li><span><b>Dokumenti</b> z oznako formata (DOCX, PDF).</span></li>
+      <li><span><b>Pogosta vprašanja</b> in kontakt strokovne službe.</span></li>
+    </ul>
+  </div>
+  <div class="podnozje"><span><span class="znak"><i></i><i></i></span>Prenova fiho.si</span><span data-st></span></div>
+</section>
+
+<!-- 16b -->
+<section class="slide" aria-label="Gradiva za člane Sveta">
+  <p class="nad"><b>Predlog</b> Svet FIHO</p>
+  <h2 class="naslov">Gradiva za člane Sveta na enem mestu</h2>
+  <div class="vsebina razpis-mreza">
+    <div class="okvir"><div class="vrh"><i></i><i></i><i></i><span>fiho.si/svet/gradiva</span></div><div class="slika"><img src="img/novo/svet.png" alt="Predlog strani Gradiva za člane Sveta"></div></div>
+    <div class="telefon"><img src="img/novo/mobile-svet.png" alt="Stran gradiv na telefonu"></div>
+    <ul class="kvadratki">
+      <li><span><b>Vstop z vsake strani</b>, v glavi in na naslovnici.</span></li>
+      <li><span><b>Gradiva po sejah</b>, z datumom in dnevnim redom.</span></li>
+      <li><span><b>Obvestilo po e-pošti</b>, ko so gradiva objavljena.</span></li>
+      <li><span><b>Pomoč pri prijavi</b> takoj na strani.</span></li>
+      <li><span>Zastarelo aplikacijo zamenja <b>sodobna rešitev s podporo</b> in varno prijavo.</span></li>
+    </ul>
+  </div>
+  <div class="podnozje"><span><span class="znak"><i></i><i></i></span>Prenova fiho.si</span><span data-st></span></div>
+</section>
+
+<!-- 17 -->
+<section class="slide" aria-label="Imenik organizacij">
+  <p class="nad"><b>Predlog</b> Kam gredo sredstva</p>
+  <h2 class="naslov">Imenik 120 organizacij z iskanjem</h2>
+  <div class="vsebina posnetek-ugot">
+    <div class="okvir"><div class="vrh"><i></i><i></i><i></i><span>fiho.si/organizacije</span></div><div class="slika"><img src="img/novo/organizacije.png" alt="Predlog imenika organizacij, filtrirano po področju Duševno zdravje"></div></div>
+    <ul class="kvadratki">
+      <li><span>Iskanje po imenu, delu imena ali področju, tudi brez šumnikov.</span></li>
+      <li><span>Filter invalidske / humanitarne in izbira področja.</span></li>
+      <li><span>Abecedni seznam s slovenskim vrstnim redom (C, Č, D … S, Š).</span></li>
+      <li><span>Vsaka organizacija lahko dobi svojo stran: opis, kontakt, spletna stran in dobre zgodbe.</span></li>
+      <li><span>Področja so v prototipu določena okvirno. Razvrstitev bi pripravili skupaj s FIHO.</span></li>
+    </ul>
+  </div>
+  <div class="podnozje"><span><span class="znak"><i></i><i></i></span>Prenova fiho.si</span><span data-st></span></div>
+</section>
+
+<!-- 18 -->
+<section class="slide" aria-label="Dostopnost">
+  <p class="nad"><b>Predlog</b> Dostopnost</p>
+  <h2 class="naslov">Dostopnost: enake možnosti, brez napak</h2>
+  <div class="vsebina prej-potem" style="grid-template-columns:620px 620px;gap:56px;flex:none">
+    <figure><figcaption><i style="background:var(--crta)"></i>Danes: največja pisava, rumena na modri</figcaption>
+      <div class="okvir"><div class="vrh"><i></i><i></i><i></i><span>fiho.si</span></div><div class="slika"><img src="img/prej/velika-pisava.png" alt="Današnja stran pri največji pisavi in rumeni na modri"></div></div>
+      <p>Naslov se zmanjša, meni ostane majhen, logotip in slike izginejo.</p></figure>
+    <figure><figcaption><i style="background:var(--zelena)"></i>Predlog: enaki nastavitvi</figcaption>
+      <div class="okvir"><div class="vrh"><i></i><i></i><i></i><span>fiho.si</span></div><div class="slika"><img src="img/novo/kontrast.png" alt="Predlog pri največji pisavi in rumeni na modri"></div></div>
+      <p>Vse se poveča sorazmerno, meni se prelomi v novo vrstico, logotip in slike ostanejo.</p></figure>
+  </div>
+  <p class="dostop-noga">FIHO že objavlja izjavo o dostopnosti po ZDSMA. Nova stran naj zahteve izpolnjuje v zasnovi: kontrast po WCAG 2.2 AA, tipkovnica in bralniki zaslona, preizkus z uporabniki iz organizacij.</p>
+  <div class="podnozje"><span><span class="znak"><i></i><i></i></span>Prenova fiho.si</span><span data-st></span></div>
+</section>
+
+<!-- 19 -->
+<section class="slide hvala temna" aria-label="Hvala">
+  <div class="mreza">
+    <div>
+      <div class="velik-znak" aria-hidden="true"><i></i><i></i></div>
+      <h2 style="margin-top:40px">Hvala.</h2>
+      <p>Z veseljem odgovorim na vprašanja in predlog prilagodim vašim potrebam.</p>
+    </div>
+    <div class="povezava">
+      <p class="oznaka">Klikljiv prototip</p>
+      <b>Predlog si lahko ogledate v živo</b>
+      <p>Naslovnico, stran razpisa 2027, gradiva za Svet in imenik organizacij z iskanjem, filtri in nastavitvami dostopnosti z veseljem pokažem na sestanku.</p>
+    </div>
+  </div>
+  <div class="podnozje"><span><span class="znak"><i></i><i></i></span>Neža Sevčnikar · oktober 2026</span><span data-st></span></div>
+</section>
+
+</div></div>
+
+<div class="kontrole" aria-label="Upravljanje predstavitve">
+  <button type="button" id="nazaj" aria-label="Prejšnji diapozitiv">←</button>
+  <span id="stevec">1 / 19</span>
+  <button type="button" id="naprej" aria-label="Naslednji diapozitiv">→</button>
+  <button type="button" id="cel" aria-label="Celozaslonski način">⛶</button>
+</div>
+<div class="napredek" id="napredek"></div>
+
+<script>
+const platno = document.getElementById("platno");
+const prosojnice = [...document.querySelectorAll(".slide")];
+const N = prosojnice.length;
+prosojnice.forEach((s, i) => s.querySelectorAll("[data-st]").forEach(el => el.textContent = `${String(i + 1).padStart(2, "0")} / ${N}`));
+
+function prilagodi(){
+  const k = Math.min(window.innerWidth / 1600, window.innerHeight / 900);
+  platno.style.transform = `scale(${k})`;
+}
+let trenutna = 0;
+function pokazi(i){
+  trenutna = Math.max(0, Math.min(N - 1, i));
+  prosojnice.forEach((s, j) => s.classList.toggle("aktivna", j === trenutna));
+  document.getElementById("stevec").textContent = `${trenutna + 1} / ${N}`;
+  document.getElementById("napredek").style.width = `${(trenutna + 1) / N * 100}%`;
+  if (location.hash !== "#" + (trenutna + 1)) history.replaceState(null, "", "#" + (trenutna + 1));
+}
+document.addEventListener("keydown", e => {
+  if (["ArrowRight", "PageDown", " ", "Enter"].includes(e.key)) { e.preventDefault(); pokazi(trenutna + 1); }
+  else if (["ArrowLeft", "PageUp", "Backspace"].includes(e.key)) { e.preventDefault(); pokazi(trenutna - 1); }
+  else if (e.key === "Home") pokazi(0);
+  else if (e.key === "End") pokazi(N - 1);
+  else if (e.key === "f" || e.key === "F") celZaslon();
+});
+document.getElementById("naprej").addEventListener("click", () => pokazi(trenutna + 1));
+document.getElementById("nazaj").addEventListener("click", () => pokazi(trenutna - 1));
+function celZaslon(){
+  try {
+    if (!document.fullscreenElement) document.documentElement.requestFullscreen?.().catch(() => {});
+    else document.exitFullscreen?.();
+  } catch {}
+}
+document.getElementById("cel").addEventListener("click", celZaslon);
+window.addEventListener("resize", prilagodi);
+prilagodi();
+pokazi((parseInt(location.hash.slice(1), 10) || 1) - 1);
+</script>
+</body>
+</html>
