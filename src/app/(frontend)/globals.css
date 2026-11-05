@@ -777,10 +777,15 @@ html.landing-passed section.landing {
 .landing-bottom {
   position: absolute;
   left: var(--page-pad);
-  font-size: 11px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
   color: var(--sheet);
+}
+
+/* The site's own masthead setting, so the first screen is read in the same
+   voice as every page after it. */
+.landing-name {
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
 }
 
 .landing-top {
@@ -818,11 +823,11 @@ html.landing-passed section.landing {
   text-indent: -0.45em;
 }
 
+/* Set as a caption under a picture is set, not as small capitals. */
 .landing-source {
   margin: 14px 0 0;
   font-size: 11px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  line-height: 1.45;
   color: var(--sheet);
   opacity: 0.72;
 }
@@ -830,9 +835,8 @@ html.landing-passed section.landing {
 /* What the book is, small, a short step under the quote and its source. */
 .landing-label {
   margin: clamp(24px, 4.5vh, 44px) 0 0;
-  font-size: 11px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  font-size: 13px;
+  line-height: 1.45;
   color: var(--sheet);
 }
 
