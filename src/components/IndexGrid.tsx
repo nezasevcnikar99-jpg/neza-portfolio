@@ -9,19 +9,16 @@ type Phone = { side: "wide" | "sq-left" | "sq-right"; order: number };
 
 /**
  * The project's second picture for the hover: the one chosen in the admin, or
- * else the first photograph or visualisation in the gallery — a picture meant
- * to be seen whole (a plan, a poster) does not read through the panel.
+ * else the first photograph or visualisation in the gallery, or failing that
+ * its first drawing — faint behind the quote, a plan reads well too.
  */
 function secondPicture(p: Project, hero: Media | null): Media | null {
   const chosen = typeof p.hoverImage === "object" ? (p.hoverImage as Media | null) : null;
   if (chosen?.url && chosen.mimeType?.startsWith("image/")) return chosen;
-  for (const row of p.gallery ?? []) {
-    const m = typeof row.image === "object" ? (row.image as Media | null) : null;
-    if (!m?.url || !m.mimeType?.startsWith("image/") || m.showWhole) continue;
-    if (hero && m.id === hero.id) continue;
-    return m;
-  }
-  return null;
+  const pictures = (p.gallery ?? [])
+    .map((row) => (typeof row.image === "object" ? (row.image as Media | null) : null))
+    .filter((m): m is Media => Boolean(m?.url && m.mimeType?.startsWith("image/") && (!hero || m.id !== hero.id)));
+  return pictures.find((m) => !m.showWhole) ?? pictures[0] ?? null;
 }
 
 function ImageCell({ cell, phone }: { cell: Extract<Cell, { kind: "image" }>; phone: Phone }) {
