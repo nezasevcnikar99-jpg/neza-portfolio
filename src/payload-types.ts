@@ -218,6 +218,10 @@ export interface Project {
   };
   heroImage?: (number | null) | Media;
   /**
+   * Na prvi strani rahlo prosije skozi belo ploščo s citatom. Če je prazno, se vzame prva fotografija ali vizualizacija iz galerije.
+   */
+  hoverImage?: (number | null) | Media;
+  /**
    * Prikazano dokler glavna fotografija ni naložena (npr. "fotografija objekta", "vizualizacija").
    */
   imgLabel?: string | null;
@@ -417,6 +421,7 @@ export interface ProjectsSelect<T extends boolean = true> {
         y?: T;
       };
   heroImage?: T;
+  hoverImage?: T;
   imgLabel?: T;
   intro?: T;
   stranka?: T;

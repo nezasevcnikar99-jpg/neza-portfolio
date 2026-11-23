@@ -7,11 +7,29 @@ import IndexMotion from "./IndexMotion";
 /** How a picture sits in the phone's stack: wide across, or narrower beside its caption. */
 type Phone = { side: "wide" | "sq-left" | "sq-right"; order: number };
 
+/**
+ * The project's second picture for the hover: the one chosen in the admin, or
+ * else the first photograph or visualisation in the gallery — a picture meant
+ * to be seen whole (a plan, a poster) does not read through the panel.
+ */
+function secondPicture(p: Project, hero: Media | null): Media | null {
+  const chosen = typeof p.hoverImage === "object" ? (p.hoverImage as Media | null) : null;
+  if (chosen?.url && chosen.mimeType?.startsWith("image/")) return chosen;
+  for (const row of p.gallery ?? []) {
+    const m = typeof row.image === "object" ? (row.image as Media | null) : null;
+    if (!m?.url || !m.mimeType?.startsWith("image/") || m.showWhole) continue;
+    if (hero && m.id === hero.id) continue;
+    return m;
+  }
+  return null;
+}
+
 function ImageCell({ cell, phone }: { cell: Extract<Cell, { kind: "image" }>; phone: Phone }) {
   const p = cell.project;
   const doc = typeof p.heroImage === "object" ? (p.heroImage as Media | null) : null;
   const hero = doc?.mimeType?.startsWith("image/") ? doc : null;
   const quote = p.quote?.trim();
+  const second = secondPicture(p, hero);
   // The index may crop the picture differently from the project page, which
   // uses whatever was set on the image itself.
   const x = p.indexFocal?.x ?? hero?.focalX ?? 50;
@@ -53,7 +71,20 @@ function ImageCell({ cell, phone }: { cell: Extract<Cell, { kind: "image" }>; ph
         {/* Always the colour, so every project answers the pointer; the line
             only where one is written, or an empty quote prints as bare marks.
             The marks are the Slovene ones. */}
-        <span className="cell-quote">
+        {/* Shows faintly through the panel, as through tracing paper. Lazy, and
+            hidden on a phone where nothing hovers, so it is only fetched where
+            it can be seen. */}
+        {second?.url && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={second.url}
+            alt=""
+            loading="lazy"
+            className="cell-photo-alt"
+            style={{ objectPosition: `${second.focalX ?? 50}% ${second.focalY ?? 50}%` }}
+          />
+        )}
+        <span className={second?.url ? "cell-quote has-alt" : "cell-quote"}>
           {p.category && <span className="cell-quote-kind">{p.category}</span>}
           <span className="cell-quote-name">{p.title}</span>
           {quote && <span className="cell-quote-text">{`\u00bb${quote}\u00ab`}</span>}

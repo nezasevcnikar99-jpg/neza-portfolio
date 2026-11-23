@@ -17,6 +17,8 @@ export const MEDIA_USAGE_SQL = `
     UNION ALL
     SELECT document_id, title || ' · za prenos' FROM projects WHERE document_id IS NOT NULL
     UNION ALL
+    SELECT hover_image_id, title || ' · ob prehodu' FROM projects WHERE hover_image_id IS NOT NULL
+    UNION ALL
     SELECT landing_media_id, 'Naslovnica' FROM home WHERE landing_media_id IS NOT NULL
     UNION ALL
     SELECT landing_poster_id, 'Naslovnica · ozadje videa' FROM home WHERE landing_poster_id IS NOT NULL

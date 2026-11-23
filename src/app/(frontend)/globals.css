@@ -301,6 +301,33 @@ a {
   opacity: 1;
 }
 
+/* The second picture, under a panel that lets it through like tracing paper,
+   so the quote stays as readable as on plain white. */
+.cell-photo-alt {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.45s ease;
+}
+
+.cell-quote.has-alt {
+  background: color-mix(in srgb, var(--hover) 82%, transparent);
+}
+
+.cell-image:hover .cell-photo-alt,
+.cell-image:focus-visible .cell-photo-alt {
+  opacity: 1;
+}
+
+@media (max-width: 900px) {
+  .cell-photo-alt {
+    display: none;
+  }
+}
+
 .cell-type {
   position: absolute;
   inset: 0;

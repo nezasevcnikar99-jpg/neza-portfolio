@@ -51,6 +51,7 @@ Vse za tem naslovom je besedilo koncepta. Prazna vrstica pomeni nov odstavek.
 | `velikost`   | oblika v mreži na prvi strani: samodejno, kvadrat ali ležeče       |
 | `oblika`     | `besedilo` za eseje (besedilo čez sredino strani), sicer `projekt` |
 | `galerija`   | ena vrstica na sliko: `ime datoteke | stran ali galerija | opis`   |
+| `druga`      | slika, ki ob prehodu miške prosije skozi ploščo s citatom (sicer prva fotografija iz galerije) |
 | `datoteka`   | PDF za prenos iz `content/files/` (npr. oblikovan list eseja)      |
 | `oznakaDatoteke` | napis ob povezavi za prenos                                    |
 | `cele`       | slike, ki se ne obrežejo (tlorisi, prerezi), ločene z vejico       |

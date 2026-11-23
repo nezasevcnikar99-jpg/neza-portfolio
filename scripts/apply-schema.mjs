@@ -107,6 +107,12 @@ const STATEMENTS = [
   `UPDATE "projects" SET "category" = 'Esej'
      WHERE "slug" = 'kdo-in-kaj-je-arhitekt' AND "category"::text = 'Raziskava'
        AND "updated_at" <= '2026-09-18T17:48:46.630Z'`,
+  `ALTER TABLE "projects" ADD COLUMN IF NOT EXISTS "hover_image_id" integer`,
+  `CREATE INDEX IF NOT EXISTS "projects_hover_image_idx" ON "projects" ("hover_image_id")`,
+  `DO $$ BEGIN
+     ALTER TABLE "projects" ADD CONSTRAINT "projects_hover_image_id_media_id_fk"
+       FOREIGN KEY ("hover_image_id") REFERENCES "media"("id") ON DELETE SET NULL;
+   EXCEPTION WHEN duplicate_object THEN NULL; END $$`,
   `ALTER TABLE "settings" ADD COLUMN IF NOT EXISTS "phone" varchar`,
   `ALTER TABLE "settings" ADD COLUMN IF NOT EXISTS "linkedin" varchar`,
   // The phone from the CV, filled in once: only while the settings have not been
@@ -137,6 +143,8 @@ const MEDIA_USAGE_SQL = `
       FROM projects_gallery g JOIN projects p ON p.id = g._parent_id WHERE g.image_id IS NOT NULL
     UNION ALL
     SELECT document_id, title || ' · za prenos' FROM projects WHERE document_id IS NOT NULL
+    UNION ALL
+    SELECT hover_image_id, title || ' · ob prehodu' FROM projects WHERE hover_image_id IS NOT NULL
     UNION ALL
     SELECT landing_media_id, 'Naslovnica' FROM home WHERE landing_media_id IS NOT NULL
     UNION ALL

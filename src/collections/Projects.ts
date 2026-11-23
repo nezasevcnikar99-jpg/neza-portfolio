@@ -148,6 +148,19 @@ export const Projects: CollectionConfig = {
       relationTo: "media",
     },
     {
+      // Seen through the white panel when the pointer is over the project on
+      // the index. Left empty, the first photograph of the gallery is used.
+      name: "hoverImage",
+      type: "upload",
+      relationTo: "media",
+      label: "Druga slika ob prehodu miške",
+      filterOptions: { mimeType: { contains: "image" } },
+      admin: {
+        description:
+          "Na prvi strani rahlo prosije skozi belo ploščo s citatom. Če je prazno, se vzame prva fotografija ali vizualizacija iz galerije.",
+      },
+    },
+    {
       name: "imgLabel",
       type: "text",
       label: "Oznaka manjkajoče slike",

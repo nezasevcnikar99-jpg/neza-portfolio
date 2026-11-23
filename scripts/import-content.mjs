@@ -384,6 +384,11 @@ async function importOne(name) {
     if (Number.isFinite(x) && Number.isFinite(y)) data.indexFocal = { x, y };
   }
 
+  // The picture seen through the panel on the index when the pointer is over it.
+  if (meta.druga) {
+    data.hoverImage = await mediaId(token, meta.druga, `${title} – ob prehodu`, cache);
+  }
+
   // A PDF to download: uploaded from content/files like any other file.
   if (meta.datoteka) {
     data.document = await mediaId(token, meta.datoteka, `${title} – za prenos`, cache);
