@@ -556,6 +556,10 @@ export interface Setting {
   name: string;
   email: string;
   /**
+   * Ko je izklopljeno, Google strani ne prikazuje v zadetkih; dostopna je le prek povezave. Za hitrejšo odstranitev uporabi še »Odstranitve« v Google Search Console.
+   */
+  searchVisible?: boolean | null;
+  /**
    * Prikazan na straneh Kontakt in O meni. Pusti prazno, če ga ne želiš objaviti.
    */
   phone?: string | null;
@@ -612,6 +616,7 @@ export interface AboutSelect<T extends boolean = true> {
 export interface SettingsSelect<T extends boolean = true> {
   name?: T;
   email?: T;
+  searchVisible?: T;
   phone?: T;
   linkedin?: T;
   updatedAt?: T;

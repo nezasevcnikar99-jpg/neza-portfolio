@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { getAllProjects } from "@/lib/projects-data";
+import { getSettings } from "@/lib/settings";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.nezasevcnikar.eu";
 
@@ -8,6 +9,9 @@ export const dynamic = "force-dynamic";
 
 /** Every page a search engine should know about, for Google Search Console. */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  // A hidden site lists nothing, so it is not offered to Google afresh.
+  const settings = await getSettings().catch(() => null);
+  if (settings?.searchVisible === false) return [];
   const projects = await getAllProjects();
   const pages = ["", "/archive", "/about", "/kontakt"].map((path) => ({
     url: `${SITE_URL}${path}`,

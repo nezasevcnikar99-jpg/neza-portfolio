@@ -113,6 +113,7 @@ const STATEMENTS = [
      ALTER TABLE "projects" ADD CONSTRAINT "projects_hover_image_id_media_id_fk"
        FOREIGN KEY ("hover_image_id") REFERENCES "media"("id") ON DELETE SET NULL;
    EXCEPTION WHEN duplicate_object THEN NULL; END $$`,
+  `ALTER TABLE "settings" ADD COLUMN IF NOT EXISTS "search_visible" boolean DEFAULT true`,
   `ALTER TABLE "settings" ADD COLUMN IF NOT EXISTS "phone" varchar`,
   `ALTER TABLE "settings" ADD COLUMN IF NOT EXISTS "linkedin" varchar`,
   // The phone from the CV, filled in once: only while the settings have not been
