@@ -59,10 +59,15 @@ Vse za tem naslovom je besedilo koncepta. Prazna vrstica pomeni nov odstavek.
 Slike, naštete pri `cele`, se v vsakem okvirju pokažejo vse, na svetli
 podlagi. Uvoz jih samo vklopi; izklopiš jih v adminu pri sliki.
 
-**Vrstni red v galeriji** je vedno: najprej načrti obstoječega stanja (s
-tlorisi rušenja), nato načrti prenove, na koncu fotografije. Tri slike z
-oznako `stran` naj v tem zaporedju ohranijo svoj medsebojni vrstni red, ker
-vrstni red določa, v kateri okvir pride katera.
+**Vrstni red v galeriji** je vedno:
+
+1. obstoječe stanje – situacija, tlorisi, prerezi, fasade;
+2. novo – tlorisi, prerezi, fasade, nato tlorisi rušitev;
+3. sheme, nato fotografije.
+
+Novi načrti se imenujejo z dodatkom » – idejna zasnova«, npr. »Tloris
+pritličja – idejna zasnova«, »Tloris rušitev pritličja – idejna zasnova«.
+Slike z oznako `stran` se na strani projekta pokažejo v istem vrstnem redu.
 
 `stran` pomeni, da se slika vidi že na strani projekta. Mest je štiri —
 naslovna in tri od tu; kar je čez, gre kljub oznaki v galerijo. `galerija`

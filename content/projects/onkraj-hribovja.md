@@ -15,23 +15,23 @@ galerija:
   oh-obstojece-tloris-podstresje-04.jpg | galerija | Obstoječe stanje – tloris podstrešja
   oh-obstojece-prerez-a-05.jpg | galerija | Obstoječe stanje – prerez A–A
   oh-obstojece-prerez-b-06.jpg | galerija | Obstoječe stanje – prerez B–B
-  oh-obstojece-fasada-vzhodna-07.jpg | galerija | Obstoječe stanje – vzhodna fasada
-  oh-obstojece-fasada-zahodna-08.jpg | galerija | Obstoječe stanje – zahodna fasada
   oh-obstojece-fasada-juzna-09.jpg | galerija | Obstoječe stanje – južna fasada
   oh-obstojece-fasada-severna-10.jpg | galerija | Obstoječe stanje – severna fasada
-  oh-nacrt-rusenje-pritlicje-12.jpg | galerija | Tloris rušenja – pritličje
-  oh-nacrt-rusenje-nadstropje-13.jpg | galerija | Tloris rušenja – nadstropje
-  oh-nacrt-rusenje-podstresje-14.jpg | galerija | Tloris rušenja – podstrešje
-  oh-nacrt-prerez-a-06.jpg | galerija | Prerez A–A
-  oh-nacrt-prerez-b-07.jpg | stran | Prerez B–B
-  oh-nacrt-fasada-juzna-10.jpg | stran | Južna fasada
-  oh-nacrt-fasada-vzhodna-08.jpg | galerija | Vzhodna fasada
-  oh-nacrt-fasada-zahodna-09.jpg | galerija | Zahodna fasada
-  oh-nacrt-fasada-severna-11.jpg | galerija | Severna fasada
-  oh-nacrt-tloris-pritlicje-02.jpg | stran | Tloris pritličja
-  oh-nacrt-tloris-nadstropje-03.jpg | galerija | Tloris nadstropja
-  oh-nacrt-tloris-mansarda-04.jpg | galerija | Tloris mansarde
-  oh-nacrt-tloris-podstreha-05.jpg | galerija | Tloris podstrehe
+  oh-obstojece-fasada-vzhodna-07.jpg | galerija | Obstoječe stanje – vzhodna fasada
+  oh-obstojece-fasada-zahodna-08.jpg | galerija | Obstoječe stanje – zahodna fasada
+  oh-nacrt-tloris-pritlicje-02.jpg | stran | Tloris pritličja – idejna zasnova
+  oh-nacrt-tloris-nadstropje-03.jpg | galerija | Tloris nadstropja – idejna zasnova
+  oh-nacrt-tloris-mansarda-04.jpg | galerija | Tloris mansarde – idejna zasnova
+  oh-nacrt-tloris-podstreha-05.jpg | galerija | Tloris podstrehe – idejna zasnova
+  oh-nacrt-prerez-a-06.jpg | galerija | Prerez A–A – idejna zasnova
+  oh-nacrt-prerez-b-07.jpg | stran | Prerez B–B – idejna zasnova
+  oh-nacrt-fasada-juzna-10.jpg | stran | Južna fasada – idejna zasnova
+  oh-nacrt-fasada-severna-11.jpg | galerija | Severna fasada – idejna zasnova
+  oh-nacrt-fasada-vzhodna-08.jpg | galerija | Vzhodna fasada – idejna zasnova
+  oh-nacrt-fasada-zahodna-09.jpg | galerija | Zahodna fasada – idejna zasnova
+  oh-nacrt-rusenje-pritlicje-12.jpg | galerija | Tloris rušitev pritličja – idejna zasnova
+  oh-nacrt-rusenje-nadstropje-13.jpg | galerija | Tloris rušitev nadstropja – idejna zasnova
+  oh-nacrt-rusenje-podstresje-14.jpg | galerija | Tloris rušitev podstrešja – idejna zasnova
   oh-fotografija-01.jpg | galerija | Obstoječe stanje – gank
   oh-fotografija-02.jpg | galerija | Obstoječe stanje – vhod pod gankom
   oh-fotografija-03.jpg | galerija | Obstoječe stanje – zaraščena fasada

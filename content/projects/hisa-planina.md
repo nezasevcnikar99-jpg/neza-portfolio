@@ -21,18 +21,18 @@ galerija:
   pl-obstojece-fasada-severna-10.jpg | galerija | Obstoječe stanje – severna fasada
   pl-obstojece-fasada-vzhodna-07.jpg | galerija | Obstoječe stanje – vzhodna fasada
   pl-obstojece-fasada-zahodna-08.jpg | galerija | Obstoječe stanje – zahodna fasada
-  pl-nacrt-rusenje-pritlicje-12.jpg | galerija | Tloris rušenja – pritličje
-  pl-nacrt-rusenje-nadstropje-13.jpg | galerija | Tloris rušenja – nadstropje
-  pl-nacrt-prerez-a-05.jpg | galerija | Prerez A–A
-  pl-nacrt-prerez-b-06.jpg | stran | Prerez B–B
-  pl-nacrt-prerez-c-07.jpg | galerija | Prerez C–C
-  pl-nacrt-fasada-juzna-09.jpg | stran | Južna fasada
-  pl-nacrt-fasada-severna-08.jpg | galerija | Severna fasada
-  pl-nacrt-fasada-vzhodna-10.jpg | galerija | Vzhodna fasada
-  pl-nacrt-fasada-zahodna-11.jpg | galerija | Zahodna fasada
-  pl-nacrt-tloris-pritlicje-02.jpg | stran | Tloris pritličja
-  pl-nacrt-tloris-nadstropje-03.jpg | galerija | Tloris nadstropja
-  pl-nacrt-tloris-podstresje-04.jpg | galerija | Tloris podstrešja
+  pl-nacrt-tloris-pritlicje-02.jpg | stran | Tloris pritličja – idejna zasnova
+  pl-nacrt-tloris-nadstropje-03.jpg | galerija | Tloris nadstropja – idejna zasnova
+  pl-nacrt-tloris-podstresje-04.jpg | galerija | Tloris podstrešja – idejna zasnova
+  pl-nacrt-prerez-a-05.jpg | galerija | Prerez A–A – idejna zasnova
+  pl-nacrt-prerez-b-06.jpg | stran | Prerez B–B – idejna zasnova
+  pl-nacrt-prerez-c-07.jpg | galerija | Prerez C–C – idejna zasnova
+  pl-nacrt-fasada-juzna-09.jpg | stran | Južna fasada – idejna zasnova
+  pl-nacrt-fasada-severna-08.jpg | galerija | Severna fasada – idejna zasnova
+  pl-nacrt-fasada-vzhodna-10.jpg | galerija | Vzhodna fasada – idejna zasnova
+  pl-nacrt-fasada-zahodna-11.jpg | galerija | Zahodna fasada – idejna zasnova
+  pl-nacrt-rusenje-pritlicje-12.jpg | galerija | Tloris rušitev pritličja – idejna zasnova
+  pl-nacrt-rusenje-nadstropje-13.jpg | galerija | Tloris rušitev nadstropja – idejna zasnova
   pl-fotografija-01.jpg | galerija | Obstoječe stanje – hiša ob cesti
   pl-fotografija-02.jpg | galerija | Obstoječe stanje – fasada z bršljanom
   pl-fotografija-03.jpg | galerija | Obstoječe stanje – dvorišče

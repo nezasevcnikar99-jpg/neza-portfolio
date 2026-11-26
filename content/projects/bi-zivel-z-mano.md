@@ -9,11 +9,11 @@ vloga: Idejni fakultetni projekt
 naslovna: bzm-pogled-01.jpg
 cele: bzm-tloris-pritlicje-01.jpg, bzm-prerez-01.jpg, bzm-tloris-nadstropje-01.jpg, bzm-shema-razvoj-01.jpg, bzm-situacija-01.jpg, bzm-sestavljanje-01.jpg, bzm-bivanje-01.jpg, bzm-dnevni-center-02.jpg, bzm-mehurcki-02.jpg
 galerija:
-  bzm-shema-razvoj-01.jpg | galerija | Obstoječa stavba, razširitev, nove osi
   bzm-situacija-01.jpg | galerija | Situacija
-  bzm-tloris-pritlicje-01.jpg | stran | Tloris pritličja
-  bzm-prerez-01.jpg | stran | Prerez A–A
-  bzm-tloris-nadstropje-01.jpg | stran | Tloris nadstropja
+  bzm-tloris-pritlicje-01.jpg | stran | Tloris pritličja – idejna zasnova
+  bzm-tloris-nadstropje-01.jpg | stran | Tloris nadstropja – idejna zasnova
+  bzm-prerez-01.jpg | stran | Prerez A–A – idejna zasnova
+  bzm-shema-razvoj-01.jpg | galerija | Obstoječa stavba, razširitev, nove osi
   bzm-sestavljanje-01.jpg | galerija | Sestavljanje v različnem merilu
   bzm-bivanje-01.jpg | galerija | Bivanje – bivanjska skupnost in samostojna stanovanja
   bzm-dnevni-center-02.jpg | galerija | Delo in druženje – dnevni center
