@@ -1605,15 +1605,18 @@ html.landing-passed section.landing {
     margin: 0;
     aspect-ratio: auto;
   }
+  /* The desktop grid sets each cell's span inline; on a phone the span comes
+     from the phone's own layout, so these win over it. */
   .index-grid > .cell-image {
     order: var(--m-order);
+    grid-column: span 1 !important;
   }
   .index-grid > .cell-image[data-m="wide"] {
-    grid-column: span 2;
+    grid-column: span 2 !important;
   }
   /* A square with no partner keeps its row to itself, at half width. */
   .index-grid > .cell-image[data-m^="sq-alone"] {
-    grid-column: span 2;
+    grid-column: span 2 !important;
   }
   .index-grid > .cell-image[data-m^="sq-alone"] .cell-inner,
   .index-grid > .cell-image[data-m^="sq-alone"] .cell-mcaption {
