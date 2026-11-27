@@ -166,6 +166,8 @@ function assignLabels(images: Placed[], lastBand: number) {
  * project when the year still has one, and with another text panel only when
  * it has not; a project likewise prefers a text panel beside it. A square left
  * with no partner in its year takes the full width. Pairs stay within a year.
+ * In pairs of a text panel and a picture, the text panel changes sides from
+ * one such pair to the next, so the panels form a chequer down the page.
  */
 export type PhoneSide = "wide" | "sq-left" | "sq-right";
 
@@ -184,6 +186,7 @@ export function phoneLayout(projects: Project[]): Map<string, { side: PhoneSide;
   const used = new Set<number>();
   const out = new Map<string, { side: PhoneSide; order: number }>();
   let order = 0;
+  let textSide: "left" | "right" = "right";
   const place = (p: Project, side: PhoneSide) => out.set(p.slug, { side, order: order++ });
 
   ordered.forEach((p, i) => {
@@ -199,8 +202,15 @@ export function phoneLayout(projects: Project[]): Map<string, { side: PhoneSide;
 
     if (!partner) return place(p, "wide");
     used.add(partner.j);
-    place(p, "sq-left");
-    place(partner.q, "sq-right");
+    let [left, right] = [p, partner.q];
+    if (isText(p) !== isText(partner.q)) {
+      textSide = textSide === "left" ? "right" : "left";
+      const text = isText(p) ? p : partner.q;
+      const picture = text === p ? partner.q : p;
+      [left, right] = textSide === "left" ? [text, picture] : [picture, text];
+    }
+    place(left, "sq-left");
+    place(right, "sq-right");
   });
   return out;
 }
