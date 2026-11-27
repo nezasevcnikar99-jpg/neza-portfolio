@@ -1623,32 +1623,15 @@ html.landing-passed section.landing {
     padding: 0;
     object-position: 50% 100%;
   }
-  /* The picture arrives settling out of a slight zoom, then travels inside its
-     frame as the page scrolls (src/components/IndexMotion.tsx). Only with
-     JavaScript, so the grid without it is simply still. */
-  .index-grid.motion > .cell-image {
-    opacity: 0;
-    transition: opacity 0.6s ease;
-  }
-  .index-grid.motion > .cell-image.is-in {
-    opacity: 1;
-  }
-  .index-grid.motion .cell-par {
-    top: -13%;
-    bottom: auto;
-    height: 126%;
-  }
-  .index-grid.motion .cell-image:has(.is-whole) .cell-par {
-    top: 0;
-    height: 100%;
-  }
+  /* Black and white, with the row nearest the middle of the screen in colour
+     (src/components/IndexMotion.tsx). Only with JavaScript, so the grid
+     without it is simply in colour. */
   .index-grid.motion .cell-photo {
-    transform: scale(1.07);
-    transition: transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+    filter: grayscale(1);
+    transition: filter 0.5s ease;
   }
-  .index-grid.motion .cell-image.is-in .cell-photo,
-  .index-grid.motion .cell-photo.is-whole {
-    transform: none;
+  .index-grid.motion .cell-image.is-mid .cell-photo {
+    filter: none;
   }
 
   .index-grid .cell-mcaption {
