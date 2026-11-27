@@ -131,7 +131,7 @@ export default function IndexGrid({ projects, lang = "sl" }: { projects: Project
   const phone = new Map<number, Phone>();
   for (const cell of cells) {
     if (cell.kind !== "image") continue;
-    phone.set(cell.index, layout.get(cell.project.slug) ?? { side: "sq-alone", order: 999 });
+    phone.set(cell.index, layout.get(cell.project.slug) ?? { side: "wide", order: 999 });
   }
 
   return (

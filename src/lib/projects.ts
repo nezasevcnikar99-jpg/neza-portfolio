@@ -161,13 +161,13 @@ function assignLabels(images: Placed[], lastBand: number) {
  */
 /**
  * The phone's stack, in the admin's order (newest year first): wide pictures
- * run the full width, square ones pair up two to a row. A written piece without
- * a picture (a text panel) is always paired with a project, never with another
- * text panel, and a project prefers a text panel beside it, so essays and
- * projects mix; a square left without a partner stands alone at half width.
- * Pairs are made only within one year.
+ * run the full width, square ones pair up two to a row, so no row is left
+ * half empty. A written piece without a picture (a text panel) pairs with a
+ * project when the year still has one, and with another text panel only when
+ * it has not; a project likewise prefers a text panel beside it. A square left
+ * with no partner in its year takes the full width. Pairs stay within a year.
  */
-export type PhoneSide = "wide" | "sq-left" | "sq-right" | "sq-alone" | "sq-alone-right";
+export type PhoneSide = "wide" | "sq-left" | "sq-right";
 
 export function phoneLayout(projects: Project[]): Map<string, { side: PhoneSide; order: number }> {
   const hero = (p: Project) => (typeof p.heroImage === "object" ? p.heroImage : null);
@@ -184,14 +184,7 @@ export function phoneLayout(projects: Project[]): Map<string, { side: PhoneSide;
   const used = new Set<number>();
   const out = new Map<string, { side: PhoneSide; order: number }>();
   let order = 0;
-  let last: PhoneSide | null = null;
-  const place = (p: Project, side: PhoneSide) => {
-    // Lone squares one after another step left and right, so two of them never
-    // read as a pair with a gap.
-    const placed = side === "sq-alone" && last === "sq-alone" ? "sq-alone-right" : side;
-    last = placed;
-    out.set(p.slug, { side: placed, order: order++ });
-  };
+  const place = (p: Project, side: PhoneSide) => out.set(p.slug, { side, order: order++ });
 
   ordered.forEach((p, i) => {
     if (used.has(i)) return;
@@ -201,11 +194,10 @@ export function phoneLayout(projects: Project[]): Map<string, { side: PhoneSide;
     const candidates = ordered
       .map((q, j) => ({ q, j }))
       .filter(({ q, j }) => j > i && !used.has(j) && q.year === p.year && !isWide(q));
-    const partner = isText(p)
-      ? candidates.find(({ q }) => !isText(q))
-      : (candidates.find(({ q }) => isText(q)) ?? candidates[0]);
+    const mixed = candidates.find(({ q }) => isText(q) !== isText(p));
+    const partner = mixed ?? candidates[0];
 
-    if (!partner) return place(p, "sq-alone");
+    if (!partner) return place(p, "wide");
     used.add(partner.j);
     place(p, "sq-left");
     place(partner.q, "sq-right");

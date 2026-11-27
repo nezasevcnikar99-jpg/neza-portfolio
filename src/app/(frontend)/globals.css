@@ -1614,18 +1614,7 @@ html.landing-passed section.landing {
   .index-grid > .cell-image[data-m="wide"] {
     grid-column: span 2 !important;
   }
-  /* A square with no partner keeps its row to itself, at half width. */
-  .index-grid > .cell-image[data-m^="sq-alone"] {
-    grid-column: span 2 !important;
-  }
-  .index-grid > .cell-image[data-m^="sq-alone"] .cell-inner,
-  .index-grid > .cell-image[data-m^="sq-alone"] .cell-mcaption {
-    width: calc(50% - 6px);
-  }
-  .index-grid > .cell-image[data-m="sq-alone-right"] .cell-inner,
-  .index-grid > .cell-image[data-m="sq-alone-right"] .cell-mcaption {
-    margin-left: auto;
-  }
+
   .index-grid > .cell-image .cell-inner {
     position: relative;
     inset: auto;
