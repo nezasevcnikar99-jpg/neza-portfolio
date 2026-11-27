@@ -8,6 +8,8 @@
   --sheet: #ffffff;
   --rule: #dcdbd8;
   --fill: #f4f3f1;
+  /* The essays' colour on a phone, when their row is the one in colour. */
+  --sky: #dce9f5;
   /* The hover over a picture: the picture gives way to the page itself. */
   --hover: var(--sheet);
   --page-pad: clamp(16px, 2.2vw, 40px);
@@ -1632,6 +1634,13 @@ html.landing-passed section.landing {
   }
   .index-grid.motion .cell-image.is-mid .cell-photo {
     filter: none;
+  }
+  /* An essay has no picture to colour: its panel turns a soft sky blue. */
+  .index-grid.motion .cell-type {
+    transition: background-color 0.5s ease;
+  }
+  .index-grid.motion .cell-image.is-mid .cell-type {
+    background: var(--sky);
   }
 
   .index-grid .cell-mcaption {
