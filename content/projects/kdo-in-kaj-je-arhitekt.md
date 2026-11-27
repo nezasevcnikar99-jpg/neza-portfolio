@@ -6,6 +6,8 @@ kategorija: Esej
 oblika: besedilo
 leto: 2022
 citat: Zame je arhitektura jezik, edinstven način izražanja, arhitekt pa nekakšen jezikoslovec, pisatelj ali celo pesnik.
+naslov_en: Who and What Is an Architect?
+citat_en: To me, architecture is a language, a unique way of expression, and the architect a kind of linguist, writer or even poet.
 ---
 
 Na vprašanje, kaj je arhitekt, bi verjetno znal odgovoriti že vsak malo starejši učenec osnovne šole. Za nekatere je črno oblečen gospod, s kupi papirja v rokah, ki se mu vedno nekam mudi, njegov bledikav obraz pa izgleda, kot da že dolgo ni uzrl sonca. Za druge vedno zaposlen, vedno utrujen in suhljat možic s svinčnikom v žepu, ki se vedno vsega dotika. Spet za tretje gradbenik, preplačani umetnik ali pa preprosto nekdo, ki služi kruh z izmišljevanjem stavb in mostov. Pa obstaja zares pravilen odgovor na to vprašanje?

@@ -6,6 +6,8 @@ kategorija: Esej
 oblika: besedilo
 leto: 2025
 citat: Kaj pa v resnici merilo človeka je?
+naslov_en: A Barking Dog Never Bites
+citat_en: But what, really, is the human scale?
 datoteka: esej-pes-ki-laja-ne-grize.pdf
 oznakaDatoteke: Oblikovan list eseja
 oznakaDatoteke_en: Designed sheet of the essay (in Slovene)

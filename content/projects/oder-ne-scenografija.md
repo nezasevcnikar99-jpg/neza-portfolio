@@ -6,6 +6,8 @@ kategorija: Esej
 oblika: besedilo
 leto: 2025
 citat: Dobra arhitektura ne piše scenarija – postavi lahko le oder.
+naslov_en: A Stage, Not a Set
+citat_en: Good architecture does not write the script – it can only set the stage.
 ---
 
 Zaključna naloga o tem, zakaj dobra arhitektura ne napiše scenarija, ampak postavi oder: od Berninijevega spora s Colbertom leta 1665 do Cukrarne in helsinške knjižnice Oodi.

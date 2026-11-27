@@ -6,6 +6,8 @@ kategorija: Esej
 oblika: besedilo
 leto: 2024
 citat: Statistika preteklosti še ni objektivna presoja.
+naslov_en: To Err Is Human
+citat_en: The statistics of the past are not yet an objective judgement.
 datoteka: esej-motiti-se-je-clovesko.pdf
 oznakaDatoteke: Oblikovan list eseja
 oznakaDatoteke_en: Designed sheet of the essay (in Slovene)

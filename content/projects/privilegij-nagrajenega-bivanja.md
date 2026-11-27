@@ -6,6 +6,8 @@ kategorija: Esej
 oblika: besedilo
 leto: 2024
 citat: No, včasih ta standard ostane le v opisu.
+naslov_en: The Privilege of Award-Winning Living
+citat_en: Well, sometimes that standard stays in the description.
 datoteka: esej-privilegij-nagrajenega-bivanja.pdf
 oznakaDatoteke: Oblikovan list eseja
 oznakaDatoteke_en: Designed sheet of the essay (in Slovene)
