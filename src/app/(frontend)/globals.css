@@ -1585,13 +1585,14 @@ html.landing-passed section.landing {
   }
 
   /* Index: two even columns, wide pictures across both, every picture with its
-     title under it. Dense packing pairs the square ones up. */
+     title under it. The sequence and the pairs are worked out on the server
+     (phoneLayout) and placed by order, so the admin's order holds. */
   .index-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     column-gap: 12px;
     row-gap: 32px;
-    grid-auto-flow: row dense;
+    grid-auto-flow: row;
     align-items: start;
     padding: 28px var(--page-pad) 48px;
   }
@@ -1604,8 +1605,23 @@ html.landing-passed section.landing {
     margin: 0;
     aspect-ratio: auto;
   }
+  .index-grid > .cell-image {
+    order: var(--m-order);
+  }
   .index-grid > .cell-image[data-m="wide"] {
     grid-column: span 2;
+  }
+  /* A square with no partner keeps its row to itself, at half width. */
+  .index-grid > .cell-image[data-m^="sq-alone"] {
+    grid-column: span 2;
+  }
+  .index-grid > .cell-image[data-m^="sq-alone"] .cell-inner,
+  .index-grid > .cell-image[data-m^="sq-alone"] .cell-mcaption {
+    width: calc(50% - 6px);
+  }
+  .index-grid > .cell-image[data-m="sq-alone-right"] .cell-inner,
+  .index-grid > .cell-image[data-m="sq-alone-right"] .cell-mcaption {
+    margin-left: auto;
   }
   .index-grid > .cell-image .cell-inner {
     position: relative;

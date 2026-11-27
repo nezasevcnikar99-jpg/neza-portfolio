@@ -1,12 +1,12 @@
 import type React from "react";
 import Link from "next/link";
 import type { Media } from "@/payload-types";
-import { buildIndexCells, type Cell, type Project } from "@/lib/projects";
+import { buildIndexCells, phoneLayout, type Cell, type PhoneSide, type Project } from "@/lib/projects";
 import IndexMotion from "./IndexMotion";
 import { href, kind, localize, type Lang } from "@/lib/i18n";
 
 /** How a picture sits in the phone's stack: wide across, or narrower beside its caption. */
-type Phone = { side: "wide" | "sq-left" | "sq-right"; order: number };
+type Phone = { side: PhoneSide; order: number };
 
 /**
  * The project's second picture for the hover: the one chosen in the admin, or
@@ -122,17 +122,16 @@ function LabelCell({ cell, phone, lang }: { cell: Extract<Cell, { kind: "label" 
 }
 
 export default function IndexGrid({ projects, lang = "sl" }: { projects: Project[]; lang?: Lang }) {
-  const cells = buildIndexCells(projects.map((p) => localize(p, lang)));
+  const local = projects.map((p) => localize(p, lang));
+  const cells = buildIndexCells(local);
 
-  // The phone keeps the desktop's rhythm instead of one column of equal
-  // pictures: wide pictures run the full width, square ones stand narrower with
-  // their caption beside them, alternating left and right down the page.
+  // The phone has its own sequence (see phoneLayout): the admin's order, with
+  // essays and projects paired. Each cell is placed by CSS order.
+  const layout = phoneLayout(local);
   const phone = new Map<number, Phone>();
-  let squares = 0;
   for (const cell of cells) {
     if (cell.kind !== "image") continue;
-    const side = cell.span === 2 ? "wide" : squares++ % 2 === 0 ? "sq-left" : "sq-right";
-    phone.set(cell.index, { side, order: cell.index * 4 + 1 });
+    phone.set(cell.index, layout.get(cell.project.slug) ?? { side: "sq-alone", order: 999 });
   }
 
   return (

@@ -159,6 +159,60 @@ function assignLabels(images: Placed[], lastBand: number) {
  * Lays the figure out band by band and returns the cells in reading order,
  * empties included, so the grid can draw every rule.
  */
+/**
+ * The phone's stack, in the admin's order (newest year first): wide pictures
+ * run the full width, square ones pair up two to a row. A written piece without
+ * a picture (a text panel) is always paired with a project, never with another
+ * text panel, and a project prefers a text panel beside it, so essays and
+ * projects mix; a square left without a partner stands alone at half width.
+ * Pairs are made only within one year.
+ */
+export type PhoneSide = "wide" | "sq-left" | "sq-right" | "sq-alone" | "sq-alone-right";
+
+export function phoneLayout(projects: Project[]): Map<string, { side: PhoneSide; order: number }> {
+  const hero = (p: Project) => (typeof p.heroImage === "object" ? p.heroImage : null);
+  const isText = (p: Project) => !hero(p)?.url;
+  const isWide = (p: Project) => {
+    if (isText(p)) return false;
+    if (p.gridSize === "2x1") return true;
+    if (p.gridSize === "1x1") return false;
+    const h = hero(p);
+    return Boolean(h?.width && h?.height && h.width / h.height >= 1.25);
+  };
+
+  const ordered = [...projects].sort((a, b) => b.year - a.year);
+  const used = new Set<number>();
+  const out = new Map<string, { side: PhoneSide; order: number }>();
+  let order = 0;
+  let last: PhoneSide | null = null;
+  const place = (p: Project, side: PhoneSide) => {
+    // Lone squares one after another step left and right, so two of them never
+    // read as a pair with a gap.
+    const placed = side === "sq-alone" && last === "sq-alone" ? "sq-alone-right" : side;
+    last = placed;
+    out.set(p.slug, { side: placed, order: order++ });
+  };
+
+  ordered.forEach((p, i) => {
+    if (used.has(i)) return;
+    used.add(i);
+    if (isWide(p)) return place(p, "wide");
+
+    const candidates = ordered
+      .map((q, j) => ({ q, j }))
+      .filter(({ q, j }) => j > i && !used.has(j) && q.year === p.year && !isWide(q));
+    const partner = isText(p)
+      ? candidates.find(({ q }) => !isText(q))
+      : (candidates.find(({ q }) => isText(q)) ?? candidates[0]);
+
+    if (!partner) return place(p, "sq-alone");
+    used.add(partner.j);
+    place(p, "sq-left");
+    place(partner.q, "sq-right");
+  });
+  return out;
+}
+
 export function buildIndexCells(projects: Project[]): Cell[] {
   // Newest work first, and within a year in the order set by dragging in the
   // admin: the projects are dealt into the figure strictly in that sequence.
