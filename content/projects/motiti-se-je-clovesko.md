@@ -8,9 +8,10 @@ leto: 2024
 citat: Statistika preteklosti še ni objektivna presoja.
 datoteka: esej-motiti-se-je-clovesko.pdf
 oznakaDatoteke: Oblikovan list eseja
+oznakaDatoteke_en: Designed sheet of the essay (in Slovene)
 cele: esej-ai-list-01.jpg
 galerija:
-  esej-ai-list-01.jpg | stran | Oblikovan list eseja
+  esej-ai-list-01.jpg | stran | Oblikovan list eseja | Designed sheet of the essay (in Slovene)
 ---
 
 Esej o napaki kot človeški lastnosti in o tem, kaj se zgodi, ko naj bi arhitekta na njegove zmote opozarjala umetna inteligenca, sestavljena iz napak drugih ljudi.

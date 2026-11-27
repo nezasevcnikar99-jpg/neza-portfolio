@@ -63,5 +63,10 @@ export const Home: GlobalConfig = {
       label: "Oznaka na naslovnici (npr. Portfolio)",
       required: true,
     },
+    {
+      name: "heroDescriptionEn",
+      type: "textarea",
+      label: "Oznaka na naslovnici (English)",
+    },
   ],
 };

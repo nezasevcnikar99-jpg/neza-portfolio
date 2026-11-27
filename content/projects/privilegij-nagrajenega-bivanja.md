@@ -8,10 +8,11 @@ leto: 2024
 citat: No, včasih ta standard ostane le v opisu.
 datoteka: esej-privilegij-nagrajenega-bivanja.pdf
 oznakaDatoteke: Oblikovan list eseja
+oznakaDatoteke_en: Designed sheet of the essay (in Slovene)
 cele: esej-polje-list-01.jpg, esej-polje-list-02.jpg
 galerija:
-  esej-polje-list-01.jpg | stran | Oblikovan list eseja
-  esej-polje-list-02.jpg | stran | Zadnja stran lista
+  esej-polje-list-01.jpg | stran | Oblikovan list eseja | Designed sheet of the essay (in Slovene)
+  esej-polje-list-02.jpg | stran | Zadnja stran lista | Back of the sheet
 ---
 
 Esej o tem, kako se nagrajena arhitektura obnese pri tistih, ki v njej živijo – pisan iz soseske Polje I, kjer avtorica živi vse življenje.

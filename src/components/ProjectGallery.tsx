@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { T, type Lang } from "@/lib/i18n";
 import type { Media } from "@/payload-types";
 
 export type Slide = {
@@ -30,12 +31,15 @@ export default function ProjectGallery({
   startIndex,
   fallbackTitle,
   onClose,
+  lang = "sl",
 }: {
   slides: Slide[];
   startIndex: number;
   fallbackTitle: string;
   onClose: () => void;
+  lang?: Lang;
 }) {
+  const t = T[lang];
   const [index, setIndex] = useState(startIndex);
   const total = slides.length;
 
@@ -110,14 +114,14 @@ export default function ProjectGallery({
       className="gallery"
       role="dialog"
       aria-modal="true"
-      aria-label="Galerija projekta"
+      aria-label={t.galleryLabel}
     >
       <button
         ref={closeRef}
         type="button"
         className="gallery-close"
         onClick={onClose}
-        aria-label="Zapri galerijo"
+        aria-label={t.closeGallery}
       >
         ×
       </button>
@@ -137,7 +141,7 @@ export default function ProjectGallery({
             type="button"
             className="gallery-arrow left"
             onClick={() => step(-1)}
-            aria-label="Prejšnja fotografija"
+            aria-label={t.prev}
           >
             <Chevron direction="left" />
           </button>
@@ -145,7 +149,7 @@ export default function ProjectGallery({
             type="button"
             className="gallery-arrow right"
             onClick={() => step(1)}
-            aria-label="Naslednja fotografija"
+            aria-label={t.next}
           >
             <Chevron direction="right" />
           </button>

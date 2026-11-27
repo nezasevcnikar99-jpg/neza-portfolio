@@ -231,6 +231,23 @@ export const Projects: CollectionConfig = {
       },
     },
     {
+      // Everything the English site shows instead of the Slovene. Left empty,
+      // the Slovene stands in, so an untranslated project is never blank.
+      type: "collapsible",
+      label: "Angleščina (English)",
+      admin: { initCollapsed: true },
+      fields: [
+        { name: "titleEn", type: "text", label: "Title" },
+        { name: "subtitleEn", type: "text", label: "Subtitle" },
+        { name: "quoteEn", type: "text", label: "Quote" },
+        { name: "introEn", type: "textarea", label: "Introduction" },
+        { name: "conceptEn", type: "richText", label: "Concept" },
+        { name: "strankaEn", type: "text", label: "Client" },
+        { name: "vlogaEn", type: "text", label: "Credits" },
+        { name: "documentLabelEn", type: "text", label: "Download label" },
+      ],
+    },
+    {
       name: "gallery",
       type: "array",
       labels: { singular: "Slika", plural: "Galerija" },
@@ -248,6 +265,11 @@ export const Projects: CollectionConfig = {
         {
           name: "caption",
           type: "text",
+        },
+        {
+          name: "captionEn",
+          type: "text",
+          label: "Caption (English)",
         },
         {
           name: "onPage",

@@ -28,6 +28,11 @@ export const About: GlobalConfig = {
       label: "Predstavitev",
     },
     {
+      name: "bioEn",
+      type: "richText",
+      label: "Predstavitev (English)",
+    },
+    {
       name: "education",
       type: "array",
       label: "Izobrazba in delovne izkušnje",
@@ -48,6 +53,12 @@ export const About: GlobalConfig = {
           label: "Obdobje",
           required: true,
         },
+        {
+          // The prefix "Work experience - " sorts an English row the same way.
+          name: "labelEn",
+          type: "text",
+          label: "Label (English)",
+        },
       ],
     },
     {
@@ -60,6 +71,11 @@ export const About: GlobalConfig = {
           name: "skill",
           type: "text",
           required: true,
+        },
+        {
+          name: "skillEn",
+          type: "text",
+          label: "Skill (English)",
         },
       ],
     },

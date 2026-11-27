@@ -53,12 +53,14 @@ function parse(source, file) {
     if (!raw.trim() || raw.trim().startsWith("#")) continue;
 
     if (/^\s/.test(raw) && inGallery) {
-      const [name, where, ...rest] = raw.split("|").map((part) => part.trim());
+      // file | stran or galerija | caption | English caption
+      const [name, where, caption, captionEn] = raw.split("|").map((part) => part.trim());
       if (!name) continue;
       gallery.push({
         file: name,
         onPage: !/^galerij/i.test(where ?? ""),
-        caption: rest.join("|").trim() || null,
+        caption: caption || null,
+        captionEn: captionEn || null,
       });
       continue;
     }
@@ -93,6 +95,12 @@ function parse(source, file) {
     return "";
   });
 
+  // The English, if the file has it, follows a line "# English": its own
+  // introduction, then "## Concept".
+  const [slovene, english = ""] = prose.split(/^#\s*English\s*$/im);
+  const [introEn = "", conceptEn = ""] = english.split(/^##\s*(?:Concept|Koncept)\s*$/im).map((part) => part.trim());
+  prose = slovene;
+
   // The prose: everything before "## Koncept" is the introduction, the rest is
   // the concept.
   const split = prose.split(/^##\s*Koncept\s*$/im);
@@ -101,7 +109,7 @@ function parse(source, file) {
   if (/\[\^\d+\]/.test(intro)) throw new Error(`${file}: oznaka opombe [^…] je lahko samo v delu pod "## Koncept"`);
   const concept = (split[1] ?? "").trim();
 
-  return { meta, gallery, intro, concept, notes: notes.map((note) => note.text), sources };
+  return { meta, gallery, intro, concept, introEn, conceptEn, notes: notes.map((note) => note.text), sources };
 }
 
 const SUPERSCRIPT = 1 << 6;
@@ -340,7 +348,7 @@ console.log("Končano.");
 
 async function importOne(name) {
   const source = await readFile(path.join(PROJECTS_DIR, name), "utf8");
-  const { meta, gallery, intro, concept, notes, sources } = parse(source, name);
+  const { meta, gallery, intro, concept, introEn, conceptEn, notes, sources } = parse(source, name);
 
   const title = meta.naslov;
   if (!title) throw new Error(`${name}: manjka "naslov"`);
@@ -374,6 +382,15 @@ async function importOne(name) {
     ...(meta.velikost ? { gridSize: size(meta.velikost, name) } : {}),
     ...(meta.oblika ? { asText: /^besedil/i.test(meta.oblika.trim()) } : {}),
     ...only("documentLabel", meta.oznakaDatoteke),
+    // English, beside the Slovene; a key the file leaves out is left alone.
+    ...only("titleEn", meta.naslov_en),
+    ...only("subtitleEn", meta.podnaslov_en),
+    ...only("quoteEn", meta.citat_en),
+    ...only("vlogaEn", meta.vloga_en),
+    ...only("strankaEn", meta.stranka_en),
+    ...only("documentLabelEn", meta.oznakaDatoteke_en),
+    ...only("introEn", introEn),
+    ...(conceptEn ? { conceptEn: lexical(conceptEn) } : {}),
     ...(concept ? { concept: lexical(concept) } : {}),
     ...(notes.length ? { notes: notes.join("\n") } : {}),
     ...(sources.length ? { sources: sources.join("\n") } : {}),
@@ -404,6 +421,7 @@ async function importOne(name) {
       data.gallery.push({
         image: await mediaId(token, row.file, row.caption || title, cache),
         caption: row.caption,
+        captionEn: row.captionEn,
         onPage: row.onPage,
       });
     }

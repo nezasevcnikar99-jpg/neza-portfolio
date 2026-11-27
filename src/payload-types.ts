@@ -262,6 +262,28 @@ export interface Project {
    * Kako se povezava imenuje, npr. »Celotna knjižica«. Če ostane prazno, piše »Celoten dokument«.
    */
   documentLabel?: string | null;
+  titleEn?: string | null;
+  subtitleEn?: string | null;
+  quoteEn?: string | null;
+  introEn?: string | null;
+  conceptEn?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  strankaEn?: string | null;
+  vlogaEn?: string | null;
+  documentLabelEn?: string | null;
   /**
    * Naslovna slika je na strani projekta vedno prva. Tu odkljukaj še tiste, ki naj se vidijo poleg nje – mest so štiri, torej naslovna in največ tri od tu, po vrstnem redu od zgoraj. Vse ostalo se pokaže šele, ko obiskovalec odpre galerijo.
    */
@@ -269,6 +291,7 @@ export interface Project {
     | {
         image: number | Media;
         caption?: string | null;
+        captionEn?: string | null;
         /**
          * Odkljukane slike se vidijo na strani projekta, dokler so mesta prosta (poleg naslovne so tri). Neodkljukane so samo v galeriji.
          */
@@ -431,11 +454,20 @@ export interface ProjectsSelect<T extends boolean = true> {
   sources?: T;
   document?: T;
   documentLabel?: T;
+  titleEn?: T;
+  subtitleEn?: T;
+  quoteEn?: T;
+  introEn?: T;
+  conceptEn?: T;
+  strankaEn?: T;
+  vlogaEn?: T;
+  documentLabelEn?: T;
   gallery?:
     | T
     | {
         image?: T;
         caption?: T;
+        captionEn?: T;
         onPage?: T;
         id?: T;
       };
@@ -503,6 +535,7 @@ export interface Home {
   heroLead: string;
   heroAccent: string;
   heroDescription: string;
+  heroDescriptionEn?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -528,6 +561,21 @@ export interface About {
     };
     [k: string]: unknown;
   } | null;
+  bioEn?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   /**
    * Vrstica, ki se začne z »Delovne izkušnje - «, se na strani pokaže pod naslovom Delovne izkušnje (brez te predpone).
    */
@@ -535,12 +583,14 @@ export interface About {
     | {
         label: string;
         dateRange: string;
+        labelEn?: string | null;
         id?: string | null;
       }[]
     | null;
   skills?:
     | {
         skill: string;
+        skillEn?: string | null;
         id?: string | null;
       }[]
     | null;
@@ -581,6 +631,7 @@ export interface HomeSelect<T extends boolean = true> {
   heroLead?: T;
   heroAccent?: T;
   heroDescription?: T;
+  heroDescriptionEn?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -592,17 +643,20 @@ export interface HomeSelect<T extends boolean = true> {
 export interface AboutSelect<T extends boolean = true> {
   portrait?: T;
   bio?: T;
+  bioEn?: T;
   education?:
     | T
     | {
         label?: T;
         dateRange?: T;
+        labelEn?: T;
         id?: T;
       };
   skills?:
     | T
     | {
         skill?: T;
+        skillEn?: T;
         id?: T;
       };
   updatedAt?: T;

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { T, type Lang } from "@/lib/i18n";
 import ProjectGallery, { type Slide } from "./ProjectGallery";
 
 export type { Slide };
@@ -34,11 +35,14 @@ export default function ProjectCollage({
   slides,
   fallbackTitle,
   placeholderLabel,
+  lang = "sl",
 }: {
   slides: Slide[];
   fallbackTitle: string;
   placeholderLabel: string;
+  lang?: Lang;
 }) {
+  const t = T[lang];
   const [openAt, setOpenAt] = useState<number | null>(null);
 
   // Which pictures stand on the page is chosen in the admin, one tick per row;
@@ -71,7 +75,7 @@ export default function ProjectCollage({
             className="cell cell-shot"
             style={{ gridColumn: `${slot.col} / span ${slot.span}`, gridRow: slot.row }}
             onClick={() => entry && setOpenAt(entry.index)}
-            aria-label={`Odpri galerijo – ${label}`}
+            aria-label={`${t.openGallery} – ${label}`}
           >
             <span className="cell-inner">
               {slide?.image?.url ? (
@@ -120,7 +124,7 @@ export default function ProjectCollage({
           className="cell cell-more"
           style={{ gridColumn: BUTTON.col, gridRow: BUTTON.row }}
           onClick={() => setOpenAt(firstHidden === -1 ? 0 : firstHidden)}
-          aria-label={`Odpri galerijo – ${slides.length} slik`}
+          aria-label={`${t.openGallery} – ${t.pictures(slides.length)}`}
         >
           <span className="cell-inner">
             {teaser?.image?.url && (
@@ -129,7 +133,7 @@ export default function ProjectCollage({
             )}
             <span className="cell-more-label">
               <span className="cell-more-count">{hidden > 0 ? `+${hidden}` : slides.length}</span>
-              <span className="cell-more-text">Odpri galerijo</span>
+              <span className="cell-more-text">{t.openGallery}</span>
             </span>
           </span>
         </button>
@@ -143,6 +147,7 @@ export default function ProjectCollage({
           startIndex={openAt}
           fallbackTitle={fallbackTitle}
           onClose={() => setOpenAt(null)}
+          lang={lang}
         />
       )}
     </>

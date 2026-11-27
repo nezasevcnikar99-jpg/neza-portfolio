@@ -454,6 +454,28 @@ a {
   align-self: flex-end;
 }
 
+/* A link and, in the last cell, the language switch beside it. On a phone the
+   cells dissolve into one row and so does this. */
+.head-links {
+  display: flex;
+  gap: 14px;
+  align-self: flex-start;
+}
+
+.head-end .head-links {
+  align-self: flex-end;
+}
+
+.head-lang {
+  color: var(--faint);
+}
+
+@media (max-width: 900px) {
+  .head-links {
+    display: contents;
+  }
+}
+
 .head-link:hover,
 .head-link.is-active {
   color: var(--ink);
@@ -1286,6 +1308,14 @@ html.landing-passed section.landing {
   grid-column: 2 / span 2;
   grid-row: 1;
   padding: var(--inset) calc(var(--inset) * 1.3) calc(var(--inset) * 1.6);
+}
+
+/* On the English site: the essay is in Slovene, said once above it. */
+.essay-language {
+  margin: 0 0 1.6em;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  color: var(--faint);
 }
 
 .essay-lead {

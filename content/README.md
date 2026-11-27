@@ -59,6 +59,14 @@ Vse za tem naslovom je besedilo koncepta. Prazna vrstica pomeni nov odstavek.
 Slike, naštete pri `cele`, se v vsakem okvirju pokažejo vse, na svetli
 podlagi. Uvoz jih samo vklopi; izklopiš jih v adminu pri sliki.
 
+**Angleščina.** Angleška stran je na `/en`. V glavi so angleška besedila v
+vrsticah s končnico `_en` (`naslov_en`, `podnaslov_en`, `citat_en`, `vloga_en`,
+`stranka_en`, `oznakaDatoteke_en`), v galeriji je angleški napis četrti
+stolpec (`ime.jpg | stran | Tloris | Ground floor plan`), angleško besedilo pa
+sledi na koncu datoteke za vrstico `# English`: najprej uvod, nato
+`## Concept`. Kar ni prevedeno, se na angleški strani pokaže v slovenščini.
+Eseji ostanejo v slovenščini.
+
 **Vrstni red v galeriji** je vedno:
 
 1. obstoječe stanje – situacija, tlorisi, prerezi, fasade;

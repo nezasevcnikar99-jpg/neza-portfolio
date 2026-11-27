@@ -3,6 +3,7 @@
 import { useState } from "react";
 import ProjectGallery, { type Slide } from "./ProjectGallery";
 import EssaySidenotes from "./EssaySidenotes";
+import { T, type Lang } from "@/lib/i18n";
 
 /**
  * The right-hand column of a written piece: a few of its pictures, whole and
@@ -11,7 +12,18 @@ import EssaySidenotes from "./EssaySidenotes";
  */
 const SHOWN = 3;
 
-export default function EssayFigures({ slides, title, notes = [] }: { slides: Slide[]; title: string; notes?: string[] }) {
+export default function EssayFigures({
+  slides,
+  title,
+  notes = [],
+  lang = "sl",
+}: {
+  slides: Slide[];
+  title: string;
+  notes?: string[];
+  lang?: Lang;
+}) {
+  const t = T[lang];
   const [openAt, setOpenAt] = useState<number | null>(null);
 
   const shown = slides
@@ -28,7 +40,7 @@ export default function EssayFigures({ slides, title, notes = [] }: { slides: Sl
             type="button"
             className="essay-figure-button"
             onClick={() => setOpenAt(index)}
-            aria-label={`Odpri galerijo – ${slide.caption?.trim() || title}`}
+            aria-label={`${t.openGallery} – ${slide.caption?.trim() || title}`}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={slide.image!.url!} alt={slide.image?.alt ?? ""} className="essay-figure-img" />
@@ -40,14 +52,14 @@ export default function EssayFigures({ slides, title, notes = [] }: { slides: Sl
       {slides.length > 0 && (
         <button type="button" className="essay-more" onClick={() => setOpenAt(0)}>
           <span className="cell-more-count">{rest > 0 ? `+${rest}` : slides.length}</span>
-          <span className="cell-more-text">Odpri galerijo</span>
+          <span className="cell-more-text">{t.openGallery}</span>
         </button>
       )}
 
       {notes.length > 0 && <EssaySidenotes notes={notes} />}
 
       {openAt !== null && (
-        <ProjectGallery slides={slides} startIndex={openAt} fallbackTitle={title} onClose={() => setOpenAt(null)} />
+        <ProjectGallery slides={slides} startIndex={openAt} fallbackTitle={title} onClose={() => setOpenAt(null)} lang={lang} />
       )}
     </aside>
   );

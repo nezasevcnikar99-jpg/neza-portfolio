@@ -113,7 +113,37 @@ const STATEMENTS = [
      ALTER TABLE "projects" ADD CONSTRAINT "projects_hover_image_id_media_id_fk"
        FOREIGN KEY ("hover_image_id") REFERENCES "media"("id") ON DELETE SET NULL;
    EXCEPTION WHEN duplicate_object THEN NULL; END $$`,
+  // The English site: every text beside its Slovene, empty until translated.
+  `ALTER TABLE "projects" ADD COLUMN IF NOT EXISTS "title_en" varchar`,
+  `ALTER TABLE "projects" ADD COLUMN IF NOT EXISTS "subtitle_en" varchar`,
+  `ALTER TABLE "projects" ADD COLUMN IF NOT EXISTS "quote_en" varchar`,
+  `ALTER TABLE "projects" ADD COLUMN IF NOT EXISTS "intro_en" varchar`,
+  `ALTER TABLE "projects" ADD COLUMN IF NOT EXISTS "concept_en" jsonb`,
+  `ALTER TABLE "projects" ADD COLUMN IF NOT EXISTS "stranka_en" varchar`,
+  `ALTER TABLE "projects" ADD COLUMN IF NOT EXISTS "vloga_en" varchar`,
+  `ALTER TABLE "projects" ADD COLUMN IF NOT EXISTS "document_label_en" varchar`,
+  `ALTER TABLE "projects_gallery" ADD COLUMN IF NOT EXISTS "caption_en" varchar`,
+  `ALTER TABLE "home" ADD COLUMN IF NOT EXISTS "hero_description_en" varchar`,
+  `ALTER TABLE "about" ADD COLUMN IF NOT EXISTS "bio_en" jsonb`,
+  `ALTER TABLE "about_education" ADD COLUMN IF NOT EXISTS "label_en" varchar`,
+  `ALTER TABLE "about_skills" ADD COLUMN IF NOT EXISTS "skill_en" varchar`,
   `ALTER TABLE "settings" ADD COLUMN IF NOT EXISTS "search_visible" boolean DEFAULT true`,
+  // First English for the About page and the landing label, filled in once:
+  // only where the English is still empty, so the admin's own wording stays.
+  `UPDATE "about" SET "bio_en" = $t$ {"root": {"type": "root", "format": "", "indent": 0, "version": 1, "direction": "ltr", "children": [{"type": "paragraph", "format": "", "indent": 0, "version": 1, "direction": "ltr", "textFormat": 0, "children": [{"type": "text", "text": "I am an architect in the making who sees space as something to be read slowly and patiently, explored and questioned, before it comes together into a clear and meaningful story. I work in architectural design, I write, and now and then I design visual and graphic identities for publications and websites.", "format": 0, "style": "", "mode": "normal", "detail": 0, "version": 1}]}, {"type": "paragraph", "format": "", "indent": 0, "version": 1, "direction": "ltr", "textFormat": 0, "children": [{"type": "text", "text": "I am most drawn to buildings, spaces and projects that already carry the marks of time and whisper the stories of those who used them before – and, more generally, to any puzzle with given conditions and set rules that have to be skilfully woven together in search of the best solution.", "format": 0, "style": "", "mode": "normal", "detail": 0, "version": 1}]}]}}$t$::jsonb WHERE "bio_en" IS NULL`,
+  `UPDATE "about_education" SET "label_en" = $t$Gimnazija Vič grammar school, Ljubljana$t$ WHERE "label_en" IS NULL AND trim("label") = trim($t$Gimnazija Vič, Ljubljana$t$)`,
+  `UPDATE "about_education" SET "label_en" = $t$Exchange semester in the Master's programme in Architecture, Queen's University Belfast, Belfast, UK$t$ WHERE "label_en" IS NULL AND trim("label") = trim($t$Semester na magisterskem študiju arhitekture, Queen's University Belfast, Belfast, UK$t$)`,
+  `UPDATE "about_education" SET "label_en" = $t$Master's programme in Architecture, Faculty of Architecture, University of Ljubljana$t$ WHERE "label_en" IS NULL AND trim("label") = trim($t$Magisterski študij arhitekture, Fakulteta za arhitekturo, Ljubljana$t$)`,
+  `UPDATE "about_education" SET "label_en" = $t$Work experience - Book cover design for the MLC Faculty$t$ WHERE "label_en" IS NULL AND trim("label") = trim($t$Delovne izkušnje - Oblikovanje naslovnic knjig MLC Fakultete$t$)`,
+  `UPDATE "about_education" SET "label_en" = $t$Work experience - Studio of Dr. Nataša Koselj, assistant architect$t$ WHERE "label_en" IS NULL AND trim("label") = trim($t$Delovne izkušnje -  Biro dr. Nataša Koselj, projektantka asistentka$t$)`,
+  `UPDATE "about_education" SET "label_en" = $t$Work experience - Website design and development$t$ WHERE "label_en" IS NULL AND trim("label") = trim($t$Delovne izkušnje - Oblikovanje in izdelava spletnih strani$t$)`,
+  `UPDATE "about_education" SET "label_en" = $t$Work experience - Apolonija Šušteršič Studio, assistant architect$t$ WHERE "label_en" IS NULL AND trim("label") = trim($t$Delovne izkušnje - Apolonija Šušteršič Studio, projektantka asistentka$t$)`,
+  `UPDATE "about_skills" SET "skill_en" = $t$3D software: Rhino, SketchUp$t$ WHERE "skill_en" IS NULL AND trim("skill") = $t$3D programi Rhino, SketchUp$t$`,
+  `UPDATE "about_skills" SET "skill_en" = $t$Visualisations$t$ WHERE "skill_en" IS NULL AND trim("skill") = $t$Vizualizacije$t$`,
+  `UPDATE "about_skills" SET "skill_en" = $t$Adobe Illustrator$t$ WHERE "skill_en" IS NULL AND trim("skill") = $t$Adobe Ilustrator$t$`,
+  `UPDATE "about_skills" SET "skill_en" = $t$Graphic design$t$ WHERE "skill_en" IS NULL AND trim("skill") = $t$Grafično oblikovanje$t$`,
+  `UPDATE "about_skills" SET "skill_en" = $t$Web design in HTML and WordPress$t$ WHERE "skill_en" IS NULL AND trim("skill") = $t$Izdelava spletnih strani HTML in WordPress$t$`,
+  `UPDATE "home" SET "hero_description_en" = 'Portfolio' WHERE "hero_description_en" IS NULL`,
   `ALTER TABLE "settings" ADD COLUMN IF NOT EXISTS "phone" varchar`,
   `ALTER TABLE "settings" ADD COLUMN IF NOT EXISTS "linkedin" varchar`,
   // The phone from the CV, filled in once: only while the settings have not been

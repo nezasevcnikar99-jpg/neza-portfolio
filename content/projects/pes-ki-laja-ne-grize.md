@@ -8,9 +8,10 @@ leto: 2025
 citat: Kaj pa v resnici merilo človeka je?
 datoteka: esej-pes-ki-laja-ne-grize.pdf
 oznakaDatoteke: Oblikovan list eseja
+oznakaDatoteke_en: Designed sheet of the essay (in Slovene)
 cele: esej-pes-list-01.jpg
 galerija:
-  esej-pes-list-01.jpg | stran | Oblikovan list eseja
+  esej-pes-list-01.jpg | stran | Oblikovan list eseja | Designed sheet of the essay (in Slovene)
 ---
 
 Esej o dveh slavnih besedilih – Atenski listini in Koolhaasovem eseju Bigness – in o tem, koliko je v arhitekturnih manifestih klica k spremembi in koliko klica po slavi.

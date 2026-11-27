@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { Media } from "@/payload-types";
 import { buildIndexCells, type Cell, type Project } from "@/lib/projects";
 import IndexMotion from "./IndexMotion";
+import { href, kind, localize, type Lang } from "@/lib/i18n";
 
 /** How a picture sits in the phone's stack: wide across, or narrower beside its caption. */
 type Phone = { side: "wide" | "sq-left" | "sq-right"; order: number };
@@ -21,7 +22,7 @@ function secondPicture(p: Project, hero: Media | null): Media | null {
   return pictures.find((m) => !m.showWhole) ?? pictures[0] ?? null;
 }
 
-function ImageCell({ cell, phone }: { cell: Extract<Cell, { kind: "image" }>; phone: Phone }) {
+function ImageCell({ cell, phone, lang }: { cell: Extract<Cell, { kind: "image" }>; phone: Phone; lang: Lang }) {
   const p = cell.project;
   const doc = typeof p.heroImage === "object" ? (p.heroImage as Media | null) : null;
   const hero = doc?.mimeType?.startsWith("image/") ? doc : null;
@@ -34,7 +35,7 @@ function ImageCell({ cell, phone }: { cell: Extract<Cell, { kind: "image" }>; ph
 
   return (
     <Link
-      href={`/projects/${p.slug}`}
+      href={href(lang, `/projects/${p.slug}`)}
       className="cell cell-image"
       data-m={phone.side}
       style={
@@ -62,7 +63,7 @@ function ImageCell({ cell, phone }: { cell: Extract<Cell, { kind: "image" }>; ph
             <span className="cell-type-text">{quote ? `\u00bb${quote}\u00ab` : p.title}</span>
           </span>
         ) : (
-          <span className="cell-blank">{p.imgLabel ?? "fotografija"}</span>
+          <span className="cell-blank">{p.imgLabel ?? (lang === "en" ? "photograph" : "fotografija")}</span>
         )}
 
         {/* Always the colour, so every project answers the pointer; the line
@@ -82,7 +83,7 @@ function ImageCell({ cell, phone }: { cell: Extract<Cell, { kind: "image" }>; ph
           />
         )}
         <span className={second?.url ? "cell-quote has-alt" : "cell-quote"}>
-          {p.category && <span className="cell-quote-kind">{p.category}</span>}
+          {p.category && <span className="cell-quote-kind">{kind(lang, p.category)}</span>}
           <span className="cell-quote-name">{p.title}</span>
           {quote && <span className="cell-quote-text">{`\u00bb${quote}\u00ab`}</span>}
         </span>
@@ -97,11 +98,11 @@ function ImageCell({ cell, phone }: { cell: Extract<Cell, { kind: "image" }>; ph
   );
 }
 
-function LabelCell({ cell, phone }: { cell: Extract<Cell, { kind: "label" }>; phone: Phone }) {
+function LabelCell({ cell, phone, lang }: { cell: Extract<Cell, { kind: "label" }>; phone: Phone; lang: Lang }) {
   const p = cell.project;
   return (
     <Link
-      href={`/projects/${p.slug}`}
+      href={href(lang, `/projects/${p.slug}`)}
       className={`cell cell-label corner-${cell.align}`}
       data-m={phone.side}
       style={
@@ -120,8 +121,8 @@ function LabelCell({ cell, phone }: { cell: Extract<Cell, { kind: "label" }>; ph
   );
 }
 
-export default function IndexGrid({ projects }: { projects: Project[] }) {
-  const cells = buildIndexCells(projects);
+export default function IndexGrid({ projects, lang = "sl" }: { projects: Project[]; lang?: Lang }) {
+  const cells = buildIndexCells(projects.map((p) => localize(p, lang)));
 
   // The phone keeps the desktop's rhythm instead of one column of equal
   // pictures: wide pictures run the full width, square ones stand narrower with
@@ -138,8 +139,8 @@ export default function IndexGrid({ projects }: { projects: Project[] }) {
     <div className="ruled index-grid">
       <IndexMotion />
       {cells.map((cell, i) => {
-        if (cell.kind === "image") return <ImageCell key={i} cell={cell} phone={phone.get(cell.index)!} />;
-        if (cell.kind === "label") return <LabelCell key={i} cell={cell} phone={phone.get(cell.index)!} />;
+        if (cell.kind === "image") return <ImageCell key={i} cell={cell} phone={phone.get(cell.index)!} lang={lang} />;
+        if (cell.kind === "label") return <LabelCell key={i} cell={cell} phone={phone.get(cell.index)!} lang={lang} />;
         return <span key={i} className="cell" />;
       })}
     </div>
